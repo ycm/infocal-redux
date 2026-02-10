@@ -1,0 +1,5 @@
+<resources>
+    <font id="Monoton108" filename="./monoton108.fnt" antialias="true" filter="0123456789"/>
+    <font id="Quicksand42" filename="./quicksand42.fnt" antialias="true" />
+    <font id="Quicksand32" filename="./quicksand32.fnt" antialias="true" />
+</resources>
