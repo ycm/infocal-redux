@@ -1,0 +1,14 @@
+<properties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <property id="openweathermap_api_key" type="string">d807d0bd277475dacb17771be4258db8</property>
+
+    <property id="alt_timezone_lat" type="string">40.7768882</property>
+    <property id="alt_timezone_lon" type="string">-74.729600</property>
+
+    <property id="comp_2" type="number">1</property>
+    <property id="comp_4" type="number">4</property>
+    <property id="comp_12" type="number">3</property>
+
+    <property id="use_military_time" type="boolean">true</property>
+    <property id="weather_units" type="number">0</property>
+
+</properties>

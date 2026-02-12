@@ -1,6 +1,9 @@
 import Toybox.Application;
 import Toybox.Lang;
 import Toybox.WatchUi;
+import Toybox.Background;
+
+var apiResponsePackage = null;
 
 class faceApp extends Application.AppBase {
 
@@ -8,19 +11,22 @@ class faceApp extends Application.AppBase {
         AppBase.initialize();
     }
 
-    // onStart() is called on application start up
-    function onStart(state as Dictionary?) as Void {
-    }
+    function onStart(state as Dictionary?) as Void {}
+    function onStop(state as Dictionary?) as Void {}
 
-    // onStop() is called when your application is exiting
-    function onStop(state as Dictionary?) as Void {
-    }
-
-    // Return the initial view of your application here
     function getInitialView() as [Views] or [Views, InputDelegates] {
+        Background.registerForTemporalEvent(new Time.Duration(60 * 60));
         return [ new faceView() ];
     }
 
+    function onBackgroundData(data) {
+        apiResponsePackage = data;
+        WatchUi.requestUpdate();
+    }    
+
+    function getServiceDelegate(){
+        return [new faceServiceDelegate()];
+    }
 }
 
 function getApp() as faceApp {

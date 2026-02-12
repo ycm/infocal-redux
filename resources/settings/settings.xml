@@ -1,0 +1,55 @@
+<settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <setting propertyKey="@Properties.use_military_time" title="@Strings.use_military_time_title">
+        <settingConfig type="boolean" />
+    </setting>
+
+    <setting propertyKey="@Properties.openweathermap_api_key" title="@Strings.openweathermap_api_key_title">
+        <settingConfig type="alphaNumeric" />
+    </setting>
+
+    <setting propertyKey="@Properties.alt_timezone_lat" title="@Strings.alt_timezone_lat_title">
+        <settingConfig type="alphaNumeric" />
+    </setting>
+    <setting propertyKey="@Properties.alt_timezone_lon" title="@Strings.alt_timezone_lon_title">
+        <settingConfig type="alphaNumeric" />
+    </setting>
+    <setting propertyKey="@Properties.comp_12" title="@Strings.comp_12_title">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.no_comp</listEntry>
+            <listEntry value="1">@Strings.heart_rate</listEntry>
+            <listEntry value="2">@Strings.steps</listEntry>
+            <listEntry value="3">@Strings.battery</listEntry>
+            <listEntry value="4">@Strings.temp_high_low</listEntry>
+            <listEntry value="5">@Strings.num_notifs</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.comp_2" title="@Strings.comp_2_title">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.no_comp</listEntry>
+            <listEntry value="1">@Strings.heart_rate</listEntry>
+            <listEntry value="2">@Strings.steps</listEntry>
+            <listEntry value="3">@Strings.battery</listEntry>
+            <listEntry value="4">@Strings.temp_high_low</listEntry>
+            <listEntry value="5">@Strings.num_notifs</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.comp_4" title="@Strings.comp_4_title">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.no_comp</listEntry>
+            <listEntry value="1">@Strings.heart_rate</listEntry>
+            <listEntry value="2">@Strings.steps</listEntry>
+            <listEntry value="3">@Strings.battery</listEntry>
+            <listEntry value="4">@Strings.temp_high_low</listEntry>
+            <listEntry value="5">@Strings.num_notifs</listEntry>
+        </settingConfig>
+    </setting>
+
+    <setting propertyKey="@Properties.weather_units" title="@Strings.weather_units_title">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.imperial</listEntry>
+            <listEntry value="1">@Strings.metric</listEntry>
+        </settingConfig>
+    </setting>
+
+</settings>
