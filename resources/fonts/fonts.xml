@@ -1,2 +1,3 @@
 <resources>
+    <font id="iconFont" filename="./iconFont.fnt" antialias="true" filter="ABC"/>
 </resources>

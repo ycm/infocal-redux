@@ -13,7 +13,21 @@
     <string id="comp_12_title">Complication 12 o'clock</string>
     <string id="comp_2_title">Complication 2 o'clock</string>
     <string id="comp_4_title">Complication 4 o'clock</string>
+    <string id="comp_12_gauge_title">Complication 12 o'clock gauge</string>
+    <string id="comp_2_gauge_title">Complication 2 o'clock gauge</string>
+    <string id="comp_4_gauge_title">Complication 4 o'clock gauge</string>
     <string id="weather_units_title">Weather API Request units</string>
     <string id="imperial">Imperial</string>
     <string id="metric">Metric</string>
+    <string id="api_request_interval_title">API Request Interval</string>
+    <string id="every_5_min">Every 5 minutes</string>
+    <string id="every_30_min">Every 30 minutes</string>
+    <string id="every_60_min">Every 60 minutes</string>
+    <string id="ui_accent_color_title">Accent color</string>
+    <string id="ui_accent_color_dark_title">Accent color (darker)</string>
+    <string id="text_color_title">Text color</string>
+    <string id="no_gauge">No gauge</string>
+    <string id="heart_rate_zone_gauge">Heart rate zone gauge</string>
+    <string id="step_target_gauge">Step target gauge</string>
+    <string id="battery_gauge">Battery gauge</string>
 </strings>

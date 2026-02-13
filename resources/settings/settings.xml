@@ -1,5 +1,15 @@
 <settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
 
+    <setting propertyKey="@Properties.ui_accent_color" title="@Strings.ui_accent_color_title">
+        <settingConfig type="alphaNumeric" />
+    </setting>
+    <setting propertyKey="@Properties.ui_accent_color_dark" title="@Strings.ui_accent_color_dark_title">
+        <settingConfig type="alphaNumeric" />
+    </setting>
+    <setting propertyKey="@Properties.text_color" title="@Strings.text_color_title">
+        <settingConfig type="alphaNumeric" />
+    </setting>
+
     <setting propertyKey="@Properties.use_military_time" title="@Strings.use_military_time_title">
         <settingConfig type="boolean" />
     </setting>
@@ -44,11 +54,43 @@
             <listEntry value="5">@Strings.num_notifs</listEntry>
         </settingConfig>
     </setting>
+    <setting propertyKey="@Properties.comp_12_gauge" title="@Strings.comp_12_gauge_title">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.no_gauge</listEntry>
+            <listEntry value="1">@Strings.heart_rate_zone_gauge</listEntry>
+            <listEntry value="2">@Strings.step_target_gauge</listEntry>
+            <listEntry value="3">@Strings.battery_gauge</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.comp_2_gauge" title="@Strings.comp_2_gauge_title">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.no_gauge</listEntry>
+            <listEntry value="1">@Strings.heart_rate_zone_gauge</listEntry>
+            <listEntry value="2">@Strings.step_target_gauge</listEntry>
+            <listEntry value="3">@Strings.battery_gauge</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.comp_4_gauge" title="@Strings.comp_4_gauge_title">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.no_gauge</listEntry>
+            <listEntry value="1">@Strings.heart_rate_zone_gauge</listEntry>
+            <listEntry value="2">@Strings.step_target_gauge</listEntry>
+            <listEntry value="3">@Strings.battery_gauge</listEntry>
+        </settingConfig>
+    </setting>
 
     <setting propertyKey="@Properties.weather_units" title="@Strings.weather_units_title">
         <settingConfig type="list">
             <listEntry value="0">@Strings.imperial</listEntry>
             <listEntry value="1">@Strings.metric</listEntry>
+        </settingConfig>
+    </setting>
+
+    <setting propertyKey="@Properties.api_request_interval" title="@Strings.api_request_interval_title">
+        <settingConfig type="list">
+            <listEntry value="5">@Strings.every_5_min</listEntry>
+            <listEntry value="30">@Strings.every_30_min</listEntry>
+            <listEntry value="60">@Strings.every_60_min</listEntry>
         </settingConfig>
     </setting>
 
