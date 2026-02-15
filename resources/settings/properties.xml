@@ -8,6 +8,8 @@
     <property id="alt_timezone_lat" type="string">40.7768882</property>
     <property id="alt_timezone_lon" type="string">-74.729600</property>
 
+    <property id="comp_horizontal" type="number">9</property>
+
     <property id="comp_12" type="number">1</property>
     <property id="comp_2" type="number">2</property>
     <property id="comp_4" type="number">4</property>

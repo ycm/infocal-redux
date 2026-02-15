@@ -3,6 +3,8 @@
     <string id="alt_timezone_lat_title">Latitude</string>
     <string id="alt_timezone_lon_title">Longitude</string>
     <string id="alternate_timezone_group_title">Alternate timezone coordinates</string>
+    <string id="alternate_timezone">Alternate timezone</string>
+    <string id="comp_horizontal_title">Horizontal complication above time</string>
     <string id="api_group_title">API settings</string>
     <string id="api_request_interval_title">API Request Interval</string>
     <string id="battery">Battery</string>
@@ -19,8 +21,8 @@
     <string id="comp_6_title">Complication 6 o'clock</string>
     <string id="comp_8_gauge_title">Complication 8 o'clock gauge</string>
     <string id="comp_8_title">Complication 8 o'clock</string>
-    <string id="complication_gauges_group_title">Inner Complications (small gauges)</string>
-    <string id="complications_group_title">Outer Complications</string>
+    <string id="complication_gauges_group_title">Inner complications (small gauges)</string>
+    <string id="complications_group_title">Text complications</string>
     <string id="coordinates_degrees_decimal">Degrees</string>
     <string id="coordinates_mgrs">MGRS</string>
     <string id="every_15_min">Every 15 minutes</string>
@@ -53,6 +55,7 @@
     <string id="color_ui_accent_dark_title">Accent color (darker)</string>
     <string id="color_ui_accent_title">Accent color</string>
     <string id="use_alternate_timezone_title">Use alternate timezone?</string>
+    <!-- <string id="use_alternate_timezone_in_center">Display alternate time directly above primary time?</string> -->
     <string id="use_military_time_title">Use military time</string>
     <string id="use_openweathermap_api_title">Use OpenWeatherMap API?</string>
     <string id="weather_units_title">Weather API request units</string>

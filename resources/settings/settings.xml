@@ -76,23 +76,37 @@
 
 
     <setting propertyKey="@Properties.use_alternate_timezone" title="@Strings.use_alternate_timezone_title">
-        <settingConfig type="boolean" />
+        <settingConfig type="boolean"/>
     </setting>
     <group
         id="alternate_timezone_group"
         title="@Strings.alternate_timezone_group_title"
         enableIfTrue="@Properties.use_alternate_timezone">
         <setting propertyKey="@Properties.alt_timezone_lat" title="@Strings.alt_timezone_lat_title">
-            <settingConfig type="alphaNumeric" />
+            <settingConfig type="alphaNumeric"/>
         </setting>
         <setting propertyKey="@Properties.alt_timezone_lon" title="@Strings.alt_timezone_lon_title">
-            <settingConfig type="alphaNumeric" />
+            <settingConfig type="alphaNumeric"/>
         </setting>
     </group>
 
     <group
         id="complications_group"
         title="@Strings.complications_group_title">
+        <setting propertyKey="@Properties.comp_horizontal" title="@Strings.comp_horizontal_title">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.no_comp</listEntry>
+                <listEntry value="1">@Strings.heart_rate</listEntry>
+                <listEntry value="2">@Strings.steps</listEntry>
+                <listEntry value="3">@Strings.battery</listEntry>
+                <!-- <listEntry value="4">@Strings.temp_gauge</listEntry> -->
+                <listEntry value="5">@Strings.num_notifs</listEntry>
+                <listEntry value="6">@Strings.date_0</listEntry>
+                <listEntry value="7">@Strings.date_1</listEntry>
+                <listEntry value="8">@Strings.date_2</listEntry>
+                <listEntry value="9">@Strings.alternate_timezone</listEntry>
+            </settingConfig>
+        </setting>
         <setting propertyKey="@Properties.comp_12" title="@Strings.comp_12_title">
             <settingConfig type="list">
                 <listEntry value="0">@Strings.no_comp</listEntry>
@@ -104,6 +118,7 @@
                 <listEntry value="6">@Strings.date_0</listEntry>
                 <listEntry value="7">@Strings.date_1</listEntry>
                 <listEntry value="8">@Strings.date_2</listEntry>
+                <listEntry value="9">@Strings.alternate_timezone</listEntry>
             </settingConfig>
         </setting>
         <setting propertyKey="@Properties.comp_2" title="@Strings.comp_2_title">
@@ -117,6 +132,7 @@
                 <listEntry value="6">@Strings.date_0</listEntry>
                 <listEntry value="7">@Strings.date_1</listEntry>
                 <listEntry value="8">@Strings.date_2</listEntry>
+                <listEntry value="9">@Strings.alternate_timezone</listEntry>
             </settingConfig>
         </setting>
         <setting propertyKey="@Properties.comp_4" title="@Strings.comp_4_title">
@@ -130,6 +146,7 @@
                 <listEntry value="6">@Strings.date_0</listEntry>
                 <listEntry value="7">@Strings.date_1</listEntry>
                 <listEntry value="8">@Strings.date_2</listEntry>
+                <listEntry value="9">@Strings.alternate_timezone</listEntry>
             </settingConfig>
         </setting>
         <setting propertyKey="@Properties.comp_6" title="@Strings.comp_6_title">
@@ -143,6 +160,7 @@
                 <listEntry value="6">@Strings.date_0</listEntry>
                 <listEntry value="7">@Strings.date_1</listEntry>
                 <listEntry value="8">@Strings.date_2</listEntry>
+                <listEntry value="9">@Strings.alternate_timezone</listEntry>
             </settingConfig>
         </setting>
         <setting propertyKey="@Properties.comp_8" title="@Strings.comp_8_title">
@@ -156,6 +174,7 @@
                 <listEntry value="6">@Strings.date_0</listEntry>
                 <listEntry value="7">@Strings.date_1</listEntry>
                 <listEntry value="8">@Strings.date_2</listEntry>
+                <listEntry value="9">@Strings.alternate_timezone</listEntry>
             </settingConfig>
         </setting>
     </group>

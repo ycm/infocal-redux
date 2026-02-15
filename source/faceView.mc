@@ -30,9 +30,11 @@ class faceView extends WatchUi.WatchFace {
 
     var alternatePosition = null;
 
+
     function initialize() {
         WatchFace.initialize();
     }
+
 
     function onLayout(dc as Dc) as Void {
         X = dc.getWidth() / 2;
@@ -65,6 +67,7 @@ class faceView extends WatchUi.WatchFace {
         colorBackground = parseColor("color_bg", Graphics.COLOR_BLACK);
     }
 
+
     function parseColor(key, defaultColor)
     {
         var inputArr = Properties.getValue(key).toUpper().toCharArray();
@@ -83,7 +86,9 @@ class faceView extends WatchUi.WatchFace {
         return defaultColor;
     }
 
+
     function onShow() as Void {}
+
 
     function getHeartRateText() as Lang.String
     {
@@ -96,11 +101,13 @@ class faceView extends WatchUi.WatchFace {
         return heartRateText;
     }
 
+
     function getStepsText() as Lang.String
     {
         var steps = ActivityMonitor.getInfo().steps;
         return steps == null ? "STP --" : Lang.format("STP $1$", [steps.format("%d")]);
     }
+
 
     function getBatteryText() as Lang.String
     {
@@ -173,6 +180,7 @@ class faceView extends WatchUi.WatchFace {
         return "TEMP N/A";
     }
 
+
     function formatGregorianInfoAsTimeString(info as Time.Gregorian.Info)
     {
         var timeStr = "";
@@ -204,6 +212,7 @@ class faceView extends WatchUi.WatchFace {
         return "NOTIF " + System.getDeviceSettings().notificationCount.format("%d");
     }
 
+
     function drawSmallRadialComplicationAtPosition(dc as Dc, text, angle)
     {
         var radius = angle > 180 ? 190 : 170;
@@ -212,6 +221,48 @@ class faceView extends WatchUi.WatchFace {
             : Graphics.RADIAL_TEXT_DIRECTION_CLOCKWISE;
         dc.drawRadialText(X, Y, fontComp, text, Graphics.TEXT_JUSTIFY_CENTER, angle, radius, direction);
     }
+
+
+    function drawHorizontalComplication(dc as Dc)
+    {
+        var text = "";
+        switch (Properties.getValue("comp_horizontal"))
+        {
+            case 1:
+                text = getHeartRateText();
+                break;
+            case 2:
+                text = getStepsText();
+                break;
+            case 3:
+                text = getBatteryText();
+                break;
+            case 4:
+                // nothing - temperature gauge is unavailable here due to the space it takes up
+                break;
+            case 5:
+                text = getNumNotifsText();
+                break;
+            case 6:
+                text = Lang.format("$1$ $2$", [currentTime.day_of_week.toUpper(), currentTime.day]);
+                break;
+            case 7:
+                text = Lang.format("$1$ $2$ $3$",
+                    [currentTime.day_of_week.toUpper(), currentTime.day, currentTime.month.toUpper()]);
+                break;
+            case 8:
+                text = Lang.format("$1$ $3$ $2$",
+                    [currentTime.day_of_week.toUpper(), currentTime.day, currentTime.month.toUpper()]);
+                break;
+            case 9:
+                text = getAlternateTimezoneText();
+                break;
+            default:
+                break;
+        }
+        dc.drawText(X, Y - 90, fontComp, text, Graphics.TEXT_JUSTIFY_CENTER);
+    }
+
 
     function drawIndividualComplication(dc as Dc, angle, comp_id)
     {
@@ -244,6 +295,9 @@ class faceView extends WatchUi.WatchFace {
                 text = Lang.format("$1$ $3$ $2$",
                     [currentTime.day_of_week.toUpper(), currentTime.day, currentTime.month.toUpper()]);
                 break;
+            case 9:
+                text = getAlternateTimezoneText();
+                break;
             default:
                 break;
         }
@@ -264,22 +318,22 @@ class faceView extends WatchUi.WatchFace {
     }
 
 
+    function getAlternateTimezoneText() as Lang.String
+    {
+        if (Properties.getValue("use_alternate_timezone") && alternatePosition != null)
+        {
+            var info = Gregorian.info(Gregorian.localMoment(alternatePosition, Time.now()),Time.FORMAT_SHORT);
+            return formatGregorianInfoAsTimeString(info);
+        }
+        return "--";
+    }
+
+
     function drawBigMinutes(dc as Dc)
     {
         var minutesText = currentTime.min.format("%02d");
         var dim = dc.getTextDimensions(minutesText, fontMinute);
         dc.drawText(X, Y - dim[1] / 2, fontMinute, minutesText, Graphics.TEXT_JUSTIFY_CENTER);
-    }
-
-
-    function drawAlternateTimezone(dc as Dc)
-    {
-        if (Properties.getValue("use_alternate_timezone") && alternatePosition != null)
-        {
-            var info = Gregorian.info(Gregorian.localMoment(alternatePosition, Time.now()),Time.FORMAT_SHORT);
-            var timeStr = formatGregorianInfoAsTimeString(info);
-            dc.drawText(X, Y - 90, fontComp, timeStr, Graphics.TEXT_JUSTIFY_CENTER);
-        }
     }
 
 
@@ -364,6 +418,7 @@ class faceView extends WatchUi.WatchFace {
         );
     }
 
+
     function drawSunriseSunset(dc)
     {
         if (Properties.getValue("use_openweathermap_api") && apiResponsePackage != null)
@@ -445,6 +500,7 @@ class faceView extends WatchUi.WatchFace {
         }
     }
 
+
     function drawDial(dc as Dc)
     {
         dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
@@ -482,6 +538,7 @@ class faceView extends WatchUi.WatchFace {
             );
         }
     }
+
 
     function drawProgressArc(dc, x, y, radius, arcDirection, angleStart, angleEnd, completedAmount, barWidth, progressWidth, colorFg, colorBg, rounded)
     {
@@ -541,6 +598,7 @@ class faceView extends WatchUi.WatchFace {
         }
     }
 
+
     function drawStepGoalGauge(dc as Dc, angle)
     {
         var info = ActivityMonitor.getInfo();
@@ -583,6 +641,7 @@ class faceView extends WatchUi.WatchFace {
         }
     }
     
+
     function drawBatteryGauge(dc as Dc, angle)
     {
         dc.setColor(colorAccentDark, Graphics.COLOR_TRANSPARENT);
@@ -618,6 +677,7 @@ class faceView extends WatchUi.WatchFace {
             false
         );
     }
+
 
     function drawHeartRateZoneGauge(dc as Dc, angle)
     {
@@ -656,6 +716,7 @@ class faceView extends WatchUi.WatchFace {
         }
     }
 
+
     function drawIndividualSmallComplicationGauge(dc as Dc, angle, comp_id)
     {
         switch (Properties.getValue(comp_id))
@@ -674,6 +735,7 @@ class faceView extends WatchUi.WatchFace {
         }
     }
 
+
     function drawSmallComplicationGauges(dc as Dc)
     {
         drawIndividualSmallComplicationGauge(dc, 90, "comp_12_gauge");
@@ -685,6 +747,7 @@ class faceView extends WatchUi.WatchFace {
             drawIndividualSmallComplicationGauge(dc, 210, "comp_8_gauge");
         }
     }
+
 
     function drawStatusIcons(dc as Dc)
     {
@@ -723,6 +786,7 @@ class faceView extends WatchUi.WatchFace {
         }
     }
 
+
     function onUpdate(dc as Dc) as Void
     {
         currentTime = Time.Gregorian.info(Time.now(), Time.FORMAT_MEDIUM);
@@ -745,7 +809,7 @@ class faceView extends WatchUi.WatchFace {
         drawSmallRadialComplications(dc);
         
         drawBigMinutes(dc);
-        drawAlternateTimezone(dc);
+        drawHorizontalComplication(dc);
 
         if (Properties.getValue("override_6_and_8_comps"))
         {
@@ -761,7 +825,13 @@ class faceView extends WatchUi.WatchFace {
         drawStatusIcons(dc);
     }
 
+
     function onHide() as Void {}
+
+
     function onExitSleep() as Void {}
+
+
     function onEnterSleep() as Void {}
+
 }
