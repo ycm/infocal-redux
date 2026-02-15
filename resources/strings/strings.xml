@@ -47,6 +47,9 @@
     <string id="steps">Steps</string>
     <string id="temp_gauge">Temperature gauge</string>
     <string id="color_text_title">Text color</string>
+    <string id="date_0">Date (weekday, day)</string>
+    <string id="date_1">Date (weekday, day, month)</string>
+    <string id="date_2">Date (weekday, month, day)</string>
     <string id="color_ui_accent_dark_title">Accent color (darker)</string>
     <string id="color_ui_accent_title">Accent color</string>
     <string id="use_alternate_timezone_title">Use alternate timezone?</string>

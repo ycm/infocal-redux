@@ -101,6 +101,9 @@
                 <listEntry value="3">@Strings.battery</listEntry>
                 <listEntry value="4">@Strings.temp_gauge</listEntry>
                 <listEntry value="5">@Strings.num_notifs</listEntry>
+                <listEntry value="6">@Strings.date_0</listEntry>
+                <listEntry value="7">@Strings.date_1</listEntry>
+                <listEntry value="8">@Strings.date_2</listEntry>
             </settingConfig>
         </setting>
         <setting propertyKey="@Properties.comp_2" title="@Strings.comp_2_title">
@@ -111,6 +114,9 @@
                 <listEntry value="3">@Strings.battery</listEntry>
                 <listEntry value="4">@Strings.temp_gauge</listEntry>
                 <listEntry value="5">@Strings.num_notifs</listEntry>
+                <listEntry value="6">@Strings.date_0</listEntry>
+                <listEntry value="7">@Strings.date_1</listEntry>
+                <listEntry value="8">@Strings.date_2</listEntry>
             </settingConfig>
         </setting>
         <setting propertyKey="@Properties.comp_4" title="@Strings.comp_4_title">
@@ -121,6 +127,9 @@
                 <listEntry value="3">@Strings.battery</listEntry>
                 <listEntry value="4">@Strings.temp_gauge</listEntry>
                 <listEntry value="5">@Strings.num_notifs</listEntry>
+                <listEntry value="6">@Strings.date_0</listEntry>
+                <listEntry value="7">@Strings.date_1</listEntry>
+                <listEntry value="8">@Strings.date_2</listEntry>
             </settingConfig>
         </setting>
         <setting propertyKey="@Properties.comp_6" title="@Strings.comp_6_title">
@@ -131,6 +140,9 @@
                 <listEntry value="3">@Strings.battery</listEntry>
                 <listEntry value="4">@Strings.temp_gauge</listEntry>
                 <listEntry value="5">@Strings.num_notifs</listEntry>
+                <listEntry value="6">@Strings.date_0</listEntry>
+                <listEntry value="7">@Strings.date_1</listEntry>
+                <listEntry value="8">@Strings.date_2</listEntry>
             </settingConfig>
         </setting>
         <setting propertyKey="@Properties.comp_8" title="@Strings.comp_8_title">
@@ -141,6 +153,9 @@
                 <listEntry value="3">@Strings.battery</listEntry>
                 <listEntry value="4">@Strings.temp_gauge</listEntry>
                 <listEntry value="5">@Strings.num_notifs</listEntry>
+                <listEntry value="6">@Strings.date_0</listEntry>
+                <listEntry value="7">@Strings.date_1</listEntry>
+                <listEntry value="8">@Strings.date_2</listEntry>
             </settingConfig>
         </setting>
     </group>

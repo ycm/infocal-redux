@@ -233,6 +233,17 @@ class faceView extends WatchUi.WatchFace {
             case 5:
                 text = getNumNotifsText();
                 break;
+            case 6:
+                text = Lang.format("$1$ $2$", [currentTime.day_of_week.toUpper(), currentTime.day]);
+                break;
+            case 7:
+                text = Lang.format("$1$ $2$ $3$",
+                    [currentTime.day_of_week.toUpper(), currentTime.day, currentTime.month.toUpper()]);
+                break;
+            case 8:
+                text = Lang.format("$1$ $3$ $2$",
+                    [currentTime.day_of_week.toUpper(), currentTime.day, currentTime.month.toUpper()]);
+                break;
             default:
                 break;
         }
@@ -574,6 +585,7 @@ class faceView extends WatchUi.WatchFace {
     
     function drawBatteryGauge(dc as Dc, angle)
     {
+        dc.setColor(colorAccentDark, Graphics.COLOR_TRANSPARENT);
         dc.drawText(
             X + 125 * Math.cos(Math.toRadians(angle)),
             Y - 125 * Math.sin(Math.toRadians(angle)) - 16,

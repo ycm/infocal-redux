@@ -1,8 +1,8 @@
 <properties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
-    <property id="color_ui_accent" type="string"></property>
-    <property id="color_ui_accent_dark" type="string"></property>
-    <property id="color_text" type="string">000000</property>
-    <property id="color_bg" type="string">ffffff</property>
+    <property id="color_ui_accent" type="string">ee0000</property>
+    <property id="color_ui_accent_dark" type="string">770000</property>
+    <property id="color_text" type="string">eeeeee</property>
+    <property id="color_bg" type="string">000000</property>
 
     <property id="use_alternate_timezone" type="boolean">true</property>
     <property id="alt_timezone_lat" type="string">40.7768882</property>
