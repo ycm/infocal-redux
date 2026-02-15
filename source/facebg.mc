@@ -15,7 +15,7 @@ class faceServiceDelegate extends Toybox.System.ServiceDelegate {
     }
 
     function onReceiveReverseGeocodeResponse(responseCode as Lang.Number, data as Dictionary or Null) as Void {
-        // System.println("facebg.mc -> onReceiveReverseGeocodeResponse() with responseCode " + responseCode.format("%d"));
+        System.println("reverse geocode responseCode " + responseCode);
         var name = null;
         if (responseCode == 200 && data != null)
         {
@@ -30,14 +30,15 @@ class faceServiceDelegate extends Toybox.System.ServiceDelegate {
         }
         bgData = {"name" => name};
         makeWeatherRequest();
-        // System.println("end faceServiceDelegate onReceiveRev...");
     }
 
     function onReceiveWeatherResponse(responseCode as Lang.Number, data as Dictionary or Null) as Void
     {
-        // System.println("facebg.mc -> onReceiveWeatherResponse() with responseCode " + responseCode.format("%d"));
+        System.println("weather responseCode " + responseCode);
         var sunrise = null;
         var sunset = null;
+        var sunrise_tomorrow = null;
+        var sunset_tomorrow = null;
         var temp = null;
         var high = null;
         var low = null;
@@ -65,6 +66,15 @@ class faceServiceDelegate extends Toybox.System.ServiceDelegate {
                         low = today_temp_data.get("min");
                     }
                 }
+                if (daily.size() > 1)
+                {
+                    var tomorrow = daily[1] as Dictionary or Null;
+                    if (tomorrow != null)
+                    {
+                        sunrise_tomorrow = tomorrow.get("sunrise");
+                        sunset_tomorrow = tomorrow.get("sunset");
+                    }
+                }
             }
         }
 
@@ -72,26 +82,35 @@ class faceServiceDelegate extends Toybox.System.ServiceDelegate {
             "name" => bgData.get("name"),
             "sunrise" => sunrise,
             "sunset" => sunset,
+            "sunrise_tomorrow" => sunrise_tomorrow,
+            "sunset_tomorrow" => sunset_tomorrow,
             "temp" => temp,
             "high" => high,
             "low" => low
         };
-        // System.println("package:");
-        // System.println(package);
+        System.println("package:");
+        System.println(package);
         Background.exit(package);
     }
 
     function makeWeatherRequest()
     {
-        // System.println("start make weather request");
-        var psn = Position.getInfo().position;
-        if (psn != null)
+        var currTime = System.getClockTime();
+        var timeStr = Lang.format("[$1$:$2$:$3$]", [
+            currTime.hour.format("%02d"),
+            currTime.min.format("%02d"),
+            currTime.sec.format("%02d")
+        ]);
+        System.println(timeStr + " weather request");
+
+        var coordinates = Storage.getValue("lastActivityLatLong");
+        if (coordinates != null)
         {
-            var coordinates = psn.toDegrees();
+            System.println(timeStr + " request lat/lon = " + coordinates[0].format("%.02f") + "," + coordinates[1].format("%.02f"));
             var url ="https://api.openweathermap.org/data/3.0/onecall";
             var params = {
-                "lat" => coordinates[0],
-                "lon" => coordinates[1],
+                "lat" => (coordinates as Array)[0],
+                "lon" => (coordinates as Array)[1],
                 "appid" => Properties.getValue("openweathermap_api_key"),
                 "exclude" => "minutely,hourly",
                 "units" => Properties.getValue("weather_units") == 0 ? "imperial" : "metric"
@@ -102,20 +121,30 @@ class faceServiceDelegate extends Toybox.System.ServiceDelegate {
             };
             Communications.makeWebRequest(url, params, opts, method(:onReceiveWeatherResponse));
         }
-        // System.println("end make weather request");
+        else
+        {
+            System.println(timeStr + " last recorded lat/long is null");
+        }
     }
 
     function makeReverseGeocodeRequest()
     {
-        // System.println("start make reverse geocode request");
-        var psn = Position.getInfo().position;
-        if (psn != null)
+        var currTime = System.getClockTime();
+        var timeStr = Lang.format("[$1$:$2$:$3$]", [
+            currTime.hour.format("%02d"),
+            currTime.min.format("%02d"),
+            currTime.sec.format("%02d")
+        ]);
+        System.println(timeStr + " reverse geocode request");
+
+        var coordinates = Storage.getValue("lastActivityLatLong");
+        if (coordinates != null)
         {
-            var coordinates = psn.toDegrees();
+            System.println(timeStr + " request lat/lon = " + coordinates[0].format("%.02f") + "," + coordinates[1].format("%.02f"));
             var url ="https://api.openweathermap.org/geo/1.0/reverse";
             var params = {
-                "lat" => coordinates[0],
-                "lon" => coordinates[1],
+                "lat" => (coordinates as Array)[0],
+                "lon" => (coordinates as Array)[1],
                 "appid" => Properties.getValue("openweathermap_api_key")
             };
             var opts = {
@@ -124,12 +153,13 @@ class faceServiceDelegate extends Toybox.System.ServiceDelegate {
             };
             Communications.makeWebRequest(url, params, opts, method(:onReceiveReverseGeocodeResponse));
         }
-        // System.println("end make reverse geocode request");
+        else
+        {
+            System.println(timeStr + " last recorded lat/long is null");
+        }
     }
 
     function onTemporalEvent() as Void {
-        // System.println("start ontemporalevent");
         makeReverseGeocodeRequest();
-        // System.println("end on tempoeral event");
     }
 }

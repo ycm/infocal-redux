@@ -21,15 +21,14 @@ class faceView extends WatchUi.WatchFace {
     var X;
     var Y;
 
+    var maxLocationTextLength;
+
+    var colorAccent;
+    var colorAccentDark;
+    var colorText;
+    var colorBackground;
+
     var alternatePosition = null;
-    var military;
-
-    var maxLocationTextLength = null; // TODO
-    var apiResponseFormattedStrings = null; // TODO
-
-    var accentColor;
-    var accentColorDark;
-    var textColor;
 
     function initialize() {
         WatchFace.initialize();
@@ -44,26 +43,44 @@ class faceView extends WatchUi.WatchFace {
         fontHour = Graphics.getVectorFont({:face=>"BionicBold", :size=>96}) as Graphics.VectorFont;  
         fontMinute = Graphics.getVectorFont({:face=>"BionicBold", :size=>172}) as Graphics.VectorFont;  
         fontIcon = WatchUi.loadResource(Rez.Fonts.iconFont);
-        military = Properties.getValue("use_military_time");
 
-        var altLat = Properties.getValue("alt_timezone_lat").toDouble();
-        var altLon = Properties.getValue("alt_timezone_lon").toDouble();
-        if (altLat != null && altLat != null)
+        if (Properties.getValue("use_alternate_timezone"))
         {
-            alternatePosition = new Position.Location({
-                :latitude => altLat,
-                :longitude => altLon,
-                :format => :degrees
-            });
+            var altLat = Properties.getValue("alt_timezone_lat").toDouble();
+            var altLon = Properties.getValue("alt_timezone_lon").toDouble();
+            if (altLat != null && altLat != null)
+            {
+                alternatePosition = new Position.Location({
+                    :latitude => altLat,
+                    :longitude => altLon,
+                    :format => :degrees
+                });
+            }
         }
         maxLocationTextLength = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT", fontComp);
 
-        var accentColorInput = Properties.getValue("ui_accent_color").toNumberWithBase(16) as Graphics.ColorType;
-        accentColor = accentColorInput == null ? Graphics.COLOR_RED : accentColorInput;
-        var accentColorDarkInput = Properties.getValue("ui_accent_color_dark").toNumberWithBase(16) as Graphics.ColorType;
-        accentColorDark = accentColorDarkInput == null ? Graphics.COLOR_DK_RED : accentColorDarkInput;
-        var textColorInput = Properties.getValue("text_color").toNumberWithBase(16) as Graphics.ColorType;
-        textColor = textColorInput == null ? Graphics.COLOR_WHITE : textColorInput;
+        colorAccent = parseColor("color_ui_accent", Graphics.COLOR_RED);
+        colorAccentDark = parseColor("color_ui_accent_dark", Graphics.COLOR_DK_RED);
+        colorText = parseColor("color_text", Graphics.COLOR_WHITE);
+        colorBackground = parseColor("color_bg", Graphics.COLOR_BLACK);
+    }
+
+    function parseColor(key, defaultColor)
+    {
+        var inputArr = Properties.getValue(key).toUpper().toCharArray();
+        if (inputArr.size() == 6)
+        {
+            for (var i = 0; i < 6; i++)
+            {
+                var c = inputArr[i];
+                if (!(('0' <= c && c <= '9') || ('A' <= c && c <= 'F')))
+                {
+                    return defaultColor;
+                }
+            }
+            return Properties.getValue(key).toNumberWithBase(16) as Graphics.ColorType;
+        }
+        return defaultColor;
     }
 
     function onShow() as Void {}
@@ -91,25 +108,10 @@ class faceView extends WatchUi.WatchFace {
         return Lang.format("BTY $1$", [battery.format("%d")]);
     }
 
-    function drawSmallRadialComplicationAtPosition(dc as Dc, text, clock_position)
-    {
-        var angle = 90, radius = 170, direction = Graphics.RADIAL_TEXT_DIRECTION_CLOCKWISE;
-        if (clock_position == 2)
-        {
-            angle = 30;
-        }
-        if (clock_position == 4)
-        {
-            angle = -30;
-            radius = 190;
-            direction = Graphics.RADIAL_TEXT_DIRECTION_COUNTER_CLOCKWISE;
-        }
-        dc.drawRadialText(X, Y, fontComp, text, Graphics.TEXT_JUSTIFY_CENTER, angle, radius, direction);
-    }
 
     function getTemperatureTextAndMakeGauge(dc as Dc, degrees as Lang.Number) as Lang.String
     {
-        if (apiResponsePackage == null)
+        if (!Properties.getValue("use_openweathermap_api") || apiResponsePackage == null)
         {
             return "TEMP N/A";
         }
@@ -120,23 +122,7 @@ class faceView extends WatchUi.WatchFace {
 
         if (temp != null && low != null && high != null)
         {
-            dc.setColor(accentColor, Graphics.COLOR_TRANSPARENT);
-            // dc.setPenWidth(3);
-            // var degreeStart = degrees - 10;
-            // var degreeEnd = degrees + 10;
-            // dc.drawArc(X, Y, 190, Graphics.ARC_COUNTER_CLOCKWISE, degrees - 10, degrees + 10);
-            // dc.drawLine(
-            //     X + 180 * Math.cos(Math.toRadians(degreeStart)),
-            //     Y - 180 * Math.sin(Math.toRadians(degreeStart)),
-            //     X + 190 * Math.cos(Math.toRadians(degreeStart)),
-            //     Y - 190 * Math.sin(Math.toRadians(degreeStart))
-            // );
-            // dc.drawLine(
-            //     X + 180 * Math.cos(Math.toRadians(degreeEnd)),
-            //     Y - 180 * Math.sin(Math.toRadians(degreeEnd)),
-            //     X + 190 * Math.cos(Math.toRadians(degreeEnd)),
-            //     Y - 190 * Math.sin(Math.toRadians(degreeEnd))
-            // );
+            dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
             if (high > low)
             {
                 var progress = ((temp.toDouble() - low)/(high - low));
@@ -162,16 +148,10 @@ class faceView extends WatchUi.WatchFace {
                     progress,
                     5,
                     5,
-                    accentColor,
-                    accentColorDark,
+                    colorAccent,
+                    colorAccentDark,
                     false
                 );
-                // dc.drawLine(
-                //     X + 170 * Math.cos(Math.toRadians(tickDegree)),
-                //     Y - 170 * Math.sin(Math.toRadians(tickDegree)),
-                //     X + 190 * Math.cos(Math.toRadians(tickDegree)),
-                //     Y - 190 * Math.sin(Math.toRadians(tickDegree))
-                // );
                 dc.drawRadialText(
                     X,
                     Y,
@@ -183,7 +163,7 @@ class faceView extends WatchUi.WatchFace {
                     degrees > 180 ? Graphics.RADIAL_TEXT_DIRECTION_COUNTER_CLOCKWISE : Graphics.RADIAL_TEXT_DIRECTION_CLOCKWISE
                 );
             }
-            dc.setColor(textColor, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(colorText, Graphics.COLOR_TRANSPARENT);
             var whitespace = degrees > 180 ? "            " : "          ";
             return Lang.format(
                 "$1$" + whitespace + "$2$",
@@ -196,7 +176,7 @@ class faceView extends WatchUi.WatchFace {
     function formatGregorianInfoAsTimeString(info as Time.Gregorian.Info)
     {
         var timeStr = "";
-        if (military)
+        if (Properties.getValue("use_military_time"))
         {
             timeStr = info.hour.format("%02d") + info.min.format("%02d");
         }
@@ -218,42 +198,25 @@ class faceView extends WatchUi.WatchFace {
         return timeStr;
     }
 
-    function getSunriseSunsetText() as Lang.String
-    {
-        if (apiResponsePackage == null)
-        {
-            return "SUN N/A";
-        }
-
-        var sunrise = apiResponsePackage.get("sunrise");
-        var sunset = apiResponsePackage.get("sunset");
-        
-        if (sunrise == null || sunset == null)
-        {
-            return "SUN N/A";
-        }
-
-        var sunrise_moment = new Time.Moment(sunrise);
-        var sunset_moment = new Time.Moment(sunset);
-        
-        var sunrise_moment_info = Time.Gregorian.info(sunrise_moment, Time.FORMAT_MEDIUM);
-        var sunset_moment_info = Time.Gregorian.info(sunset_moment, Time.FORMAT_MEDIUM);
-
-        var sunrise_str = formatGregorianInfoAsTimeString(sunrise_moment_info);
-        var sunset_str = formatGregorianInfoAsTimeString(sunset_moment_info);
-
-        return sunrise_str + " TO " + sunset_str;
-    }
 
     function getNumNotifsText() as Lang.String
     {
         return "NOTIF " + System.getDeviceSettings().notificationCount.format("%d");
     }
 
-    function drawSmallRadialComplications(dc as Dc)
+    function drawSmallRadialComplicationAtPosition(dc as Dc, text, angle)
+    {
+        var radius = angle > 180 ? 190 : 170;
+        var direction = angle > 180
+            ? Graphics.RADIAL_TEXT_DIRECTION_COUNTER_CLOCKWISE
+            : Graphics.RADIAL_TEXT_DIRECTION_CLOCKWISE;
+        dc.drawRadialText(X, Y, fontComp, text, Graphics.TEXT_JUSTIFY_CENTER, angle, radius, direction);
+    }
+
+    function drawIndividualComplication(dc as Dc, angle, comp_id)
     {
         var text = "";
-        switch (Properties.getValue("comp_12"))
+        switch (Properties.getValue(comp_id))
         {
             case 1:
                 text = getHeartRateText();
@@ -265,7 +228,7 @@ class faceView extends WatchUi.WatchFace {
                 text = getBatteryText();
                 break;
             case 4:
-                text = getTemperatureTextAndMakeGauge(dc, 90);
+                text = getTemperatureTextAndMakeGauge(dc, angle);
                 break;
             case 5:
                 text = getNumNotifsText();
@@ -273,52 +236,22 @@ class faceView extends WatchUi.WatchFace {
             default:
                 break;
         }
-        drawSmallRadialComplicationAtPosition(dc, text, 12);
-        text = "";
-        switch (Properties.getValue("comp_2"))
-        {
-            case 1:
-                text = getHeartRateText();
-                break;
-            case 2:
-                text = getStepsText();
-                break;
-            case 3:
-                text = getBatteryText();
-                break;
-            case 4:
-                text = getTemperatureTextAndMakeGauge(dc, 30);
-                break;
-            case 5:
-                text = getNumNotifsText();
-                break;
-            default:
-                break;
-        }
-        drawSmallRadialComplicationAtPosition(dc, text, 2);
-        text = "";
-        switch (Properties.getValue("comp_4"))
-        {
-            case 1:
-                text = getHeartRateText();
-                break;
-            case 2:
-                text = getStepsText();
-                break;
-            case 3:
-                text = getBatteryText();
-                break;
-            case 4:
-                text = getTemperatureTextAndMakeGauge(dc, 330);
-                break;
-            case 5:
-                text = getNumNotifsText();
-                break;
-            default:
-                break;
-        }
-        drawSmallRadialComplicationAtPosition(dc, text, 4);
+        drawSmallRadialComplicationAtPosition(dc, text, angle);
     }
+
+
+    function drawSmallRadialComplications(dc as Dc)
+    {
+        drawIndividualComplication(dc, 90, "comp_12");
+        drawIndividualComplication(dc, 30, "comp_2");
+        drawIndividualComplication(dc, 330, "comp_4");
+        if (!Properties.getValue("override_6_and_8_comps"))
+        {
+            drawIndividualComplication(dc, 270, "comp_6");
+            drawIndividualComplication(dc, 210, "comp_8");
+        }
+    }
+
 
     function drawBigMinutes(dc as Dc)
     {
@@ -327,9 +260,10 @@ class faceView extends WatchUi.WatchFace {
         dc.drawText(X, Y - dim[1] / 2, fontMinute, minutesText, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
+
     function drawAlternateTimezone(dc as Dc)
     {
-        if (alternatePosition != null)
+        if (Properties.getValue("use_alternate_timezone") && alternatePosition != null)
         {
             var info = Gregorian.info(Gregorian.localMoment(alternatePosition, Time.now()),Time.FORMAT_SHORT);
             var timeStr = formatGregorianInfoAsTimeString(info);
@@ -337,17 +271,12 @@ class faceView extends WatchUi.WatchFace {
         }
     }
 
-    function drawGuidelines(dc)
-    {
-        dc.drawLine(0, Y, X * 2, Y);
-        dc.drawLine(-200 + 195, 200 * Math.tan(60 * 2 * Math.PI / 360) + 195, 200 + 195, -200 * Math.tan(60 * 2 * Math.PI / 360) + 195);
-        dc.drawLine(-200 + 195, 200 * Math.tan(-60 * 2 * Math.PI / 360) + 195, 200 + 195, -200 * Math.tan(-60 * 2 * Math.PI / 360) + 195);
-    }
 
     function drawDateHour(dc)
     {
+        dc.setColor(colorText, Graphics.COLOR_TRANSPARENT);
         var hourStr = (((currentTime.hour + 11) % 12) + 1).format("%d");
-        if (military || System.getDeviceSettings().is24Hour)
+        if (Properties.getValue("use_military_time") || System.getDeviceSettings().is24Hour)
         {
             hourStr = currentTime.hour.format("%02d");
         }
@@ -364,7 +293,7 @@ class faceView extends WatchUi.WatchFace {
         dc.drawText(yAxis - hourStrWidth / 2, dateStrHeight, fontComp, dateStr, Graphics.TEXT_JUSTIFY_CENTER);
 
         dc.setPenWidth(5);
-        dc.setColor(accentColor, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
         var lineLen = 60;
         dc.drawLine(
             yAxis - (hourStrWidth + lineLen) / 2,
@@ -374,22 +303,44 @@ class faceView extends WatchUi.WatchFace {
         );
     }
 
+
     function drawLocationName(dc)
     {
-        var location = "";
-        if (apiResponsePackage == null)
+        var location = "WAITING FOR LOCATION" ;
+        switch (Properties.getValue("location_name_type"))
         {
-            location = "NULL LOCATION";
+            case 0:
+                if (Properties.getValue("use_openweathermap_api") && apiResponsePackage != null)
+                {
+                    var name = apiResponsePackage.get("name");
+                    if (name != null)
+                    {
+                        location = name.toUpper();
+                        var locationNameWidth = dc.getTextWidthInPixels(location, fontComp);
+                        if (locationNameWidth > maxLocationTextLength)
+                        {
+                            location = location.substring(0, 21) + "...";
+                        }
+                    }
+                }
+                break;
+            case 1:
+                var latlon = Storage.getValue("lastActivityLatLong") as Array;
+                if (latlon != null)
+                {
+                    var lat = latlon[0];
+                    var lon = latlon[1];
+                    location = Lang.format("$1$, $2$", [lat.format("%.04f"), lon.format("%.04f")]);
+                }
+                break;
+            case 2:
+                var grid = Storage.getValue("lastActivityGrid");
+                if (grid != null)
+                {
+                    location = grid;
+                }
+                break;
         }
-        else
-        {
-            var name = apiResponsePackage.get("name");
-            if (name != null)
-            {
-                location = name.toUpper();
-            }
-        }
-
         dc.drawRadialText(
             X,
             Y,
@@ -404,22 +355,88 @@ class faceView extends WatchUi.WatchFace {
 
     function drawSunriseSunset(dc)
     {
-        var sun_text = getSunriseSunsetText();
-        dc.drawRadialText(
-            X,
-            Y,
-            fontComp,
-            sun_text,
-            Graphics.TEXT_JUSTIFY_CENTER,
-            240,
-            150,
-            Graphics.RADIAL_TEXT_DIRECTION_COUNTER_CLOCKWISE
-        );
+        if (Properties.getValue("use_openweathermap_api") && apiResponsePackage != null)
+        {
+            var sunrise = apiResponsePackage.get("sunrise");
+            var sunset = apiResponsePackage.get("sunset");
+            if (sunrise != null && sunset != null)
+            {
+                var sunrise_moment = new Time.Moment(sunrise);
+                var sunset_moment = new Time.Moment(sunset);
+
+                var diff = sunset_moment.value() - sunrise_moment.value();
+                if (diff == 0)
+                {
+                    return;
+                }
+                var now = Time.now();
+                var progress = (now.value().toDouble() - sunrise_moment.value()) / diff;
+
+                if (progress > 1)
+                {
+                    sunrise = apiResponsePackage.get("sunrise_tomorrow");
+                    sunset = apiResponsePackage.get("sunset_tomorrow");
+                    if (sunrise == null || sunset == null)
+                    {
+                        return;
+                    }
+                    sunrise_moment = new Time.Moment(sunrise);
+                    sunset_moment = new Time.Moment(sunset);
+                    diff = sunset_moment.value() - sunrise_moment.value();
+                    if (diff == 0)
+                    {
+                        return;
+                    }
+                    progress = (now.value().toDouble() - sunrise_moment.value()) / diff;
+                }
+
+                var sunrise_str = formatGregorianInfoAsTimeString(
+                    Time.Gregorian.info(sunrise_moment, Time.FORMAT_SHORT));
+                var sunset_str = formatGregorianInfoAsTimeString(
+                    Time.Gregorian.info(sunset_moment, Time.FORMAT_SHORT));
+
+                dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
+                dc.drawRadialText(
+                    X,
+                    Y,
+                    fontComp,
+                    sunrise_str + "                  " + sunset_str,
+                    Graphics.TEXT_JUSTIFY_CENTER,
+                    240,
+                    160,
+                    Graphics.RADIAL_TEXT_DIRECTION_COUNTER_CLOCKWISE
+                );
+
+                dc.setColor(colorAccentDark, Graphics.COLOR_TRANSPARENT);
+                dc.drawText(
+                    X + 125 * Math.cos(Math.toRadians(240)),
+                    Y - 125 * Math.sin(Math.toRadians(240)) - 16,
+                    fontIcon,
+                    "I",
+                    Graphics.TEXT_JUSTIFY_CENTER
+                );
+                drawProgressArc(
+                    dc,
+                    X,
+                    Y,
+                    150,
+                    Graphics.ARC_COUNTER_CLOCKWISE,
+                    240 - 20,
+                    240 + 20,
+                    progress,
+                    5,
+                    5,
+                    colorAccent,
+                    colorAccentDark,
+                    false
+                );
+            }
+        }
     }
 
     function drawDial(dc as Dc)
     {
-        dc.setColor(accentColor, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
         dc.setPenWidth(5);
         var R = 200;
         var r = 175;
@@ -444,6 +461,15 @@ class faceView extends WatchUi.WatchFace {
             X + R * Math.cos(Math.toRadians(-60)),
             Y - R * Math.sin(Math.toRadians(-60))
         );
+        if (!Properties.getValue("override_6_and_8_comps"))
+        {
+            dc.drawLine(
+                X + r * Math.cos(Math.toRadians(-120)),
+                Y - r * Math.sin(Math.toRadians(-120)),
+                X + R * Math.cos(Math.toRadians(-120)),
+                Y - R * Math.sin(Math.toRadians(-120))
+            );
+        }
     }
 
     function drawProgressArc(dc, x, y, radius, arcDirection, angleStart, angleEnd, completedAmount, barWidth, progressWidth, colorFg, colorBg, rounded)
@@ -516,7 +542,7 @@ class faceView extends WatchUi.WatchFace {
                 X + 130 * Math.cos(Math.toRadians(angle)),
                 Y - 130 * Math.sin(Math.toRadians(angle)) - 10,
                 fontIcon,
-                steps < stepGoal ? "A" : "C",
+                steps < stepGoal ? "H" : "C",
                 Graphics.TEXT_JUSTIFY_CENTER
             );
             var phi = angle + 20;
@@ -539,8 +565,8 @@ class faceView extends WatchUi.WatchFace {
                 steps.toDouble() / stepGoal,
                 5,
                 5,
-                accentColor,
-                accentColorDark,
+                colorAccent,
+                colorAccentDark,
                 false
             );
         }
@@ -549,8 +575,8 @@ class faceView extends WatchUi.WatchFace {
     function drawBatteryGauge(dc as Dc, angle)
     {
         dc.drawText(
-            X + 130 * Math.cos(Math.toRadians(angle)),
-            Y - 130 * Math.sin(Math.toRadians(angle)) - 10,
+            X + 125 * Math.cos(Math.toRadians(angle)),
+            Y - 125 * Math.sin(Math.toRadians(angle)) - 16,
             fontIcon,
             "B",
             Graphics.TEXT_JUSTIFY_CENTER
@@ -575,8 +601,8 @@ class faceView extends WatchUi.WatchFace {
             Math.ceil(System.getSystemStats().battery) / 100,
             5,
             5,
-            accentColor,
-            accentColorDark,
+            colorAccent,
+            colorAccentDark,
             false
         );
     }
@@ -598,7 +624,7 @@ class faceView extends WatchUi.WatchFace {
             {
                 currZone = i;
             }
-            dc.setColor(accentColorDark, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(colorAccentDark, Graphics.COLOR_TRANSPARENT);
             dc.setPenWidth(5);
             dc.drawArc(X, Y, 150, Graphics.ARC_CLOCKWISE,
                 angle + 30 - 12 * (i - 1) - 1,
@@ -608,7 +634,7 @@ class faceView extends WatchUi.WatchFace {
         // draw highlighted bar
         if (currZone != 0)
         {
-            dc.setColor(accentColor, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
             dc.setPenWidth(8);
             var currZoneIdx = angle <= 180 ? currZone : 6 - currZone;
             dc.drawArc(X, Y, 150, Graphics.ARC_CLOCKWISE,
@@ -618,72 +644,109 @@ class faceView extends WatchUi.WatchFace {
         }
     }
 
-    function drawSmallComplicationGauges(dc as Dc)
+    function drawIndividualSmallComplicationGauge(dc as Dc, angle, comp_id)
     {
-        switch (Properties.getValue("comp_12_gauge"))
+        switch (Properties.getValue(comp_id))
         {
             case 1: // heart
-                drawHeartRateZoneGauge(dc, 90);
+                drawHeartRateZoneGauge(dc, angle);
                 break;
             case 2: // step
-                drawStepGoalGauge(dc, 90);
+                drawStepGoalGauge(dc, angle);
                 break;
             case 3: // battery
-                drawBatteryGauge(dc, 90);
-                break;
-            default:
-                break;
-        }
-        switch (Properties.getValue("comp_2_gauge"))
-        {
-            case 1: // heart
-                drawHeartRateZoneGauge(dc, 30);
-                break;
-            case 2: // step
-                drawStepGoalGauge(dc, 30);
-                break;
-            case 3: // battery
-                drawBatteryGauge(dc, 30);
-                break;
-            default:
-                break;
-        }
-        switch (Properties.getValue("comp_4_gauge"))
-        {
-            case 1: // heart
-                drawHeartRateZoneGauge(dc, 330);
-                break;
-            case 2: // step
-                drawStepGoalGauge(dc, 330);
-                break;
-            case 3: // battery
-                drawBatteryGauge(dc, 330);
+                drawBatteryGauge(dc, angle);
                 break;
             default:
                 break;
         }
     }
 
+    function drawSmallComplicationGauges(dc as Dc)
+    {
+        drawIndividualSmallComplicationGauge(dc, 90, "comp_12_gauge");
+        drawIndividualSmallComplicationGauge(dc, 30, "comp_2_gauge");
+        drawIndividualSmallComplicationGauge(dc, 330, "comp_4_gauge");
+        if (!Properties.getValue("override_6_and_8_comps"))
+        {
+            drawIndividualSmallComplicationGauge(dc, 270, "comp_6_gauge");
+            drawIndividualSmallComplicationGauge(dc, 210, "comp_8_gauge");
+        }
+    }
+
+    function drawStatusIcons(dc as Dc)
+    {
+        dc.setColor(colorAccentDark, Graphics.COLOR_TRANSPARENT);
+        var statusIconStr = "";
+        var deviceSettings = System.getDeviceSettings();
+        if (Properties.getValue("show_if_phone_connected"))
+        {
+            statusIconStr += deviceSettings.phoneConnected ? "D" : "E";
+        }
+        if (Properties.getValue("show_if_alarms_set") && deviceSettings.alarmCount > 0)
+        {
+            statusIconStr += "A";
+        }
+        if (Properties.getValue("show_if_do_not_disturb") && deviceSettings.doNotDisturb)
+        {
+            statusIconStr += "G";
+        }
+        if (Properties.getValue("show_if_api_failed") && lastApiRequestFailed)
+        {
+            statusIconStr += "F";
+        }
+
+        if (statusIconStr.length() > 0)
+        {
+            var statusIconStrSpaces = "";
+            for (var i = 0; i < statusIconStr.length(); i++)
+            {
+                statusIconStrSpaces += statusIconStr.substring(i, i + 1);
+                if (i < statusIconStr.length() - 1)
+                {
+                    statusIconStrSpaces += " ";
+                }
+            }
+            dc.drawText(X, 245, fontIcon, statusIconStrSpaces, Graphics.TEXT_JUSTIFY_CENTER);
+        }
+    }
+
     function onUpdate(dc as Dc) as Void
     {
         currentTime = Time.Gregorian.info(Time.now(), Time.FORMAT_MEDIUM);
+        var lastActivityLocation = Activity.getActivityInfo().currentLocation;
+        if (lastActivityLocation != null)
+        {
+            Application.Storage.setValue("lastActivityLatLong", lastActivityLocation.toDegrees());
+            Application.Storage.setValue("lastActivityMGRS", lastActivityLocation.toGeoString(Position.GEO_MGRS));
+        }
+
         View.onUpdate(dc);
+        
+        dc.setColor(Graphics.COLOR_TRANSPARENT, colorBackground);
+        dc.clear();
 
         dc.setAntiAlias(true);
 
-        dc.setColor(textColor, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(colorText, Graphics.COLOR_TRANSPARENT);
+
         drawSmallRadialComplications(dc);
         
         drawBigMinutes(dc);
         drawAlternateTimezone(dc);
 
-        drawSunriseSunset(dc);
-        drawLocationName(dc);
+        if (Properties.getValue("override_6_and_8_comps"))
+        {
+            drawLocationName(dc);
+            drawSunriseSunset(dc);
+        }
 
         drawDateHour(dc);
         drawDial(dc);
 
         drawSmallComplicationGauges(dc);
+
+        drawStatusIcons(dc);
     }
 
     function onHide() as Void {}

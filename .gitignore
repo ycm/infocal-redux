@@ -1,2 +1,4 @@
 bin/*
 resources/settings/properties.xml
+resources/fonts/*png
+!resources/fonts/iconFont.png

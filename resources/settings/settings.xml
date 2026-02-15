@@ -1,97 +1,194 @@
 <settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
 
-    <setting propertyKey="@Properties.ui_accent_color" title="@Strings.ui_accent_color_title">
-        <settingConfig type="alphaNumeric" />
-    </setting>
-    <setting propertyKey="@Properties.ui_accent_color_dark" title="@Strings.ui_accent_color_dark_title">
-        <settingConfig type="alphaNumeric" />
-    </setting>
-    <setting propertyKey="@Properties.text_color" title="@Strings.text_color_title">
-        <settingConfig type="alphaNumeric" />
-    </setting>
+    <group
+        id="colors_group"
+        title="@Strings.colors_group_title">
+        <setting propertyKey="@Properties.color_ui_accent" title="@Strings.color_ui_accent_title">
+            <settingConfig type="alphaNumeric"/>
+        </setting>
+        <setting propertyKey="@Properties.color_ui_accent_dark" title="@Strings.color_ui_accent_dark_title">
+            <settingConfig type="alphaNumeric"/>
+        </setting>
+        <setting propertyKey="@Properties.color_text" title="@Strings.color_text_title">
+            <settingConfig type="alphaNumeric"/>
+        </setting>
+        <setting propertyKey="@Properties.color_bg" title="@Strings.color_bg_title">
+            <settingConfig type="alphaNumeric"/>
+        </setting>
+    </group>
 
     <setting propertyKey="@Properties.use_military_time" title="@Strings.use_military_time_title">
+        <settingConfig type="boolean"/>
+    </setting>
+
+    <group
+        id="status_icon_group"
+        title="@Strings.status_icon_group_title">
+        <setting propertyKey="@Properties.show_if_phone_connected" title="@Strings.show_if_phone_connected_title">
+            <settingConfig type="boolean"/>
+        </setting>
+        <setting propertyKey="@Properties.show_if_alarms_set" title="@Strings.show_if_alarms_set_title">
+            <settingConfig type="boolean"/>
+        </setting>
+        <setting propertyKey="@Properties.show_if_do_not_disturb" title="@Strings.show_if_do_not_disturb_title">
+            <settingConfig type="boolean"/>
+        </setting>
+    </group>
+
+    <setting propertyKey="@Properties.use_openweathermap_api" title="@Strings.use_openweathermap_api_title">
+        <settingConfig type="boolean"/>
+    </setting>
+    <group
+        id="api_group"
+        title="@Strings.api_group_title"
+        enableIfTrue="@Properties.use_openweathermap_api">
+        <setting propertyKey="@Properties.openweathermap_api_key" title="@Strings.openweathermap_api_key_title">
+            <settingConfig type="alphaNumeric" />
+        </setting>
+        <setting propertyKey="@Properties.override_6_and_8_comps" title="@Strings.override_6_and_8_comps_title">
+            <settingConfig type="boolean"/>
+        </setting>
+        <setting propertyKey="@Properties.location_name_type" title="@Strings.location_name_type_title">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.location_name</listEntry>
+                <listEntry value="1">@Strings.coordinates_degrees_decimal</listEntry>
+                <listEntry value="2">@Strings.coordinates_mgrs</listEntry>
+            </settingConfig>
+        </setting>
+        <setting propertyKey="@Properties.weather_units" title="@Strings.weather_units_title">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.imperial</listEntry>
+                <listEntry value="1">@Strings.metric</listEntry>
+            </settingConfig>
+        </setting>
+        <setting propertyKey="@Properties.api_request_interval" title="@Strings.api_request_interval_title">
+            <settingConfig type="list">
+                <listEntry value="5">@Strings.every_5_min</listEntry>
+                <listEntry value="15">@Strings.every_15_min</listEntry>
+                <listEntry value="30">@Strings.every_30_min</listEntry>
+                <listEntry value="60">@Strings.every_60_min</listEntry>
+            </settingConfig>
+        </setting>
+        <setting propertyKey="@Properties.show_if_api_failed" title="@Strings.show_if_api_failed_title">
+            <settingConfig type="boolean"/>
+        </setting>
+    </group>
+
+
+    <setting propertyKey="@Properties.use_alternate_timezone" title="@Strings.use_alternate_timezone_title">
         <settingConfig type="boolean" />
     </setting>
+    <group
+        id="alternate_timezone_group"
+        title="@Strings.alternate_timezone_group_title"
+        enableIfTrue="@Properties.use_alternate_timezone">
+        <setting propertyKey="@Properties.alt_timezone_lat" title="@Strings.alt_timezone_lat_title">
+            <settingConfig type="alphaNumeric" />
+        </setting>
+        <setting propertyKey="@Properties.alt_timezone_lon" title="@Strings.alt_timezone_lon_title">
+            <settingConfig type="alphaNumeric" />
+        </setting>
+    </group>
 
-    <setting propertyKey="@Properties.openweathermap_api_key" title="@Strings.openweathermap_api_key_title">
-        <settingConfig type="alphaNumeric" />
-    </setting>
+    <group
+        id="complications_group"
+        title="@Strings.complications_group_title">
+        <setting propertyKey="@Properties.comp_12" title="@Strings.comp_12_title">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.no_comp</listEntry>
+                <listEntry value="1">@Strings.heart_rate</listEntry>
+                <listEntry value="2">@Strings.steps</listEntry>
+                <listEntry value="3">@Strings.battery</listEntry>
+                <listEntry value="4">@Strings.temp_gauge</listEntry>
+                <listEntry value="5">@Strings.num_notifs</listEntry>
+            </settingConfig>
+        </setting>
+        <setting propertyKey="@Properties.comp_2" title="@Strings.comp_2_title">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.no_comp</listEntry>
+                <listEntry value="1">@Strings.heart_rate</listEntry>
+                <listEntry value="2">@Strings.steps</listEntry>
+                <listEntry value="3">@Strings.battery</listEntry>
+                <listEntry value="4">@Strings.temp_gauge</listEntry>
+                <listEntry value="5">@Strings.num_notifs</listEntry>
+            </settingConfig>
+        </setting>
+        <setting propertyKey="@Properties.comp_4" title="@Strings.comp_4_title">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.no_comp</listEntry>
+                <listEntry value="1">@Strings.heart_rate</listEntry>
+                <listEntry value="2">@Strings.steps</listEntry>
+                <listEntry value="3">@Strings.battery</listEntry>
+                <listEntry value="4">@Strings.temp_gauge</listEntry>
+                <listEntry value="5">@Strings.num_notifs</listEntry>
+            </settingConfig>
+        </setting>
+        <setting propertyKey="@Properties.comp_6" title="@Strings.comp_6_title">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.no_comp</listEntry>
+                <listEntry value="1">@Strings.heart_rate</listEntry>
+                <listEntry value="2">@Strings.steps</listEntry>
+                <listEntry value="3">@Strings.battery</listEntry>
+                <listEntry value="4">@Strings.temp_gauge</listEntry>
+                <listEntry value="5">@Strings.num_notifs</listEntry>
+            </settingConfig>
+        </setting>
+        <setting propertyKey="@Properties.comp_8" title="@Strings.comp_8_title">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.no_comp</listEntry>
+                <listEntry value="1">@Strings.heart_rate</listEntry>
+                <listEntry value="2">@Strings.steps</listEntry>
+                <listEntry value="3">@Strings.battery</listEntry>
+                <listEntry value="4">@Strings.temp_gauge</listEntry>
+                <listEntry value="5">@Strings.num_notifs</listEntry>
+            </settingConfig>
+        </setting>
+    </group>
 
-    <setting propertyKey="@Properties.alt_timezone_lat" title="@Strings.alt_timezone_lat_title">
-        <settingConfig type="alphaNumeric" />
-    </setting>
-    <setting propertyKey="@Properties.alt_timezone_lon" title="@Strings.alt_timezone_lon_title">
-        <settingConfig type="alphaNumeric" />
-    </setting>
-    <setting propertyKey="@Properties.comp_12" title="@Strings.comp_12_title">
-        <settingConfig type="list">
-            <listEntry value="0">@Strings.no_comp</listEntry>
-            <listEntry value="1">@Strings.heart_rate</listEntry>
-            <listEntry value="2">@Strings.steps</listEntry>
-            <listEntry value="3">@Strings.battery</listEntry>
-            <listEntry value="4">@Strings.temp_high_low</listEntry>
-            <listEntry value="5">@Strings.num_notifs</listEntry>
-        </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.comp_2" title="@Strings.comp_2_title">
-        <settingConfig type="list">
-            <listEntry value="0">@Strings.no_comp</listEntry>
-            <listEntry value="1">@Strings.heart_rate</listEntry>
-            <listEntry value="2">@Strings.steps</listEntry>
-            <listEntry value="3">@Strings.battery</listEntry>
-            <listEntry value="4">@Strings.temp_high_low</listEntry>
-            <listEntry value="5">@Strings.num_notifs</listEntry>
-        </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.comp_4" title="@Strings.comp_4_title">
-        <settingConfig type="list">
-            <listEntry value="0">@Strings.no_comp</listEntry>
-            <listEntry value="1">@Strings.heart_rate</listEntry>
-            <listEntry value="2">@Strings.steps</listEntry>
-            <listEntry value="3">@Strings.battery</listEntry>
-            <listEntry value="4">@Strings.temp_high_low</listEntry>
-            <listEntry value="5">@Strings.num_notifs</listEntry>
-        </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.comp_12_gauge" title="@Strings.comp_12_gauge_title">
-        <settingConfig type="list">
-            <listEntry value="0">@Strings.no_gauge</listEntry>
-            <listEntry value="1">@Strings.heart_rate_zone_gauge</listEntry>
-            <listEntry value="2">@Strings.step_target_gauge</listEntry>
-            <listEntry value="3">@Strings.battery_gauge</listEntry>
-        </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.comp_2_gauge" title="@Strings.comp_2_gauge_title">
-        <settingConfig type="list">
-            <listEntry value="0">@Strings.no_gauge</listEntry>
-            <listEntry value="1">@Strings.heart_rate_zone_gauge</listEntry>
-            <listEntry value="2">@Strings.step_target_gauge</listEntry>
-            <listEntry value="3">@Strings.battery_gauge</listEntry>
-        </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.comp_4_gauge" title="@Strings.comp_4_gauge_title">
-        <settingConfig type="list">
-            <listEntry value="0">@Strings.no_gauge</listEntry>
-            <listEntry value="1">@Strings.heart_rate_zone_gauge</listEntry>
-            <listEntry value="2">@Strings.step_target_gauge</listEntry>
-            <listEntry value="3">@Strings.battery_gauge</listEntry>
-        </settingConfig>
-    </setting>
+    <group
+        id="complication_gauges_group"
+        title="@Strings.complication_gauges_group_title">
+        <setting propertyKey="@Properties.comp_12_gauge" title="@Strings.comp_12_gauge_title">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.no_gauge</listEntry>
+                <listEntry value="1">@Strings.heart_rate_zone_gauge</listEntry>
+                <listEntry value="2">@Strings.step_target_gauge</listEntry>
+                <listEntry value="3">@Strings.battery_gauge</listEntry>
+            </settingConfig>
+        </setting>
+        <setting propertyKey="@Properties.comp_2_gauge" title="@Strings.comp_2_gauge_title">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.no_gauge</listEntry>
+                <listEntry value="1">@Strings.heart_rate_zone_gauge</listEntry>
+                <listEntry value="2">@Strings.step_target_gauge</listEntry>
+                <listEntry value="3">@Strings.battery_gauge</listEntry>
+            </settingConfig>
+        </setting>
+        <setting propertyKey="@Properties.comp_4_gauge" title="@Strings.comp_4_gauge_title">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.no_gauge</listEntry>
+                <listEntry value="1">@Strings.heart_rate_zone_gauge</listEntry>
+                <listEntry value="2">@Strings.step_target_gauge</listEntry>
+                <listEntry value="3">@Strings.battery_gauge</listEntry>
+            </settingConfig>
+        </setting>
+        <setting propertyKey="@Properties.comp_6_gauge" title="@Strings.comp_6_gauge_title">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.no_gauge</listEntry>
+                <listEntry value="1">@Strings.heart_rate_zone_gauge</listEntry>
+                <listEntry value="2">@Strings.step_target_gauge</listEntry>
+                <listEntry value="3">@Strings.battery_gauge</listEntry>
+            </settingConfig>
+        </setting>
+        <setting propertyKey="@Properties.comp_8_gauge" title="@Strings.comp_8_gauge_title">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.no_gauge</listEntry>
+                <listEntry value="1">@Strings.heart_rate_zone_gauge</listEntry>
+                <listEntry value="2">@Strings.step_target_gauge</listEntry>
+                <listEntry value="3">@Strings.battery_gauge</listEntry>
+            </settingConfig>
+        </setting>
+    </group>
 
-    <setting propertyKey="@Properties.weather_units" title="@Strings.weather_units_title">
-        <settingConfig type="list">
-            <listEntry value="0">@Strings.imperial</listEntry>
-            <listEntry value="1">@Strings.metric</listEntry>
-        </settingConfig>
-    </setting>
-
-    <setting propertyKey="@Properties.api_request_interval" title="@Strings.api_request_interval_title">
-        <settingConfig type="list">
-            <listEntry value="5">@Strings.every_5_min</listEntry>
-            <listEntry value="30">@Strings.every_30_min</listEntry>
-            <listEntry value="60">@Strings.every_60_min</listEntry>
-        </settingConfig>
-    </setting>
 
 </settings>
