@@ -2,15 +2,21 @@
     <string id="AppName">face</string>
     <string id="alt_timezone_lat_title">Latitude</string>
     <string id="alt_timezone_lon_title">Longitude</string>
-    <string id="alternate_timezone_group_title">Alternate timezone coordinates</string>
     <string id="alternate_timezone">Alternate timezone</string>
-    <string id="comp_horizontal_title">Horizontal complication above time</string>
+    <string id="alternate_timezone_group_title">Alternate timezone coordinates</string>
     <string id="api_group_title">API settings</string>
     <string id="api_request_interval_title">API Request Interval</string>
     <string id="battery">Battery</string>
     <string id="battery_gauge">Battery gauge</string>
+    <string id="classic_left">Classic, date/hour on left</string>
+    <string id="classic_right">Classic, date/hour on right</string>
     <string id="color_bg_title">Background color</string>
+    <string id="color_text_title">Text color</string>
+    <string id="color_ui_accent_dark_title">Accent color (darker)</string>
+    <string id="color_ui_accent_title">Accent color</string>
     <string id="colors_group_title">Colors</string>
+    <string id="comp_10_gauge_title">Complication 10 o'clock</string>
+    <string id="comp_10_title">Complication 10 o'clock</string>
     <string id="comp_12_gauge_title">Complication 12 o'clock gauge</string>
     <string id="comp_12_title">Complication 12 o'clock</string>
     <string id="comp_2_gauge_title">Complication 2 o'clock gauge</string>
@@ -21,10 +27,15 @@
     <string id="comp_6_title">Complication 6 o'clock</string>
     <string id="comp_8_gauge_title">Complication 8 o'clock gauge</string>
     <string id="comp_8_title">Complication 8 o'clock</string>
+    <string id="comp_horizontal_title">Horizontal complication above time</string>
     <string id="complication_gauges_group_title">Inner complications (small gauges)</string>
     <string id="complications_group_title">Text complications</string>
     <string id="coordinates_degrees_decimal">Degrees</string>
     <string id="coordinates_mgrs">MGRS</string>
+    <string id="date_0">Date (weekday, day)</string>
+    <string id="date_1">Date (weekday, day, month)</string>
+    <string id="date_2">Date (weekday, month, day)</string>
+    <string id="draw_dial">Draw dial?</string>
     <string id="every_15_min">Every 15 minutes</string>
     <string id="every_30_min">Every 30 minutes</string>
     <string id="every_5_min">Every 5 minutes</string>
@@ -32,6 +43,7 @@
     <string id="heart_rate">Heart Rate</string>
     <string id="heart_rate_zone_gauge">Heart rate zone gauge</string>
     <string id="imperial">Imperial</string>
+    <string id="inline_time">Inline time</string>
     <string id="location_name">Location (city) name</string>
     <string id="location_name_type_title">Location display format</string>
     <string id="metric">Metric</string>
@@ -40,7 +52,7 @@
     <string id="num_notifs">Notifications</string>
     <string id="openweathermap_api_key_title">OpenWeatherMap One Call 3.0 API Key</string>
     <string id="override_6_and_8_comps_title">Override 6 and 8 o'clock with location and sunrise/sunset info</string>
-    <string id="show_if_alarms_set_title">     Show status icon if alarms are set</string>
+    <string id="show_if_alarms_set_title"> Show status icon if alarms are set</string>
     <string id="show_if_api_failed_title">Show status icon if last API request failed</string>
     <string id="show_if_do_not_disturb_title"> Show status icon if do not disturb is on</string>
     <string id="show_if_phone_connected_title">Show status icon if phone is connected</string>
@@ -48,15 +60,10 @@
     <string id="step_target_gauge">Step target gauge</string>
     <string id="steps">Steps</string>
     <string id="temp_gauge">Temperature gauge</string>
-    <string id="color_text_title">Text color</string>
-    <string id="date_0">Date (weekday, day)</string>
-    <string id="date_1">Date (weekday, day, month)</string>
-    <string id="date_2">Date (weekday, month, day)</string>
-    <string id="color_ui_accent_dark_title">Accent color (darker)</string>
-    <string id="color_ui_accent_title">Accent color</string>
+    <string id="time_display_layout_title">Time display layout</string>
     <string id="use_alternate_timezone_title">Use alternate timezone?</string>
-    <!-- <string id="use_alternate_timezone_in_center">Display alternate time directly above primary time?</string> -->
     <string id="use_military_time_title">Use military time</string>
     <string id="use_openweathermap_api_title">Use OpenWeatherMap API?</string>
     <string id="weather_units_title">Weather API request units</string>
+
 </strings>

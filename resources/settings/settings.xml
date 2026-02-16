@@ -17,7 +17,19 @@
         </setting>
     </group>
 
+    <setting propertyKey="@Properties.time_display_layout" title="@Strings.time_display_layout_title">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.classic_left</listEntry>
+            <listEntry value="1">@Strings.classic_right</listEntry>
+            <listEntry value="2">@Strings.inline_time</listEntry>
+        </settingConfig>
+    </setting>
+
     <setting propertyKey="@Properties.use_military_time" title="@Strings.use_military_time_title">
+        <settingConfig type="boolean"/>
+    </setting>
+
+    <setting propertyKey="@Properties.draw_dial" title="@Strings.draw_dial">
         <settingConfig type="boolean"/>
     </setting>
 
@@ -31,6 +43,9 @@
             <settingConfig type="boolean"/>
         </setting>
         <setting propertyKey="@Properties.show_if_do_not_disturb" title="@Strings.show_if_do_not_disturb_title">
+            <settingConfig type="boolean"/>
+        </setting>
+        <setting propertyKey="@Properties.show_if_api_failed" title="@Strings.show_if_api_failed_title">
             <settingConfig type="boolean"/>
         </setting>
     </group>
@@ -177,6 +192,20 @@
                 <listEntry value="9">@Strings.alternate_timezone</listEntry>
             </settingConfig>
         </setting>
+        <setting propertyKey="@Properties.comp_10" title="@Strings.comp_8_title">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.no_comp</listEntry>
+                <listEntry value="1">@Strings.heart_rate</listEntry>
+                <listEntry value="2">@Strings.steps</listEntry>
+                <listEntry value="3">@Strings.battery</listEntry>
+                <listEntry value="4">@Strings.temp_gauge</listEntry>
+                <listEntry value="5">@Strings.num_notifs</listEntry>
+                <listEntry value="6">@Strings.date_0</listEntry>
+                <listEntry value="7">@Strings.date_1</listEntry>
+                <listEntry value="8">@Strings.date_2</listEntry>
+                <listEntry value="9">@Strings.alternate_timezone</listEntry>
+            </settingConfig>
+        </setting>
     </group>
 
     <group
@@ -215,6 +244,14 @@
             </settingConfig>
         </setting>
         <setting propertyKey="@Properties.comp_8_gauge" title="@Strings.comp_8_gauge_title">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.no_gauge</listEntry>
+                <listEntry value="1">@Strings.heart_rate_zone_gauge</listEntry>
+                <listEntry value="2">@Strings.step_target_gauge</listEntry>
+                <listEntry value="3">@Strings.battery_gauge</listEntry>
+            </settingConfig>
+        </setting>
+        <setting propertyKey="@Properties.comp_10_gauge" title="@Strings.comp_10_gauge_title">
             <settingConfig type="list">
                 <listEntry value="0">@Strings.no_gauge</listEntry>
                 <listEntry value="1">@Strings.heart_rate_zone_gauge</listEntry>

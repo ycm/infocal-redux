@@ -10,31 +10,37 @@
 
     <property id="comp_horizontal" type="number">9</property>
 
-    <property id="comp_12" type="number">1</property>
-    <property id="comp_2" type="number">2</property>
-    <property id="comp_4" type="number">4</property>
+    <property id="time_display_layout" type="number">0</property>
 
-    <property id="comp_12_gauge" type="number">1</property>
-    <property id="comp_2_gauge" type="number">3</property>
+    <property id="comp_12" type="number">0</property>
+    <property id="comp_2" type="number">0</property>
+    <property id="comp_4" type="number">0</property>
+    <property id="comp_10" type="number">0</property>
+
+    <property id="comp_12_gauge" type="number">0</property>
+    <property id="comp_2_gauge" type="number">0</property>
     <property id="comp_4_gauge" type="number">0</property>
+    <property id="comp_10_gauge" type="number">0</property>
 
     <property id="use_military_time" type="boolean">true</property>
 
-    <property id="use_openweathermap_api" type="boolean">true</property>
+    <property id="use_openweathermap_api" type="boolean">false</property>
     <property id="api_request_interval" type="number">15</property>
     <property id="openweathermap_api_key" type="string"></property>
     <property id="weather_units" type="number">0</property>
     <property id="location_name_type" type="number">0</property>
 
-    <property id="override_6_and_8_comps" type="boolean">true</property>
-    <property id="comp_6" type="number">3</property>
-    <property id="comp_8" type="number">3</property>
+    <property id="override_6_and_8_comps" type="boolean">false</property>
+    <property id="comp_6" type="number">0</property>
+    <property id="comp_8" type="number">0</property>
     <property id="comp_6_gauge" type="number">0</property>
     <property id="comp_8_gauge" type="number">0</property>
 
     <property id="show_if_phone_connected" type="boolean">false</property>
     <property id="show_if_alarms_set" type="boolean">false</property>
     <property id="show_if_do_not_disturb" type="boolean">false</property>
-    <property id="show_if_api_failed" type="boolean">true</property>
+    <property id="show_if_api_failed" type="boolean">false</property>
+
+    <property id="draw_dial" type="boolean">true</property>
 
 </properties>

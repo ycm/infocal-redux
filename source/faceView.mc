@@ -310,6 +310,7 @@ class faceView extends WatchUi.WatchFace {
         drawIndividualComplication(dc, 90, "comp_12");
         drawIndividualComplication(dc, 30, "comp_2");
         drawIndividualComplication(dc, 330, "comp_4");
+        drawIndividualComplication(dc, 150, "comp_10");
         if (!Properties.getValue("override_6_and_8_comps"))
         {
             drawIndividualComplication(dc, 270, "comp_6");
@@ -337,8 +338,14 @@ class faceView extends WatchUi.WatchFace {
     }
 
 
-    function drawDateHour(dc)
+    function drawDateHour(dc, xoff)
     {
+        var layoutFormat = Properties.getValue("time_display_layout");
+        if (layoutFormat == 2)
+        {
+            return;
+        }
+
         dc.setColor(colorText, Graphics.COLOR_TRANSPARENT);
         var hourStr = (((currentTime.hour + 11) % 12) + 1).format("%d");
         if (Properties.getValue("use_military_time") || System.getDeviceSettings().is24Hour)
@@ -351,19 +358,19 @@ class faceView extends WatchUi.WatchFace {
         ]);
 
         var hourStrWidth = dc.getTextWidthInPixels(hourStr, fontHour);
-        var yAxis = X - 70;
+        // var yAxis = layoutFormat == 0 ? X - 70 : X + 150;
         var hourStrHeight = Y - 80;
         var dateStrHeight = hourStrHeight - 40;
-        dc.drawText(yAxis, hourStrHeight, fontHour, hourStr, Graphics.TEXT_JUSTIFY_RIGHT);
-        dc.drawText(yAxis - hourStrWidth / 2, dateStrHeight, fontComp, dateStr, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(xoff, hourStrHeight, fontHour, hourStr, Graphics.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(xoff - hourStrWidth / 2, dateStrHeight, fontComp, dateStr, Graphics.TEXT_JUSTIFY_CENTER);
 
         dc.setPenWidth(5);
         dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
         var lineLen = 60;
         dc.drawLine(
-            yAxis - (hourStrWidth + lineLen) / 2,
+            xoff - (hourStrWidth + lineLen) / 2,
             Y - 76,
-            yAxis - (hourStrWidth - lineLen) / 2,
+            xoff - (hourStrWidth - lineLen) / 2,
             Y - 76
         );
     }
@@ -473,7 +480,7 @@ class faceView extends WatchUi.WatchFace {
                     Graphics.RADIAL_TEXT_DIRECTION_COUNTER_CLOCKWISE
                 );
 
-                dc.setColor(colorAccentDark, Graphics.COLOR_TRANSPARENT);
+                dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
                 dc.drawText(
                     X + 125 * Math.cos(Math.toRadians(240)),
                     Y - 125 * Math.sin(Math.toRadians(240)) - 16,
@@ -607,12 +614,13 @@ class faceView extends WatchUi.WatchFace {
 
         if (steps != null && stepGoal != null)
         {
+            dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
             dc.drawText(
-                X + 130 * Math.cos(Math.toRadians(angle)),
-                Y - 130 * Math.sin(Math.toRadians(angle)) - 10,
+                X + 125 * Math.cos(Math.toRadians(angle)),
+                Y - 125 * Math.sin(Math.toRadians(angle)),
                 fontIcon,
                 steps < stepGoal ? "H" : "C",
-                Graphics.TEXT_JUSTIFY_CENTER
+                Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
             );
             var phi = angle + 20;
             var psi = angle - 20;
@@ -644,13 +652,13 @@ class faceView extends WatchUi.WatchFace {
 
     function drawBatteryGauge(dc as Dc, angle)
     {
-        dc.setColor(colorAccentDark, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
         dc.drawText(
             X + 125 * Math.cos(Math.toRadians(angle)),
-            Y - 125 * Math.sin(Math.toRadians(angle)) - 16,
+            Y - 125 * Math.sin(Math.toRadians(angle)),
             fontIcon,
             "B",
-            Graphics.TEXT_JUSTIFY_CENTER
+            Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
         );
         var phi = angle + 20;
         var psi = angle - 20;
@@ -741,6 +749,7 @@ class faceView extends WatchUi.WatchFace {
         drawIndividualSmallComplicationGauge(dc, 90, "comp_12_gauge");
         drawIndividualSmallComplicationGauge(dc, 30, "comp_2_gauge");
         drawIndividualSmallComplicationGauge(dc, 330, "comp_4_gauge");
+        drawIndividualSmallComplicationGauge(dc, 150, "comp_10_gauge");
         if (!Properties.getValue("override_6_and_8_comps"))
         {
             drawIndividualSmallComplicationGauge(dc, 270, "comp_6_gauge");
@@ -786,6 +795,39 @@ class faceView extends WatchUi.WatchFace {
         }
     }
 
+    function drawInlineTime(dc as Dc)
+    {
+        var h = (Properties.getValue("use_military_time") || System.getDeviceSettings().is24Hour)
+            ? currentTime.hour.format("%02d")
+            : (((currentTime.hour + 11) % 12) + 1).format("%02d");
+        var m = currentTime.min.format("%02d");
+
+        dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(X - 5, Y, fontMinute, h, Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.setColor(colorText, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(X + 5, Y, fontMinute, m, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
+    }
+
+    function drawTime(dc as Dc)
+    {
+        // var yAxis = layoutFormat == 0 ? X - 70 : X + 150;
+        switch (Properties.getValue("time_display_layout"))
+        {
+            case 0: // big minutes, date/hour left
+                drawBigMinutes(dc);
+                drawDateHour(dc, X - 70);
+                break;
+            case 1: // big minutes, date/hour right
+                drawBigMinutes(dc);
+                drawDateHour(dc, X + 150);
+                break;
+            case 2: // inline, no date
+                drawInlineTime(dc);
+                break;
+            default:
+                break;
+        }
+    }
 
     function onUpdate(dc as Dc) as Void
     {
@@ -808,7 +850,7 @@ class faceView extends WatchUi.WatchFace {
 
         drawSmallRadialComplications(dc);
         
-        drawBigMinutes(dc);
+        drawTime(dc);
         drawHorizontalComplication(dc);
 
         if (Properties.getValue("override_6_and_8_comps"))
@@ -817,11 +859,12 @@ class faceView extends WatchUi.WatchFace {
             drawSunriseSunset(dc);
         }
 
-        drawDateHour(dc);
-        drawDial(dc);
+        if (Properties.getValue("draw_dial"))
+        {
+            drawDial(dc);
+        }
 
         drawSmallComplicationGauges(dc);
-
         drawStatusIcons(dc);
     }
 
