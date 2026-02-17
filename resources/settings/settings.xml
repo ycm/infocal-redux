@@ -37,6 +37,10 @@
         <settingConfig type="boolean"/>
     </setting>
 
+    <setting propertyKey="@Properties.draw_hatch_lines" title="@Strings.draw_hatch_lines_title">
+        <settingConfig type="boolean"/>
+    </setting>
+
     <group
         id="status_icon_group"
         title="@Strings.status_icon_group_title">

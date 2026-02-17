@@ -5,12 +5,17 @@ import Toybox.Background;
 
 var apiResponsePackage = null;
 var lastApiRequestFailed = true;
+var needToRefreshLayout = false;
 
 (:background)
 class infocalReduxApp extends Application.AppBase {
 
     function initialize() {
         AppBase.initialize();
+    }
+
+    function onSettingsChanged() as Void {
+        needToRefreshLayout = true;
     }
 
     function onStart(state as Dictionary?) as Void
@@ -23,7 +28,7 @@ class infocalReduxApp extends Application.AppBase {
         //     "sunset"=>1771292980,
         //     "high"=>50.16,
         //     "name"=>"San Francisco",
-        //     "sunset_tomorrow"=>1771348666,
+        //     "sunset_tomorrow"=>1771379396,
         //     "temp"=>48.54
         // };
     }

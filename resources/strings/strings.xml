@@ -60,6 +60,7 @@
     <string id="show_seconds_title">Show seconds?</string>
     <string id="step_target_gauge">Step target gauge</string>
     <string id="steps">Steps</string>
+    <string id="draw_hatch_lines_title">Draw lines overlaid on time</string>
     <string id="temp_gauge">Temperature gauge</string>
     <string id="time_display_layout_title">Time display layout</string>
     <string id="use_alternate_timezone_title">Use alternate timezone?</string>

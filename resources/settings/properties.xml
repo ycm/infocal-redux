@@ -12,6 +12,8 @@
 
     <property id="time_display_layout" type="number">0</property>
 
+    <property id="draw_hatch_lines" type="boolean">true</property>
+
     <property id="comp_12" type="number">1</property>
     <property id="comp_2" type="number">2</property>
     <property id="comp_4" type="number">4</property>
@@ -39,7 +41,7 @@
     <property id="status_phone_connected" type="boolean">false</property>
     <property id="status_alarms_set" type="boolean">true</property>
     <property id="status_do_not_disturb" type="boolean">false</property>
-    <property id="status_api_failed" type="boolean">true</property>
+    <property id="status_api_failed" type="boolean">false</property>
 
     <property id="draw_dial" type="boolean">true</property>
 

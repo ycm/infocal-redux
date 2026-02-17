@@ -201,6 +201,7 @@ class infocalReduxView extends WatchUi.WatchFace {
     {
         var activity = Activity.getActivityInfo();
         var heartRateText = "HR --";
+        // heartRateText = "HR 130";
         if (activity != null && activity.currentHeartRate != null)
         {
             heartRateText = Lang.format("HR $1$", [activity.currentHeartRate.format("%d")]);
@@ -448,7 +449,11 @@ class infocalReduxView extends WatchUi.WatchFace {
         {
             dc.drawText(SECONDS_X_FOR_BIG_MINUTES, SECONDS_Y_FOR_BIG_MINUTES, fontComp, currentTime.sec.format("%02d"), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
         }
-        drawHatchLines(dc, -80);
+
+        if (Properties.getValue("draw_hatch_lines"))
+        {
+            drawHatchLines(dc, -90);
+        }
     }
 
 
@@ -558,7 +563,7 @@ class infocalReduxView extends WatchUi.WatchFace {
                     return;
                 }
                 var now = Time.now();
-                // now = new Time.Moment(1771274080);
+                // now = new Time.Moment(1771360496);
                 // System.println(now.value());
                 // System.println(sunrise_moment.value());
                 // System.println(sunset_moment.value());
@@ -812,6 +817,7 @@ class infocalReduxView extends WatchUi.WatchFace {
         var zones = UserProfile.getHeartRateZones(UserProfile.HR_ZONE_SPORT_GENERIC);
         var activity = Activity.getActivityInfo();
         var hr = 0;
+        // hr = 130;
         if (activity != null && activity.currentHeartRate != null)
         {
             hr = activity.currentHeartRate;
@@ -835,7 +841,7 @@ class infocalReduxView extends WatchUi.WatchFace {
         if (currZone != 0)
         {
             dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
-            dc.setPenWidth(UI_LINE_WIDTH * 2);
+            dc.setPenWidth(UI_LINE_WIDTH * 3 / 2);
             var currZoneIdx = angle <= 180 ? currZone : 6 - currZone;
             dc.drawArc(X, Y, GAUGE_ARC_RADIUS, Graphics.ARC_CLOCKWISE,
                 angle + 30 - 12 * (currZoneIdx - 1) - 1,
@@ -931,10 +937,12 @@ class infocalReduxView extends WatchUi.WatchFace {
         dc.drawText(X - mW + middle, Y, fontBig, m, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
         if (showSeconds)
         {
-            // dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
             dc.drawText(SECONDS_X_FOR_INLINE_TIME, Y, fontComp, currentTime.sec.format("%02d"), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
         }
-        drawHatchLines(dc, -mW + middle);
+        if (Properties.getValue("draw_hatch_lines"))
+        {
+            drawHatchLines(dc, -mW + middle - 20);
+        }
         dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
         dc.drawText(X + hW - middle, Y, fontBig, h, Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
     }
@@ -994,10 +1002,15 @@ class infocalReduxView extends WatchUi.WatchFace {
     function onUpdate(dc as Dc) as Void
     {
         currentTime = Time.Gregorian.info(Time.now(), Time.FORMAT_MEDIUM);
+        // currentTime = Time.Gregorian.info(new Time.Moment(1771360496), Time.FORMAT_MEDIUM);
         if (inLowPower)
         {
             drawAlwaysOnTime(dc);
             return;
+        }
+        if (needToRefreshLayout)
+        {
+            onLayout(dc);
         }
         var lastActivityLocation = Activity.getActivityInfo().currentLocation;
         if (lastActivityLocation != null)
