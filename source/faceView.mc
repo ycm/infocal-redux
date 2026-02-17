@@ -9,7 +9,7 @@ import Toybox.UserProfile;
 
 import Toybox.Application;
 
-class faceView extends WatchUi.WatchFace {
+class infocalReduxView extends WatchUi.WatchFace {
 
     var fontComp;
     var fontMedium;
@@ -57,6 +57,7 @@ class faceView extends WatchUi.WatchFace {
     var HOUR_STR_Y;
     var DATE_STR_Y;
     var DATE_HOUR_SEP_Y;
+    var SECONDS_X_FOR_INLINE_TIME;
 
 
     function initialize() {
@@ -91,6 +92,7 @@ class faceView extends WatchUi.WatchFace {
         DATE_STR_Y = Y * 9 / 20;
         DATE_HOUR_SEP_Y = Y * 13 / 20;
         HATCH_LINE_WIDTH = 3;
+        SECONDS_X_FOR_INLINE_TIME = X * 9 / 5;
 
         switch (dc.getWidth())
         {
@@ -439,13 +441,11 @@ class faceView extends WatchUi.WatchFace {
     function drawBigMinutes(dc as Dc, showSeconds)
     {
         var minutesText = currentTime.min.format("%02d");
-        minutesText = "20";
         var dim = dc.getTextDimensions(minutesText, fontBig);
         dc.drawText(X, Y - dim[1] / 2, fontBig, minutesText, Graphics.TEXT_JUSTIFY_CENTER);
 
         if (showSeconds)
         {
-            // dc.drawText(X + 90, Y + 20, fontComp, currentTime.sec.format("%02d"), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
             dc.drawText(SECONDS_X_FOR_BIG_MINUTES, SECONDS_Y_FOR_BIG_MINUTES, fontComp, currentTime.sec.format("%02d"), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
         }
         drawHatchLines(dc, -80);
@@ -558,6 +558,11 @@ class faceView extends WatchUi.WatchFace {
                     return;
                 }
                 var now = Time.now();
+                // now = new Time.Moment(1771274080);
+                // System.println(now.value());
+                // System.println(sunrise_moment.value());
+                // System.println(sunset_moment.value());
+                // System.println("");
                 var progress = (now.value().toDouble() - sunrise_moment.value()) / diff;
 
                 if (progress > 1)
@@ -924,14 +929,14 @@ class faceView extends WatchUi.WatchFace {
         
         dc.setColor(colorText, Graphics.COLOR_TRANSPARENT);
         dc.drawText(X - mW + middle, Y, fontBig, m, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
+        if (showSeconds)
+        {
+            // dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(SECONDS_X_FOR_INLINE_TIME, Y, fontComp, currentTime.sec.format("%02d"), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        }
         drawHatchLines(dc, -mW + middle);
         dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
         dc.drawText(X + hW - middle, Y, fontBig, h, Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
-
-        if (showSeconds)
-        {
-            dc.drawText(X + 165, Y, fontComp, currentTime.sec.format("%02d"), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
-        }
     }
 
 

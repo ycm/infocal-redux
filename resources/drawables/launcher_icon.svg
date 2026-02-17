@@ -1,5 +1,58 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="24" height="24" fill="#000000"/>
-<path d="M12.1941 10.8471L16.1353 7.30588L16.9235 8.17646L13.1059 11.6059C13.1471 11.7294 13.1765 11.8588 13.1765 12C13.1765 12.6471 12.6471 13.1765 12 13.1765C11.701 13.1765 11.4272 13.0634 11.219 12.878L5.90332 15.9461L5.60926 15.4367L10.8899 12.3888C10.8469 12.2669 10.8235 12.1361 10.8235 12C10.8235 11.9824 10.8265 11.9662 10.8294 11.95C10.8324 11.9338 10.8353 11.9176 10.8353 11.9L8.12353 10.0471L8.78235 9.07058L11.5059 10.9353C11.6588 10.8647 11.8235 10.8235 12 10.8235C12.0647 10.8235 12.1294 10.8353 12.1941 10.8471Z" fill="#F4F4F4"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM11.4118 20.2146V18.4706H12.5882V20.2146C16.6676 19.9267 19.9267 16.6676 20.2146 12.5882H18.4706V11.4118H20.2146C19.9267 7.33237 16.6676 4.07329 12.5882 3.78539V5.52941H11.4118V3.78539C7.33237 4.07329 4.07329 7.33237 3.78539 11.4118H5.52941V12.5882H3.78539C4.07329 16.6676 7.33237 19.9267 11.4118 20.2146Z" fill="#F4F4F4"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   version="1.1"
+   id="svg2"
+   sodipodi:docname="launcher_icon.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1">
+    <inkscape:page
+       x="0"
+       y="0"
+       width="24"
+       height="24"
+       id="page2"
+       margin="0"
+       bleed="0" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2" />
+  <rect
+     width="24"
+     height="24"
+     fill="#000000"
+     id="rect1"
+     x="0"
+     y="0" />
+  <path
+     fill-rule="evenodd"
+     clip-rule="evenodd"
+     d="M 22,12 C 22,17.5228 17.5228,22 12,22 6.47715,22 2,17.5228 2,12 2,6.47715 6.47715,2 12,2 17.5228,2 22,6.47715 22,12 Z m -10.5882,8.2146 v -1.744 h 1.1764 v 1.744 c 4.0794,-0.2879 7.3385,-3.547 7.6264,-7.6264 h -1.744 v -1.1764 h 1.744 C 19.9267,7.33237 16.6676,4.07329 12.5882,3.78539 V 5.52941 H 11.4118 V 3.78539 C 7.33237,4.07329 4.07329,7.33237 3.78539,11.4118 h 1.74402 v 1.1764 H 3.78539 c 0.2879,4.0794 3.54698,7.3385 7.62641,7.6264 z"
+     fill="#F4F4F4"
+     id="path2"
+     style="fill:#ee0000;fill-opacity:1" />
+  <text
+     xml:space="preserve"
+     style="writing-mode:lr-tb;direction:ltr;fill:#ee0000;fill-opacity:1;stroke:#000000;stroke-width:0.377953"
+     x="4.8494925"
+     y="15.123841"
+     id="text2"><tspan
+       id="tspan2"
+       x="4.8494925"
+       y="15.123841"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Maple Mono';-inkscape-font-specification:'Maple Mono';fill:#ffffff;fill-opacity:1;stroke:none">ic</tspan></text>
 </svg>

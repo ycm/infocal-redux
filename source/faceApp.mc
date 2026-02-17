@@ -6,7 +6,8 @@ import Toybox.Background;
 var apiResponsePackage = null;
 var lastApiRequestFailed = true;
 
-class faceApp extends Application.AppBase {
+(:background)
+class infocalReduxApp extends Application.AppBase {
 
     function initialize() {
         AppBase.initialize();
@@ -14,22 +15,22 @@ class faceApp extends Application.AppBase {
 
     function onStart(state as Dictionary?) as Void
     {
-        apiResponsePackage = Application.Storage.getValue("faceApiResponsePackage");
+        apiResponsePackage = Application.Storage.getValue("apiResponsePackage");
         // apiResponsePackage = {
-        //     "sunrise"=>1771225950,
-        //     "sunrise_tomorrow"=>1771312234,
-        //     "low"=>47,
-        //     "sunset"=>1771262156,
-        //     "high"=>60.5,
-        //     "name"=>"lorem ipsum dolor",
+        //     "sunrise"=>1771253900,
+        //     "sunrise_tomorrow"=>1771340228,
+        //     "low"=>45.66,
+        //     "sunset"=>1771292980,
+        //     "high"=>50.16,
+        //     "name"=>"San Francisco",
         //     "sunset_tomorrow"=>1771348666,
-        //     "temp"=>50
+        //     "temp"=>48.54
         // };
     }
 
     function onStop(state as Dictionary?) as Void
     {
-        Application.Storage.setValue("faceApiResponsePackage", apiResponsePackage);
+        Application.Storage.setValue("apiResponsePackage", apiResponsePackage);
     }
 
     function getInitialView() as [Views] or [Views, InputDelegates] {
@@ -37,7 +38,7 @@ class faceApp extends Application.AppBase {
         {
             Background.registerForTemporalEvent(new Time.Duration(Properties.getValue("api_request_interval") * 60));
         }
-        return [ new faceView() ];
+        return [ new infocalReduxView() ];
     }
 
     function onBackgroundData(data) {
@@ -54,10 +55,10 @@ class faceApp extends Application.AppBase {
     }
 
     function getServiceDelegate(){
-        return [new faceServiceDelegate()];
+        return [new infocalReduxServiceDelegate()];
     }
 }
 
-function getApp() as faceApp {
-    return Application.getApp() as faceApp;
+function getApp() as infocalReduxApp {
+    return Application.getApp() as infocalReduxApp;
 }

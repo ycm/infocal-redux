@@ -8,7 +8,7 @@ import Toybox.Application;
 var bgData = null;
 
 (:background)
-class faceServiceDelegate extends Toybox.System.ServiceDelegate {
+class infocalReduxServiceDelegate extends Toybox.System.ServiceDelegate {
 
 	function initialize() {
         System.ServiceDelegate.initialize();

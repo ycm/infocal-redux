@@ -33,7 +33,7 @@
         <settingConfig type="boolean"/>
     </setting>
 
-    <setting propertyKey="@Properties.show_seconds" title="@Strings.use_military_time_title">
+    <setting propertyKey="@Properties.show_seconds" title="@Strings.show_seconds_title">
         <settingConfig type="boolean"/>
     </setting>
 

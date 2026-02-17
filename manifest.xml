@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <iq:manifest version="3" xmlns:iq="http://www.garmin.com/xml/connectiq">
-    <iq:application id="c90f3506-4522-45e9-9ca5-68e3854c7bf1" type="watchface" name="@Strings.AppName" entry="faceApp" launcherIcon="@Drawables.LauncherIcon" minApiLevel="5.2.0">
+    <iq:application id="c90f3506-4522-45e9-9ca5-68e3854c7bf1" type="watchface" name="@Strings.AppName" entry="infocalReduxApp" launcherIcon="@Drawables.LauncherIcon" minApiLevel="5.2.0">
         <iq:products>
             <iq:product id="fr165"/>
             <iq:product id="fr165m"/>
@@ -15,7 +15,9 @@
             <iq:uses-permission id="Positioning"/>
             <iq:uses-permission id="UserProfile"/>
         </iq:permissions>
-        <iq:languages/>
+        <iq:languages>
+            <iq:language>eng</iq:language>
+        </iq:languages>
         <iq:barrels/>
     </iq:application>
 </iq:manifest>

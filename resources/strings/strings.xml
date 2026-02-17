@@ -5,7 +5,7 @@
     <string id="alternate_timezone">Alternate timezone</string>
     <string id="alternate_timezone_group_title">Alternate timezone coordinates</string>
     <string id="api_group_title">API settings</string>
-    <string id="api_request_interval_title">API Request Interval</string>
+    <string id="api_request_interval_title">API request interval</string>
     <string id="battery">Battery</string>
     <string id="battery_gauge">Battery gauge</string>
     <string id="classic_left">Classic, date/hour on left</string>
@@ -57,6 +57,7 @@
     <string id="status_do_not_disturb_title"> Show status icon if do not disturb is on</string>
     <string id="status_phone_connected_title">Show status icon if phone is connected</string>
     <string id="status_icon_group_title">Status icons</string>
+    <string id="show_seconds_title">Show seconds?</string>
     <string id="step_target_gauge">Step target gauge</string>
     <string id="steps">Steps</string>
     <string id="temp_gauge">Temperature gauge</string>
