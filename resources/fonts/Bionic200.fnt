@@ -1,0 +1,14 @@
+info face="Bionic200" size=101 bold=0 italic=0 charset="" unicode=0 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=0,0 outline=0
+common lineHeight=101 base=101 scaleW=400 scaleH=256 pages=1 packed=0 alphaChnl=1 redChnl=0 greenChnl=0 blueChnl=0
+page id=0 file="Bionic200.png"
+chars count=10
+char id=48 x=276 y=0 width=69 height=101 xoffset=6 yoffset=0 xadvance=81 page=0 chnl=15
+char id=49 x=345 y=0 width=39 height=101 xoffset=6 yoffset=0 xadvance=51 page=0 chnl=15
+char id=50 x=140 y=101 width=69 height=101 xoffset=6 yoffset=0 xadvance=81 page=0 chnl=15
+char id=51 x=138 y=0 width=69 height=101 xoffset=6 yoffset=0 xadvance=81 page=0 chnl=15
+char id=52 x=0 y=101 width=71 height=101 xoffset=6 yoffset=0 xadvance=83 page=0 chnl=15
+char id=53 x=71 y=101 width=69 height=101 xoffset=6 yoffset=0 xadvance=81 page=0 chnl=15
+char id=54 x=207 y=0 width=69 height=101 xoffset=6 yoffset=0 xadvance=81 page=0 chnl=15
+char id=55 x=69 y=0 width=69 height=101 xoffset=6 yoffset=0 xadvance=81 page=0 chnl=15
+char id=56 x=209 y=101 width=69 height=101 xoffset=6 yoffset=0 xadvance=81 page=0 chnl=15
+char id=57 x=0 y=0 width=69 height=101 xoffset=6 yoffset=0 xadvance=81 page=0 chnl=15

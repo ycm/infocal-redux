@@ -1,3 +1,13 @@
 <resources>
     <font id="iconFont" filename="./iconFont.fnt" antialias="true" filter="ABCDEFGHI "/>
+    <font id="Bionic100" filename="./Bionic100.fnt" antialias="true" filter="1234567890"/>
+    <font id="Bionic110" filename="./Bionic110.fnt" antialias="true" filter="1234567890"/>
+    <font id="Bionic158" filename="./Bionic158.fnt" antialias="true" filter="1234567890"/>
+    <font id="Bionic172" filename="./Bionic172.fnt" antialias="true" filter="1234567890"/>
+    <font id="Bionic172" filename="./Bionic172.fnt" antialias="true" filter="1234567890"/>
+    <font id="Bionic182" filename="./Bionic182.fnt" antialias="true" filter="1234567890"/>
+    <font id="Bionic200" filename="./Bionic200.fnt" antialias="true" filter="1234567890"/>
+    <font id="Bionic88" filename="./Bionic88.fnt" antialias="true" filter="1234567890"/>
+    <font id="Bionic96" filename="./Bionic96.fnt" antialias="true" filter="1234567890"/>
+    <font id="BionicBigOutline" filename="./BionicBigOutline.fnt" antialias="true" filter="1234567890"/>
 </resources>

@@ -6,7 +6,6 @@ import Toybox.Background;
 var apiResponsePackage = null;
 var lastApiRequestFailed = true;
 
-
 class faceApp extends Application.AppBase {
 
     function initialize() {
@@ -16,6 +15,16 @@ class faceApp extends Application.AppBase {
     function onStart(state as Dictionary?) as Void
     {
         apiResponsePackage = Application.Storage.getValue("faceApiResponsePackage");
+        // apiResponsePackage = {
+        //     "sunrise"=>1771225950,
+        //     "sunrise_tomorrow"=>1771312234,
+        //     "low"=>47,
+        //     "sunset"=>1771262156,
+        //     "high"=>60.5,
+        //     "name"=>"lorem ipsum dolor",
+        //     "sunset_tomorrow"=>1771348666,
+        //     "temp"=>50
+        // };
     }
 
     function onStop(state as Dictionary?) as Void
@@ -34,7 +43,6 @@ class faceApp extends Application.AppBase {
     function onBackgroundData(data) {
         if (data != null && ((data as Dictionary).get("temp") != null || (data as Dictionary).get("name") != null))
         {
-            // System.println("onBackgroundData: saving data to apiResponsePackage");
             apiResponsePackage = data;
             lastApiRequestFailed = false;
         }

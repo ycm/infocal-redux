@@ -15,7 +15,7 @@ class faceServiceDelegate extends Toybox.System.ServiceDelegate {
     }
 
     function onReceiveReverseGeocodeResponse(responseCode as Lang.Number, data as Dictionary or Null) as Void {
-        System.println("reverse geocode responseCode " + responseCode);
+        // System.println("reverse geocode responseCode " + responseCode);
         var name = null;
         if (responseCode == 200 && data != null)
         {
@@ -34,7 +34,7 @@ class faceServiceDelegate extends Toybox.System.ServiceDelegate {
 
     function onReceiveWeatherResponse(responseCode as Lang.Number, data as Dictionary or Null) as Void
     {
-        System.println("weather responseCode " + responseCode);
+        // System.println("weather responseCode " + responseCode);
         var sunrise = null;
         var sunset = null;
         var sunrise_tomorrow = null;
@@ -88,25 +88,25 @@ class faceServiceDelegate extends Toybox.System.ServiceDelegate {
             "high" => high,
             "low" => low
         };
-        System.println("package:");
-        System.println(package);
+        // System.println("package:");
+        // System.println(package);
         Background.exit(package);
     }
 
     function makeWeatherRequest()
     {
-        var currTime = System.getClockTime();
-        var timeStr = Lang.format("[$1$:$2$:$3$]", [
-            currTime.hour.format("%02d"),
-            currTime.min.format("%02d"),
-            currTime.sec.format("%02d")
-        ]);
-        System.println(timeStr + " weather request");
+        // var currTime = System.getClockTime();
+        // var timeStr = Lang.format("[$1$:$2$:$3$]", [
+        //     currTime.hour.format("%02d"),
+        //     currTime.min.format("%02d"),
+        //     currTime.sec.format("%02d")
+        // ]);
+        // System.println(timeStr + " weather request");
 
         var coordinates = Storage.getValue("lastActivityLatLong");
         if (coordinates != null)
         {
-            System.println(timeStr + " request lat/lon = " + coordinates[0].format("%.02f") + "," + coordinates[1].format("%.02f"));
+            // System.println(timeStr + " request lat/lon = " + coordinates[0].format("%.02f") + "," + coordinates[1].format("%.02f"));
             var url ="https://api.openweathermap.org/data/3.0/onecall";
             var params = {
                 "lat" => (coordinates as Array)[0],
@@ -121,26 +121,26 @@ class faceServiceDelegate extends Toybox.System.ServiceDelegate {
             };
             Communications.makeWebRequest(url, params, opts, method(:onReceiveWeatherResponse));
         }
-        else
-        {
-            System.println(timeStr + " last recorded lat/long is null");
-        }
+        // else
+        // {
+        //     System.println(timeStr + " last recorded lat/long is null");
+        // }
     }
 
     function makeReverseGeocodeRequest()
     {
-        var currTime = System.getClockTime();
-        var timeStr = Lang.format("[$1$:$2$:$3$]", [
-            currTime.hour.format("%02d"),
-            currTime.min.format("%02d"),
-            currTime.sec.format("%02d")
-        ]);
-        System.println(timeStr + " reverse geocode request");
+        // var currTime = System.getClockTime();
+        // var timeStr = Lang.format("[$1$:$2$:$3$]", [
+        //     currTime.hour.format("%02d"),
+        //     currTime.min.format("%02d"),
+        //     currTime.sec.format("%02d")
+        // ]);
+        // System.println(timeStr + " reverse geocode request");
 
         var coordinates = Storage.getValue("lastActivityLatLong");
         if (coordinates != null)
         {
-            System.println(timeStr + " request lat/lon = " + coordinates[0].format("%.02f") + "," + coordinates[1].format("%.02f"));
+            // System.println(timeStr + " request lat/lon = " + coordinates[0].format("%.02f") + "," + coordinates[1].format("%.02f"));
             var url ="https://api.openweathermap.org/geo/1.0/reverse";
             var params = {
                 "lat" => (coordinates as Array)[0],
@@ -153,10 +153,10 @@ class faceServiceDelegate extends Toybox.System.ServiceDelegate {
             };
             Communications.makeWebRequest(url, params, opts, method(:onReceiveReverseGeocodeResponse));
         }
-        else
-        {
-            System.println(timeStr + " last recorded lat/long is null");
-        }
+        // else
+        // {
+        //     System.println(timeStr + " last recorded lat/long is null");
+        // }
     }
 
     function onTemporalEvent() as Void {

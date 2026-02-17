@@ -52,10 +52,10 @@
     <string id="num_notifs">Notifications</string>
     <string id="openweathermap_api_key_title">OpenWeatherMap One Call 3.0 API Key</string>
     <string id="override_6_and_8_comps_title">Override 6 and 8 o'clock with location and sunrise/sunset info</string>
-    <string id="show_if_alarms_set_title"> Show status icon if alarms are set</string>
-    <string id="show_if_api_failed_title">Show status icon if last API request failed</string>
-    <string id="show_if_do_not_disturb_title"> Show status icon if do not disturb is on</string>
-    <string id="show_if_phone_connected_title">Show status icon if phone is connected</string>
+    <string id="status_alarms_set_title"> Show status icon if alarms are set</string>
+    <string id="status_api_failed_title">Show status icon if last API request failed</string>
+    <string id="status_do_not_disturb_title"> Show status icon if do not disturb is on</string>
+    <string id="status_phone_connected_title">Show status icon if phone is connected</string>
     <string id="status_icon_group_title">Status icons</string>
     <string id="step_target_gauge">Step target gauge</string>
     <string id="steps">Steps</string>
@@ -65,5 +65,7 @@
     <string id="use_military_time_title">Use military time</string>
     <string id="use_openweathermap_api_title">Use OpenWeatherMap API?</string>
     <string id="weather_units_title">Weather API request units</string>
+
+    <string id="show_seconds_title">Show seconds?</string>
 
 </strings>

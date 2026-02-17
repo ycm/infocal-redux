@@ -33,19 +33,23 @@
         <settingConfig type="boolean"/>
     </setting>
 
+    <setting propertyKey="@Properties.show_seconds" title="@Strings.use_military_time_title">
+        <settingConfig type="boolean"/>
+    </setting>
+
     <group
         id="status_icon_group"
         title="@Strings.status_icon_group_title">
-        <setting propertyKey="@Properties.show_if_phone_connected" title="@Strings.show_if_phone_connected_title">
+        <setting propertyKey="@Properties.status_phone_connected" title="@Strings.status_phone_connected_title">
             <settingConfig type="boolean"/>
         </setting>
-        <setting propertyKey="@Properties.show_if_alarms_set" title="@Strings.show_if_alarms_set_title">
+        <setting propertyKey="@Properties.status_alarms_set" title="@Strings.status_alarms_set_title">
             <settingConfig type="boolean"/>
         </setting>
-        <setting propertyKey="@Properties.show_if_do_not_disturb" title="@Strings.show_if_do_not_disturb_title">
+        <setting propertyKey="@Properties.status_do_not_disturb" title="@Strings.status_do_not_disturb_title">
             <settingConfig type="boolean"/>
         </setting>
-        <setting propertyKey="@Properties.show_if_api_failed" title="@Strings.show_if_api_failed_title">
+        <setting propertyKey="@Properties.status_api_failed" title="@Strings.status_api_failed_title">
             <settingConfig type="boolean"/>
         </setting>
     </group>
@@ -83,9 +87,6 @@
                 <listEntry value="30">@Strings.every_30_min</listEntry>
                 <listEntry value="60">@Strings.every_60_min</listEntry>
             </settingConfig>
-        </setting>
-        <setting propertyKey="@Properties.show_if_api_failed" title="@Strings.show_if_api_failed_title">
-            <settingConfig type="boolean"/>
         </setting>
     </group>
 

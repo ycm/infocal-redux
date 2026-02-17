@@ -2,19 +2,17 @@
 <iq:manifest version="3" xmlns:iq="http://www.garmin.com/xml/connectiq">
     <iq:application id="c90f3506-4522-45e9-9ca5-68e3854c7bf1" type="watchface" name="@Strings.AppName" entry="faceApp" launcherIcon="@Drawables.LauncherIcon" minApiLevel="5.2.0">
         <iq:products>
+            <iq:product id="fr165"/>
             <iq:product id="fr165m"/>
+            <iq:product id="fr265"/>
+            <iq:product id="fr265s"/>
+            <iq:product id="fr965"/>
         </iq:products>
         <iq:permissions>
-            <iq:uses-permission id="Ant"/>
             <iq:uses-permission id="Background"/>
-            <iq:uses-permission id="BluetoothLowEnergy"/>
             <iq:uses-permission id="Communications"/>
-            <iq:uses-permission id="ComplicationSubscriber"/>
             <iq:uses-permission id="Notifications"/>
             <iq:uses-permission id="Positioning"/>
-            <iq:uses-permission id="PushNotification"/>
-            <iq:uses-permission id="Sensor"/>
-            <iq:uses-permission id="SensorHistory"/>
             <iq:uses-permission id="UserProfile"/>
         </iq:permissions>
         <iq:languages/>

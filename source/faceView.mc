@@ -12,8 +12,9 @@ import Toybox.Application;
 class faceView extends WatchUi.WatchFace {
 
     var fontComp;
-    var fontHour;
-    var fontMinute;
+    var fontMedium;
+    var fontBig;
+    var fontBigOutline;
     var fontIcon;
 
     var currentTime;
@@ -21,14 +22,41 @@ class faceView extends WatchUi.WatchFace {
     var X;
     var Y;
 
-    var maxLocationTextLength;
-
     var colorAccent;
     var colorAccentDark;
     var colorText;
     var colorBackground;
 
     var alternatePosition = null;
+
+    var inLowPower = false;
+
+    var OUTER_COMPLICATION_TEXT_RADIUS_CCW;
+    var OUTER_COMPLICATION_TEXT_RADIUS_CW;
+    var STATUS_ICON_Y_LEVEL;
+    var SECONDS_X_FOR_BIG_MINUTES;
+    var SECONDS_Y_FOR_BIG_MINUTES;
+    var GAUGE_ARC_RADIUS;
+    var AOD_H_M_SPACING;
+    var GAUGE_ICON_RADIUS;
+    var DIAL_INNER_RADIUS;
+    var UI_LINE_WIDTH;
+    var HATCH_LINE_WIDTH;
+    var HATCH_LINE_SEP;
+    var INNER_COMPLICATION_TEXT_RADIUS_CCW;
+    var INNER_COMPLICATION_TEXT_RADIUS_CW;
+    var OUTER_GAUGE_RADIUS;
+    var HORIZONTAL_COMPLICATION_Y;
+    var MAX_LOCATION_TEXT_WIDTH;
+    var MAX_LOCATION_TEXT_LENGTH;
+    var TEMP_GAUGE_WHITESPACE_CCW;
+    var TEMP_GAUGE_WHITESPACE_CW;
+    var SUN_GAUGE_WHITESPACE;
+    var DATE_HOUR_LEFT_XOFF;
+    var DATE_HOUR_RIGHT_XOFF;
+    var HOUR_STR_Y;
+    var DATE_STR_Y;
+    var DATE_HOUR_SEP_Y;
 
 
     function initialize() {
@@ -41,10 +69,88 @@ class faceView extends WatchUi.WatchFace {
         Y = dc.getHeight() / 2;
 
         setLayout(Rez.Layouts.WatchFace(dc));
-        fontComp = Graphics.getVectorFont({:face=>"BionicBold", :size=>40}) as Graphics.VectorFont;
-        fontHour = Graphics.getVectorFont({:face=>"BionicBold", :size=>96}) as Graphics.VectorFont;  
-        fontMinute = Graphics.getVectorFont({:face=>"BionicBold", :size=>172}) as Graphics.VectorFont;  
+
+        fontBigOutline = WatchUi.loadResource(Rez.Fonts.BionicBigOutline);
+        OUTER_COMPLICATION_TEXT_RADIUS_CCW = X - 5;
+        OUTER_COMPLICATION_TEXT_RADIUS_CW = X - 25;
+        STATUS_ICON_Y_LEVEL = X * 51 / 40;
+        SECONDS_X_FOR_BIG_MINUTES = X * 3 / 2;
+        SECONDS_Y_FOR_BIG_MINUTES = Y * 11 / 10;
+        GAUGE_ARC_RADIUS = X * 7 / 9;
+        AOD_H_M_SPACING = 6;
+        GAUGE_ICON_RADIUS = X * 5 / 8;
+        DIAL_INNER_RADIUS = X * 9 / 10;
+        UI_LINE_WIDTH = 5;
+        INNER_COMPLICATION_TEXT_RADIUS_CCW = X - 35;
+        INNER_COMPLICATION_TEXT_RADIUS_CW = X - 55;
+        OUTER_GAUGE_RADIUS = X - 15;
+        HORIZONTAL_COMPLICATION_Y = Y * 11 / 20;
+        DATE_HOUR_LEFT_XOFF = X * 12 / 20;
+        DATE_HOUR_RIGHT_XOFF = X * 34 / 20;
+        HOUR_STR_Y = Y * 14 / 20;
+        DATE_STR_Y = Y * 9 / 20;
+        DATE_HOUR_SEP_Y = Y * 13 / 20;
+        HATCH_LINE_WIDTH = 3;
+
+        switch (dc.getWidth())
+        {
+            case 360: // fr265s
+                fontBig = WatchUi.loadResource(Rez.Fonts.Bionic158);
+                fontComp = Graphics.getVectorFont({:face=>"BionicBold", :size=>40}) as Graphics.VectorFont;
+                fontMedium = WatchUi.loadResource(Rez.Fonts.Bionic88);
+                OUTER_COMPLICATION_TEXT_RADIUS_CCW = X - 4;
+                INNER_COMPLICATION_TEXT_RADIUS_CCW = X - 32;
+                INNER_COMPLICATION_TEXT_RADIUS_CW = X - 52;
+                UI_LINE_WIDTH = 4;
+                MAX_LOCATION_TEXT_WIDTH = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT", fontComp);
+                MAX_LOCATION_TEXT_LENGTH = 21;
+                TEMP_GAUGE_WHITESPACE_CCW = "            ";
+                TEMP_GAUGE_WHITESPACE_CW = "          ";
+                SUN_GAUGE_WHITESPACE = "              ";
+                HATCH_LINE_WIDTH = 2;
+                HATCH_LINE_SEP = 10;
+                break;
+            case 390: // fr165, fr165m
+                fontBig = WatchUi.loadResource(Rez.Fonts.Bionic172);
+                fontComp = Graphics.getVectorFont({:face=>"BionicBold", :size=>40}) as Graphics.VectorFont;
+                fontMedium = WatchUi.loadResource(Rez.Fonts.Bionic96);
+                MAX_LOCATION_TEXT_WIDTH = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT", fontComp);
+                MAX_LOCATION_TEXT_LENGTH = 21;
+                TEMP_GAUGE_WHITESPACE_CCW = "            ";
+                TEMP_GAUGE_WHITESPACE_CW = "          ";
+                SUN_GAUGE_WHITESPACE = "              ";
+                HATCH_LINE_SEP = 12;
+                break;
+            case 416: // fr265
+                fontBig = WatchUi.loadResource(Rez.Fonts.Bionic182);
+                fontComp = Graphics.getVectorFont({:face=>"BionicBold", :size=>40}) as Graphics.VectorFont;
+                fontMedium = WatchUi.loadResource(Rez.Fonts.Bionic100);
+                MAX_LOCATION_TEXT_WIDTH = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT AMET", fontComp);
+                MAX_LOCATION_TEXT_LENGTH = 25;
+                TEMP_GAUGE_WHITESPACE_CCW = "             ";
+                TEMP_GAUGE_WHITESPACE_CW = "           ";
+                SUN_GAUGE_WHITESPACE = "                ";
+                HATCH_LINE_SEP = 12;
+                break;
+            case 454: // fr965
+                fontBig = WatchUi.loadResource(Rez.Fonts.Bionic200);
+                fontComp = Graphics.getVectorFont({:face=>"BionicBold", :size=>44}) as Graphics.VectorFont;
+                fontMedium = WatchUi.loadResource(Rez.Fonts.Bionic110);
+                MAX_LOCATION_TEXT_WIDTH = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT AMET", fontComp);
+                MAX_LOCATION_TEXT_LENGTH = "LOREM IPSUM DOLOR SIT AMET".length();
+                TEMP_GAUGE_WHITESPACE_CCW = "              ";
+                TEMP_GAUGE_WHITESPACE_CW = "            ";
+                SUN_GAUGE_WHITESPACE = "                 ";
+                INNER_COMPLICATION_TEXT_RADIUS_CCW = X - 40;
+                INNER_COMPLICATION_TEXT_RADIUS_CW = X - 60;
+                HATCH_LINE_SEP = 15;
+                break;
+            default:
+                break;
+        }
+
         fontIcon = WatchUi.loadResource(Rez.Fonts.iconFont);
+        
 
         if (Properties.getValue("use_alternate_timezone"))
         {
@@ -59,7 +165,6 @@ class faceView extends WatchUi.WatchFace {
                 });
             }
         }
-        maxLocationTextLength = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT", fontComp);
 
         colorAccent = parseColor("color_ui_accent", Graphics.COLOR_RED);
         colorAccentDark = parseColor("color_ui_accent_dark", Graphics.COLOR_DK_RED);
@@ -105,7 +210,7 @@ class faceView extends WatchUi.WatchFace {
     function getStepsText() as Lang.String
     {
         var steps = ActivityMonitor.getInfo().steps;
-        return steps == null ? "STP --" : Lang.format("STP $1$", [steps.format("%d")]);
+        return steps == null ? "STP --" : Lang.format("STP $1$k", [(((steps / 100) * 100).toDouble() / 1000).format("%.1f")]);
     }
 
 
@@ -148,13 +253,13 @@ class faceView extends WatchUi.WatchFace {
                     dc,
                     X,
                     Y,
-                    180,
+                    OUTER_GAUGE_RADIUS,
                     dir,
                     phi,
                     psi,
                     progress,
-                    5,
-                    5,
+                    UI_LINE_WIDTH,
+                    UI_LINE_WIDTH,
                     colorAccent,
                     colorAccentDark,
                     false
@@ -166,12 +271,12 @@ class faceView extends WatchUi.WatchFace {
                     temp.format("%d"),
                     Graphics.TEXT_JUSTIFY_CENTER,
                     tickDegree,
-                    degrees > 180 ? 160 : 140,
+                    degrees > 180 ? INNER_COMPLICATION_TEXT_RADIUS_CCW : INNER_COMPLICATION_TEXT_RADIUS_CW,
                     degrees > 180 ? Graphics.RADIAL_TEXT_DIRECTION_COUNTER_CLOCKWISE : Graphics.RADIAL_TEXT_DIRECTION_CLOCKWISE
                 );
             }
             dc.setColor(colorText, Graphics.COLOR_TRANSPARENT);
-            var whitespace = degrees > 180 ? "            " : "          ";
+            var whitespace = degrees > 180 ? TEMP_GAUGE_WHITESPACE_CCW : TEMP_GAUGE_WHITESPACE_CW;
             return Lang.format(
                 "$1$" + whitespace + "$2$",
                 [low.format("%d"), high.format("%d")]
@@ -215,7 +320,7 @@ class faceView extends WatchUi.WatchFace {
 
     function drawSmallRadialComplicationAtPosition(dc as Dc, text, angle)
     {
-        var radius = angle > 180 ? 190 : 170;
+        var radius = angle > 180 ? OUTER_COMPLICATION_TEXT_RADIUS_CCW : OUTER_COMPLICATION_TEXT_RADIUS_CW;
         var direction = angle > 180
             ? Graphics.RADIAL_TEXT_DIRECTION_COUNTER_CLOCKWISE
             : Graphics.RADIAL_TEXT_DIRECTION_CLOCKWISE;
@@ -226,6 +331,7 @@ class faceView extends WatchUi.WatchFace {
     function drawHorizontalComplication(dc as Dc)
     {
         var text = "";
+        dc.setColor(colorText, Graphics.COLOR_TRANSPARENT);
         switch (Properties.getValue("comp_horizontal"))
         {
             case 1:
@@ -260,7 +366,7 @@ class faceView extends WatchUi.WatchFace {
             default:
                 break;
         }
-        dc.drawText(X, Y - 90, fontComp, text, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(X, HORIZONTAL_COMPLICATION_Y, fontComp, text, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
 
@@ -330,11 +436,19 @@ class faceView extends WatchUi.WatchFace {
     }
 
 
-    function drawBigMinutes(dc as Dc)
+    function drawBigMinutes(dc as Dc, showSeconds)
     {
         var minutesText = currentTime.min.format("%02d");
-        var dim = dc.getTextDimensions(minutesText, fontMinute);
-        dc.drawText(X, Y - dim[1] / 2, fontMinute, minutesText, Graphics.TEXT_JUSTIFY_CENTER);
+        minutesText = "20";
+        var dim = dc.getTextDimensions(minutesText, fontBig);
+        dc.drawText(X, Y - dim[1] / 2, fontBig, minutesText, Graphics.TEXT_JUSTIFY_CENTER);
+
+        if (showSeconds)
+        {
+            // dc.drawText(X + 90, Y + 20, fontComp, currentTime.sec.format("%02d"), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.drawText(SECONDS_X_FOR_BIG_MINUTES, SECONDS_Y_FOR_BIG_MINUTES, fontComp, currentTime.sec.format("%02d"), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        }
+        drawHatchLines(dc, -80);
     }
 
 
@@ -357,21 +471,22 @@ class faceView extends WatchUi.WatchFace {
             currentTime.day.format("%d")
         ]);
 
-        var hourStrWidth = dc.getTextWidthInPixels(hourStr, fontHour);
-        // var yAxis = layoutFormat == 0 ? X - 70 : X + 150;
-        var hourStrHeight = Y - 80;
-        var dateStrHeight = hourStrHeight - 40;
-        dc.drawText(xoff, hourStrHeight, fontHour, hourStr, Graphics.TEXT_JUSTIFY_RIGHT);
+        var hourStrWidth = dc.getTextWidthInPixels(hourStr, fontMedium);
+        // var hourStrHeight = Y - 60;
+        // var dateStrHeight = Y - 110;
+        var hourStrHeight = HOUR_STR_Y;
+        var dateStrHeight = DATE_STR_Y;
+        dc.drawText(xoff, hourStrHeight, fontMedium, hourStr, Graphics.TEXT_JUSTIFY_RIGHT);
         dc.drawText(xoff - hourStrWidth / 2, dateStrHeight, fontComp, dateStr, Graphics.TEXT_JUSTIFY_CENTER);
 
-        dc.setPenWidth(5);
+        dc.setPenWidth(UI_LINE_WIDTH);
         dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
         var lineLen = 60;
         dc.drawLine(
             xoff - (hourStrWidth + lineLen) / 2,
-            Y - 76,
+            DATE_HOUR_SEP_Y,
             xoff - (hourStrWidth - lineLen) / 2,
-            Y - 76
+            DATE_HOUR_SEP_Y
         );
     }
 
@@ -389,9 +504,9 @@ class faceView extends WatchUi.WatchFace {
                     {
                         location = name.toUpper();
                         var locationNameWidth = dc.getTextWidthInPixels(location, fontComp);
-                        if (locationNameWidth > maxLocationTextLength)
+                        if (locationNameWidth > MAX_LOCATION_TEXT_WIDTH)
                         {
-                            location = location.substring(0, 21) + "...";
+                            location = location.substring(0, MAX_LOCATION_TEXT_LENGTH) + "...";
                         }
                     }
                 }
@@ -420,7 +535,7 @@ class faceView extends WatchUi.WatchFace {
             location,
             Graphics.TEXT_JUSTIFY_CENTER,
             240,
-            190,
+            OUTER_COMPLICATION_TEXT_RADIUS_CCW,
             Graphics.RADIAL_TEXT_DIRECTION_COUNTER_CLOCKWISE
         );
     }
@@ -473,32 +588,32 @@ class faceView extends WatchUi.WatchFace {
                     X,
                     Y,
                     fontComp,
-                    sunrise_str + "                  " + sunset_str,
+                    sunrise_str + SUN_GAUGE_WHITESPACE  + sunset_str,
                     Graphics.TEXT_JUSTIFY_CENTER,
                     240,
-                    160,
+                    INNER_COMPLICATION_TEXT_RADIUS_CCW,
                     Graphics.RADIAL_TEXT_DIRECTION_COUNTER_CLOCKWISE
                 );
 
                 dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
                 dc.drawText(
-                    X + 125 * Math.cos(Math.toRadians(240)),
-                    Y - 125 * Math.sin(Math.toRadians(240)) - 16,
+                    X + GAUGE_ICON_RADIUS * Math.cos(Math.toRadians(240)),
+                    Y - GAUGE_ICON_RADIUS * Math.sin(Math.toRadians(240)),
                     fontIcon,
                     "I",
-                    Graphics.TEXT_JUSTIFY_CENTER
+                    Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
                 );
                 drawProgressArc(
                     dc,
                     X,
                     Y,
-                    150,
+                    GAUGE_ARC_RADIUS,
                     Graphics.ARC_COUNTER_CLOCKWISE,
-                    240 - 20,
-                    240 + 20,
+                    240 - 15,
+                    240 + 15,
                     progress,
-                    5,
-                    5,
+                    UI_LINE_WIDTH,
+                    UI_LINE_WIDTH,
                     colorAccent,
                     colorAccentDark,
                     false
@@ -511,9 +626,9 @@ class faceView extends WatchUi.WatchFace {
     function drawDial(dc as Dc)
     {
         dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
-        dc.setPenWidth(5);
-        var R = 200;
-        var r = 175;
+        dc.setPenWidth(UI_LINE_WIDTH);
+        var R = X + 5;
+        var r = DIAL_INNER_RADIUS;
 
         dc.drawLine(X + r, Y, X + R, Y);
         dc.drawLine(X - r, Y, X - R, Y);
@@ -616,8 +731,8 @@ class faceView extends WatchUi.WatchFace {
         {
             dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
             dc.drawText(
-                X + 125 * Math.cos(Math.toRadians(angle)),
-                Y - 125 * Math.sin(Math.toRadians(angle)),
+                X + GAUGE_ICON_RADIUS * Math.cos(Math.toRadians(angle)),
+                Y - GAUGE_ICON_RADIUS * Math.sin(Math.toRadians(angle)),
                 fontIcon,
                 steps < stepGoal ? "H" : "C",
                 Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
@@ -635,13 +750,13 @@ class faceView extends WatchUi.WatchFace {
                 dc,
                 X,
                 Y,
-                150,
+                GAUGE_ARC_RADIUS,
                 dir,
                 phi,
                 psi,
                 steps.toDouble() / stepGoal,
-                5,
-                5,
+                UI_LINE_WIDTH,
+                UI_LINE_WIDTH,
                 colorAccent,
                 colorAccentDark,
                 false
@@ -654,8 +769,8 @@ class faceView extends WatchUi.WatchFace {
     {
         dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
         dc.drawText(
-            X + 125 * Math.cos(Math.toRadians(angle)),
-            Y - 125 * Math.sin(Math.toRadians(angle)),
+            X + GAUGE_ICON_RADIUS * Math.cos(Math.toRadians(angle)),
+            Y - GAUGE_ICON_RADIUS * Math.sin(Math.toRadians(angle)),
             fontIcon,
             "B",
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
@@ -673,13 +788,13 @@ class faceView extends WatchUi.WatchFace {
             dc,
             X,
             Y,
-            150,
+            GAUGE_ARC_RADIUS,
             dir,
             phi,
             psi,
             Math.ceil(System.getSystemStats().battery) / 100,
-            5,
-            5,
+            UI_LINE_WIDTH,
+            UI_LINE_WIDTH,
             colorAccent,
             colorAccentDark,
             false
@@ -705,8 +820,8 @@ class faceView extends WatchUi.WatchFace {
                 currZone = i;
             }
             dc.setColor(colorAccentDark, Graphics.COLOR_TRANSPARENT);
-            dc.setPenWidth(5);
-            dc.drawArc(X, Y, 150, Graphics.ARC_CLOCKWISE,
+            dc.setPenWidth(UI_LINE_WIDTH);
+            dc.drawArc(X, Y, GAUGE_ARC_RADIUS, Graphics.ARC_CLOCKWISE,
                 angle + 30 - 12 * (i - 1) - 1,
                 angle + 30 - 12 * i + 1
             );
@@ -715,9 +830,9 @@ class faceView extends WatchUi.WatchFace {
         if (currZone != 0)
         {
             dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
-            dc.setPenWidth(8);
+            dc.setPenWidth(UI_LINE_WIDTH * 2);
             var currZoneIdx = angle <= 180 ? currZone : 6 - currZone;
-            dc.drawArc(X, Y, 150, Graphics.ARC_CLOCKWISE,
+            dc.drawArc(X, Y, GAUGE_ARC_RADIUS, Graphics.ARC_CLOCKWISE,
                 angle + 30 - 12 * (currZoneIdx - 1) - 1,
                 angle + 30 - 12 * currZoneIdx + 1
             );
@@ -763,19 +878,19 @@ class faceView extends WatchUi.WatchFace {
         dc.setColor(colorAccentDark, Graphics.COLOR_TRANSPARENT);
         var statusIconStr = "";
         var deviceSettings = System.getDeviceSettings();
-        if (Properties.getValue("show_if_phone_connected"))
+        if (Properties.getValue("status_phone_connected"))
         {
             statusIconStr += deviceSettings.phoneConnected ? "D" : "E";
         }
-        if (Properties.getValue("show_if_alarms_set") && deviceSettings.alarmCount > 0)
+        if (Properties.getValue("status_alarms_set") && deviceSettings.alarmCount > 0)
         {
             statusIconStr += "A";
         }
-        if (Properties.getValue("show_if_do_not_disturb") && deviceSettings.doNotDisturb)
+        if (Properties.getValue("status_do_not_disturb") && deviceSettings.doNotDisturb)
         {
             statusIconStr += "G";
         }
-        if (Properties.getValue("show_if_api_failed") && lastApiRequestFailed)
+        if (Properties.getValue("status_api_failed") && lastApiRequestFailed)
         {
             statusIconStr += "F";
         }
@@ -791,47 +906,94 @@ class faceView extends WatchUi.WatchFace {
                     statusIconStrSpaces += " ";
                 }
             }
-            dc.drawText(X, 245, fontIcon, statusIconStrSpaces, Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(X, STATUS_ICON_Y_LEVEL, fontIcon, statusIconStrSpaces, Graphics.TEXT_JUSTIFY_CENTER);
         }
     }
 
-    function drawInlineTime(dc as Dc)
+
+    function drawInlineTime(dc as Dc, showSeconds)
     {
         var h = (Properties.getValue("use_military_time") || System.getDeviceSettings().is24Hour)
             ? currentTime.hour.format("%02d")
             : (((currentTime.hour + 11) % 12) + 1).format("%02d");
         var m = currentTime.min.format("%02d");
 
-        dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(X - 5, Y, fontMinute, h, Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
+        var hW = dc.getTextWidthInPixels(h, fontBig);
+        var mW = dc.getTextWidthInPixels(m, fontBig);
+        var middle = (hW + mW) / 2;
+        
         dc.setColor(colorText, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(X + 5, Y, fontMinute, m, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(X - mW + middle, Y, fontBig, m, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
+        drawHatchLines(dc, -mW + middle);
+        dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(X + hW - middle, Y, fontBig, h, Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
+
+        if (showSeconds)
+        {
+            dc.drawText(X + 165, Y, fontComp, currentTime.sec.format("%02d"), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        }
     }
+
+
+    function drawAlwaysOnTime(dc as Dc)
+    {
+        var h = (Properties.getValue("use_military_time") || System.getDeviceSettings().is24Hour)
+            ? currentTime.hour.format("%02d")
+            : (((currentTime.hour + 11) % 12) + 1).format("%02d");
+        var m = currentTime.min.format("%02d");
+
+        var xoff = currentTime.min % 2 == 0 ? 2 : -2;
+        var yoff = (currentTime.min / 2) % 2 == 0 ? 2 : -2;
+
+        dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(X - AOD_H_M_SPACING / 2 + xoff, Y + yoff, fontBigOutline, h, Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.setColor(colorText, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(X + AOD_H_M_SPACING / 2 + xoff, Y + yoff, fontBigOutline, m, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
+    }
+
 
     function drawTime(dc as Dc)
     {
-        // var yAxis = layoutFormat == 0 ? X - 70 : X + 150;
+        var showSeconds = Properties.getValue("show_seconds");
         switch (Properties.getValue("time_display_layout"))
         {
             case 0: // big minutes, date/hour left
-                drawBigMinutes(dc);
-                drawDateHour(dc, X - 70);
+                drawBigMinutes(dc, showSeconds);
+                drawDateHour(dc, DATE_HOUR_LEFT_XOFF);
                 break;
             case 1: // big minutes, date/hour right
-                drawBigMinutes(dc);
-                drawDateHour(dc, X + 150);
+                drawBigMinutes(dc, showSeconds);
+                drawDateHour(dc, DATE_HOUR_RIGHT_XOFF);
                 break;
             case 2: // inline, no date
-                drawInlineTime(dc);
+                drawInlineTime(dc, showSeconds);
                 break;
             default:
                 break;
         }
     }
 
+
+    function drawHatchLines(dc as Dc, xoff)
+    {
+        dc.setColor(colorBackground, Graphics.COLOR_TRANSPARENT);
+        dc.setPenWidth(HATCH_LINE_WIDTH);
+        var d = 160;
+        for (var i = 0; i < HATCH_LINE_SEP * 12; i += HATCH_LINE_SEP)
+        {
+            dc.drawLine(X + xoff, Y + i - 100, X + xoff + d - i, Y + d - 100);
+        }
+    }
+
+
     function onUpdate(dc as Dc) as Void
     {
         currentTime = Time.Gregorian.info(Time.now(), Time.FORMAT_MEDIUM);
+        if (inLowPower)
+        {
+            drawAlwaysOnTime(dc);
+            return;
+        }
         var lastActivityLocation = Activity.getActivityInfo().currentLocation;
         if (lastActivityLocation != null)
         {
@@ -848,10 +1010,11 @@ class faceView extends WatchUi.WatchFace {
 
         dc.setColor(colorText, Graphics.COLOR_TRANSPARENT);
 
-        drawSmallRadialComplications(dc);
-        
         drawTime(dc);
+
+
         drawHorizontalComplication(dc);
+        drawSmallRadialComplications(dc);
 
         if (Properties.getValue("override_6_and_8_comps"))
         {
@@ -872,9 +1035,15 @@ class faceView extends WatchUi.WatchFace {
     function onHide() as Void {}
 
 
-    function onExitSleep() as Void {}
+    function onExitSleep() as Void {
+        inLowPower = false;
+        WatchUi.requestUpdate();
+    }
 
 
-    function onEnterSleep() as Void {}
+    function onEnterSleep() as Void {
+        inLowPower = true;
+        WatchUi.requestUpdate();
+    }
 
 }
