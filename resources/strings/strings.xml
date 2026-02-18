@@ -11,6 +11,8 @@
     <string id="battery_gauge">Battery gauge</string>
     <string id="classic_left">Classic, date/hour on left</string>
     <string id="classic_right">Classic, date/hour on right</string>
+    <string id="color_aod_h_title">Always-on display hour color</string>
+    <string id="color_aod_m_title">Always-on_display minute color</string>
     <string id="color_bg_title">Background color</string>
     <string id="color_text_title">Text color</string>
     <string id="color_ui_accent_dark_title">Accent color (darker)</string>
@@ -68,5 +70,4 @@
     <string id="use_military_time_title">Use military time</string>
     <string id="use_openweathermap_api_title">Use OpenWeatherMap API?</string>
     <string id="weather_units_title">Weather API request units</string>
-
 </strings>

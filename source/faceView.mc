@@ -26,6 +26,8 @@ class infocalReduxView extends WatchUi.WatchFace {
     var colorAccentDark;
     var colorText;
     var colorBackground;
+    var colorAODHour;
+    var colorAODMinute;
 
     var alternatePosition = null;
 
@@ -173,6 +175,8 @@ class infocalReduxView extends WatchUi.WatchFace {
         colorAccentDark = parseColor("color_ui_accent_dark", Graphics.COLOR_DK_RED);
         colorText = parseColor("color_text", Graphics.COLOR_WHITE);
         colorBackground = parseColor("color_bg", Graphics.COLOR_BLACK);
+        colorAODHour = parseColor("color_aod_h", Graphics.COLOR_RED);
+        colorAODMinute = parseColor("color_aod_m", Graphics.COLOR_WHITE);
     }
 
 
@@ -971,9 +975,9 @@ class infocalReduxView extends WatchUi.WatchFace {
         var xoff = currentTime.min % 2 == 0 ? 2 : -2;
         var yoff = (currentTime.min / 2) % 2 == 0 ? 2 : -2;
 
-        dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(colorAODHour, Graphics.COLOR_TRANSPARENT);
         dc.drawText(X - AOD_H_M_SPACING / 2 + xoff, Y + yoff, fontBigOutline, h, Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
-        dc.setColor(colorText, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(colorAODMinute, Graphics.COLOR_TRANSPARENT);
         dc.drawText(X + AOD_H_M_SPACING / 2 + xoff, Y + yoff, fontBigOutline, m, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
     }
 

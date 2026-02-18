@@ -15,6 +15,12 @@
         <setting propertyKey="@Properties.color_bg" title="@Strings.color_bg_title">
             <settingConfig type="alphaNumeric"/>
         </setting>
+        <setting propertyKey="@Properties.color_aod_h" title="@Strings.color_aod_h_title">
+            <settingConfig type="alphaNumeric"/>
+        </setting>
+        <setting propertyKey="@Properties.color_aod_m" title="@Strings.color_aod_m_title">
+            <settingConfig type="alphaNumeric"/>
+        </setting>
     </group>
 
     <setting propertyKey="@Properties.time_display_layout" title="@Strings.time_display_layout_title">
