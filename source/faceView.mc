@@ -201,7 +201,7 @@ class infocalReduxView extends WatchUi.WatchFace {
     {
         var activity = Activity.getActivityInfo();
         var heartRateText = "HR --";
-        // heartRateText = "HR 130";
+        heartRateText = "HR 130";
         if (activity != null && activity.currentHeartRate != null)
         {
             heartRateText = Lang.format("HR $1$", [activity.currentHeartRate.format("%d")]);
@@ -430,6 +430,7 @@ class infocalReduxView extends WatchUi.WatchFace {
 
     function getAlternateTimezoneText() as Lang.String
     {
+        return "0934";
         if (Properties.getValue("use_alternate_timezone") && alternatePosition != null)
         {
             var info = Gregorian.info(Gregorian.localMoment(alternatePosition, Time.now()),Time.FORMAT_SHORT);
@@ -563,7 +564,7 @@ class infocalReduxView extends WatchUi.WatchFace {
                     return;
                 }
                 var now = Time.now();
-                // now = new Time.Moment(1771360496);
+                now = new Time.Moment(1771360496);
                 // System.println(now.value());
                 // System.println(sunrise_moment.value());
                 // System.println(sunset_moment.value());
@@ -817,7 +818,7 @@ class infocalReduxView extends WatchUi.WatchFace {
         var zones = UserProfile.getHeartRateZones(UserProfile.HR_ZONE_SPORT_GENERIC);
         var activity = Activity.getActivityInfo();
         var hr = 0;
-        // hr = 130;
+        hr = 130;
         if (activity != null && activity.currentHeartRate != null)
         {
             hr = activity.currentHeartRate;
@@ -1002,7 +1003,7 @@ class infocalReduxView extends WatchUi.WatchFace {
     function onUpdate(dc as Dc) as Void
     {
         currentTime = Time.Gregorian.info(Time.now(), Time.FORMAT_MEDIUM);
-        // currentTime = Time.Gregorian.info(new Time.Moment(1771360496), Time.FORMAT_MEDIUM);
+        currentTime = Time.Gregorian.info(new Time.Moment(1771360496), Time.FORMAT_MEDIUM);
         if (inLowPower)
         {
             drawAlwaysOnTime(dc);

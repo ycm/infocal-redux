@@ -22,16 +22,16 @@ class infocalReduxApp extends Application.AppBase {
     function onStart(state as Dictionary?) as Void
     {
         apiResponsePackage = Application.Storage.getValue("apiResponsePackage");
-        // apiResponsePackage = {
-        //     "sunrise"=>1771253900,
-        //     "sunrise_tomorrow"=>1771340228,
-        //     "low"=>45.66,
-        //     "sunset"=>1771292980,
-        //     "high"=>50.16,
-        //     "name"=>"San Francisco",
-        //     "sunset_tomorrow"=>1771379396,
-        //     "temp"=>48.54
-        // };
+        apiResponsePackage = {
+            "sunrise"=>1771253900,
+            "sunrise_tomorrow"=>1771340228,
+            "low"=>45.66,
+            "sunset"=>1771292980,
+            "high"=>50.16,
+            "name"=>"San Francisco",
+            "sunset_tomorrow"=>1771379396,
+            "temp"=>48.54
+        };
     }
 
     function onStop(state as Dictionary?) as Void
