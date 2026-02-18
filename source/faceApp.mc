@@ -16,6 +16,7 @@ class infocalReduxApp extends Application.AppBase {
 
     function onSettingsChanged() as Void {
         needToRefreshLayout = true;
+        Background.registerForTemporalEvent(new Time.Duration(Properties.getValue("api_request_interval") * 60));
     }
 
     function onStart(state as Dictionary?) as Void
