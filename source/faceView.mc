@@ -522,7 +522,7 @@ class infocalReduxView extends WatchUi.WatchFace {
                 if (Properties.getValue("use_openweathermap_api") && apiResponsePackage != null)
                 {
                     var name = apiResponsePackage.get("name");
-                    if (name != null)
+                    if (name != null && name != "")
                     {
                         location = name.toUpper();
                         var locationNameWidth = dc.getTextWidthInPixels(location, fontComp);

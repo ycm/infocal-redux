@@ -244,6 +244,12 @@
         id="api_group"
         title="@Strings.api_group_title"
         enableIfTrue="@Properties.use_openweathermap_api">
+        <setting propertyKey="@Properties.api_version" title="@Strings.api_version_title">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.openweathermap_3</listEntry>
+                <listEntry value="1">@Strings.openweathermap_25</listEntry>
+            </settingConfig>
+        </setting>
         <setting propertyKey="@Properties.openweathermap_api_key" title="@Strings.openweathermap_api_key_title">
             <settingConfig type="alphaNumeric" />
         </setting>

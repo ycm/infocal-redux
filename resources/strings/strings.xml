@@ -4,8 +4,9 @@
     <string id="alt_timezone_lon_title">Longitude</string>
     <string id="alternate_timezone">Alternate timezone</string>
     <string id="alternate_timezone_group_title">Alternate timezone coordinates</string>
-    <string id="api_group_title">API settings</string>
+    <string id="api_group_title">OpenWeatherMap API settings</string>
     <string id="api_request_interval_title">API request interval</string>
+    <string id="api_version_title">API version</string>
     <string id="appearance_group_title">Appearance</string>
     <string id="battery">Battery</string>
     <string id="battery_days_left">Battery days left</string>
@@ -54,7 +55,9 @@
     <string id="no_comp">Empty</string>
     <string id="no_gauge">No gauge</string>
     <string id="num_notifs">Notifications</string>
-    <string id="openweathermap_api_key_title">OpenWeatherMap One Call 3.0 API Key</string>
+    <string id="openweathermap_25">2.5</string>
+    <string id="openweathermap_3">3.0 (recommended)</string>
+    <string id="openweathermap_api_key_title">API key</string>
     <string id="override_6_and_8_comps_title">Override 6 and 8 o'clock with location and sunrise/sunset info</string>
     <string id="show_seconds_title">Show seconds</string>
     <string id="status_alarms_set_title"> Show status icon if alarms are set</string>
