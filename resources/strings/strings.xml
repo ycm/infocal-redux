@@ -1,5 +1,5 @@
 <strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
-    <string id="AppName">face</string>
+    <string id="AppName">Infocal Redux</string>
     <string id="alt_timezone_lat_title">Latitude</string>
     <string id="alt_timezone_lon_title">Longitude</string>
     <string id="alternate_timezone">Alternate timezone</string>
