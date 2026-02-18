@@ -125,6 +125,7 @@
                 <listEntry value="7">@Strings.date_1</listEntry>
                 <listEntry value="8">@Strings.date_2</listEntry>
                 <listEntry value="9">@Strings.alternate_timezone</listEntry>
+                <listEntry value="10">@Strings.battery_days_left</listEntry>
             </settingConfig>
         </setting>
         <setting propertyKey="@Properties.comp_12" title="@Strings.comp_12_title">
@@ -139,6 +140,7 @@
                 <listEntry value="7">@Strings.date_1</listEntry>
                 <listEntry value="8">@Strings.date_2</listEntry>
                 <listEntry value="9">@Strings.alternate_timezone</listEntry>
+                <listEntry value="10">@Strings.battery_days_left</listEntry>
             </settingConfig>
         </setting>
         <setting propertyKey="@Properties.comp_2" title="@Strings.comp_2_title">
@@ -153,6 +155,7 @@
                 <listEntry value="7">@Strings.date_1</listEntry>
                 <listEntry value="8">@Strings.date_2</listEntry>
                 <listEntry value="9">@Strings.alternate_timezone</listEntry>
+                <listEntry value="10">@Strings.battery_days_left</listEntry>
             </settingConfig>
         </setting>
         <setting propertyKey="@Properties.comp_4" title="@Strings.comp_4_title">
@@ -167,6 +170,7 @@
                 <listEntry value="7">@Strings.date_1</listEntry>
                 <listEntry value="8">@Strings.date_2</listEntry>
                 <listEntry value="9">@Strings.alternate_timezone</listEntry>
+                <listEntry value="10">@Strings.battery_days_left</listEntry>
             </settingConfig>
         </setting>
         <setting propertyKey="@Properties.comp_6" title="@Strings.comp_6_title">
@@ -181,6 +185,7 @@
                 <listEntry value="7">@Strings.date_1</listEntry>
                 <listEntry value="8">@Strings.date_2</listEntry>
                 <listEntry value="9">@Strings.alternate_timezone</listEntry>
+                <listEntry value="10">@Strings.battery_days_left</listEntry>
             </settingConfig>
         </setting>
         <setting propertyKey="@Properties.comp_8" title="@Strings.comp_8_title">
@@ -195,6 +200,7 @@
                 <listEntry value="7">@Strings.date_1</listEntry>
                 <listEntry value="8">@Strings.date_2</listEntry>
                 <listEntry value="9">@Strings.alternate_timezone</listEntry>
+                <listEntry value="10">@Strings.battery_days_left</listEntry>
             </settingConfig>
         </setting>
         <setting propertyKey="@Properties.comp_10" title="@Strings.comp_10_title">
@@ -209,6 +215,7 @@
                 <listEntry value="7">@Strings.date_1</listEntry>
                 <listEntry value="8">@Strings.date_2</listEntry>
                 <listEntry value="9">@Strings.alternate_timezone</listEntry>
+                <listEntry value="10">@Strings.battery_days_left</listEntry>
             </settingConfig>
         </setting>
     </group>

@@ -60,7 +60,8 @@ class infocalReduxView extends WatchUi.WatchFace {
     var SECONDS_X_FOR_INLINE_TIME;
 
 
-    function initialize() {
+    function initialize()
+    {
         WatchFace.initialize();
     }
 
@@ -224,6 +225,12 @@ class infocalReduxView extends WatchUi.WatchFace {
     }
 
 
+    function getBatteryDaysLeftText() as Lang.String
+    {
+        return System.getSystemStats().batteryInDays.format("%0.1f") + " DAYS";
+    }
+
+
     function getTemperatureTextAndMakeGauge(dc as Dc, degrees as Lang.Number) as Lang.String
     {
         if (!Properties.getValue("use_openweathermap_api") || apiResponsePackage == null)
@@ -366,6 +373,9 @@ class infocalReduxView extends WatchUi.WatchFace {
             case 9:
                 text = getAlternateTimezoneText();
                 break;
+            case 10:
+                text = getBatteryDaysLeftText();
+                break;
             default:
                 break;
         }
@@ -406,6 +416,9 @@ class infocalReduxView extends WatchUi.WatchFace {
                 break;
             case 9:
                 text = getAlternateTimezoneText();
+                break;
+            case 10:
+                text = getBatteryDaysLeftText();
                 break;
             default:
                 break;
