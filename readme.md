@@ -14,6 +14,13 @@ Inspired by [Infocal](https://github.com/RyanDam/Infocal). Not a fork. Please su
   <img src="https://github.com/ycm/infocal-redux/blob/1c5404546302ed772ddceb1af2a702c6f2a3c25b/screenshots/screen02.png" width="200">
 </p>
 
+<p align="center"><b>Always-on display</b></p>
+
+<p align="center">
+  <img src="https://github.com/ycm/infocal-redux/blob/f531f3fdbbd4963d0fcda07dd578bc37b0e92422/screenshots/screen-aod.gif">
+</p>
+
+
 ## Supported devices
 
 - Made for FRx65 devices (165 through 965). Tested on ConnectIQ simulator. Tested on physical 165m. Probably works for some other devices. Submit an issue or a PR.
