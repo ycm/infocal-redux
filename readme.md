@@ -31,10 +31,16 @@ Inspired by [Infocal](https://github.com/RyanDam/Infocal). Not a fork. Please su
 
 Ensure colors are in `xxxxxx` hex format, without a leading `#`.
 
-**OpenWeatherMap API not working**
-
-Ensure you have a **3.0** API key. OWM is deprecating the older 2.5 version that many watchfaces use. To get a 3.0 API key you need to sign up with a credit card, but you get 1000 requests per day. To avoid paying, just set your daily request limit to 1000 in your OWM settings.
-
 **Alternate timezone**
 
 User-preset alternate timezones are not accessible from the watchface. As a workaround, to display an alternate timezone with Infocal Redux, enter the coordinates of the location. Daylight savings works out of the box.
+
+**OpenWeatherMap API not working**
+
+A few things to check:
+
+1. Ensure you have a **3.0**-enabled API key. OWM is deprecating the older 2.5 version that many watchfaces use. To get a 3.0 API key you need to add a credit card, but you get 1000 free requests per day. To avoid paying, just set your daily request limit to 1000 in your OWM settings.
+
+2. Ensure your device knows its own location. To refresh the location, **start a GPS-enabled activity** (e.g. running). Make sure the bar turns green, indicating a GPS lock. You can end and discard the activity after a few seconds. Then, once you return to the watchface it will save a copy of this GPS location for the next time it makes an API request. In other words, the location will update everytime you start a GPS-enabled activity.
+
+3. Ensure your phone is connected. The API request is done by the phone, not the watch.
