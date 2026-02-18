@@ -197,7 +197,7 @@
                 <listEntry value="9">@Strings.alternate_timezone</listEntry>
             </settingConfig>
         </setting>
-        <setting propertyKey="@Properties.comp_10" title="@Strings.comp_8_title">
+        <setting propertyKey="@Properties.comp_10" title="@Strings.comp_10_title">
             <settingConfig type="list">
                 <listEntry value="0">@Strings.no_comp</listEntry>
                 <listEntry value="1">@Strings.heart_rate</listEntry>
