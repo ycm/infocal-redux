@@ -1,8 +1,8 @@
 <settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
 
     <group
-        id="colors_group"
-        title="@Strings.colors_group_title">
+        id="appearance_group"
+        title="@Strings.appearance_group_title">
         <setting propertyKey="@Properties.color_ui_accent" title="@Strings.color_ui_accent_title">
             <settingConfig type="alphaNumeric"/>
         </setting>
@@ -21,85 +21,26 @@
         <setting propertyKey="@Properties.color_aod_m" title="@Strings.color_aod_m_title">
             <settingConfig type="alphaNumeric"/>
         </setting>
-    </group>
-
-    <setting propertyKey="@Properties.time_display_layout" title="@Strings.time_display_layout_title">
-        <settingConfig type="list">
-            <listEntry value="0">@Strings.classic_left</listEntry>
-            <listEntry value="1">@Strings.classic_right</listEntry>
-            <listEntry value="2">@Strings.inline_time</listEntry>
-        </settingConfig>
-    </setting>
-
-    <setting propertyKey="@Properties.use_military_time" title="@Strings.use_military_time_title">
-        <settingConfig type="boolean"/>
-    </setting>
-
-    <setting propertyKey="@Properties.draw_dial" title="@Strings.draw_dial">
-        <settingConfig type="boolean"/>
-    </setting>
-
-    <setting propertyKey="@Properties.show_seconds" title="@Strings.show_seconds_title">
-        <settingConfig type="boolean"/>
-    </setting>
-
-    <setting propertyKey="@Properties.draw_hatch_lines" title="@Strings.draw_hatch_lines_title">
-        <settingConfig type="boolean"/>
-    </setting>
-
-    <group
-        id="status_icon_group"
-        title="@Strings.status_icon_group_title">
-        <setting propertyKey="@Properties.status_phone_connected" title="@Strings.status_phone_connected_title">
+        <setting propertyKey="@Properties.time_display_layout" title="@Strings.time_display_layout_title">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.classic_left</listEntry>
+                <listEntry value="1">@Strings.classic_right</listEntry>
+                <listEntry value="2">@Strings.inline_time</listEntry>
+            </settingConfig>
+        </setting>
+        <setting propertyKey="@Properties.use_military_time" title="@Strings.use_military_time_title">
             <settingConfig type="boolean"/>
         </setting>
-        <setting propertyKey="@Properties.status_alarms_set" title="@Strings.status_alarms_set_title">
+        <setting propertyKey="@Properties.draw_dial" title="@Strings.draw_dial">
             <settingConfig type="boolean"/>
         </setting>
-        <setting propertyKey="@Properties.status_do_not_disturb" title="@Strings.status_do_not_disturb_title">
+        <setting propertyKey="@Properties.show_seconds" title="@Strings.show_seconds_title">
             <settingConfig type="boolean"/>
         </setting>
-        <setting propertyKey="@Properties.status_api_failed" title="@Strings.status_api_failed_title">
+        <setting propertyKey="@Properties.draw_hatch_lines" title="@Strings.draw_hatch_lines_title">
             <settingConfig type="boolean"/>
         </setting>
     </group>
-
-    <setting propertyKey="@Properties.use_openweathermap_api" title="@Strings.use_openweathermap_api_title">
-        <settingConfig type="boolean"/>
-    </setting>
-    <group
-        id="api_group"
-        title="@Strings.api_group_title"
-        enableIfTrue="@Properties.use_openweathermap_api">
-        <setting propertyKey="@Properties.openweathermap_api_key" title="@Strings.openweathermap_api_key_title">
-            <settingConfig type="alphaNumeric" />
-        </setting>
-        <setting propertyKey="@Properties.override_6_and_8_comps" title="@Strings.override_6_and_8_comps_title">
-            <settingConfig type="boolean"/>
-        </setting>
-        <setting propertyKey="@Properties.location_name_type" title="@Strings.location_name_type_title">
-            <settingConfig type="list">
-                <listEntry value="0">@Strings.location_name</listEntry>
-                <listEntry value="1">@Strings.coordinates_degrees_decimal</listEntry>
-                <listEntry value="2">@Strings.coordinates_mgrs</listEntry>
-            </settingConfig>
-        </setting>
-        <setting propertyKey="@Properties.weather_units" title="@Strings.weather_units_title">
-            <settingConfig type="list">
-                <listEntry value="0">@Strings.imperial</listEntry>
-                <listEntry value="1">@Strings.metric</listEntry>
-            </settingConfig>
-        </setting>
-        <setting propertyKey="@Properties.api_request_interval" title="@Strings.api_request_interval_title">
-            <settingConfig type="list">
-                <listEntry value="5">@Strings.every_5_min</listEntry>
-                <listEntry value="15">@Strings.every_15_min</listEntry>
-                <listEntry value="30">@Strings.every_30_min</listEntry>
-                <listEntry value="60">@Strings.every_60_min</listEntry>
-            </settingConfig>
-        </setting>
-    </group>
-
 
     <setting propertyKey="@Properties.use_alternate_timezone" title="@Strings.use_alternate_timezone_title">
         <settingConfig type="boolean"/>
@@ -279,5 +220,57 @@
         </setting>
     </group>
 
+    <group
+        id="status_icon_group"
+        title="@Strings.status_icon_group_title">
+        <setting propertyKey="@Properties.status_phone_connected" title="@Strings.status_phone_connected_title">
+            <settingConfig type="boolean"/>
+        </setting>
+        <setting propertyKey="@Properties.status_alarms_set" title="@Strings.status_alarms_set_title">
+            <settingConfig type="boolean"/>
+        </setting>
+        <setting propertyKey="@Properties.status_do_not_disturb" title="@Strings.status_do_not_disturb_title">
+            <settingConfig type="boolean"/>
+        </setting>
+        <setting propertyKey="@Properties.status_api_failed" title="@Strings.status_api_failed_title">
+            <settingConfig type="boolean"/>
+        </setting>
+    </group>
+
+    <setting propertyKey="@Properties.use_openweathermap_api" title="@Strings.use_openweathermap_api_title">
+        <settingConfig type="boolean"/>
+    </setting>
+    <group
+        id="api_group"
+        title="@Strings.api_group_title"
+        enableIfTrue="@Properties.use_openweathermap_api">
+        <setting propertyKey="@Properties.openweathermap_api_key" title="@Strings.openweathermap_api_key_title">
+            <settingConfig type="alphaNumeric" />
+        </setting>
+        <setting propertyKey="@Properties.override_6_and_8_comps" title="@Strings.override_6_and_8_comps_title">
+            <settingConfig type="boolean"/>
+        </setting>
+        <setting propertyKey="@Properties.location_name_type" title="@Strings.location_name_type_title">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.location_name</listEntry>
+                <listEntry value="1">@Strings.coordinates_degrees_decimal</listEntry>
+                <listEntry value="2">@Strings.coordinates_mgrs</listEntry>
+            </settingConfig>
+        </setting>
+        <setting propertyKey="@Properties.weather_units" title="@Strings.weather_units_title">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.imperial</listEntry>
+                <listEntry value="1">@Strings.metric</listEntry>
+            </settingConfig>
+        </setting>
+        <setting propertyKey="@Properties.api_request_interval" title="@Strings.api_request_interval_title">
+            <settingConfig type="list">
+                <listEntry value="5">@Strings.every_5_min</listEntry>
+                <listEntry value="15">@Strings.every_15_min</listEntry>
+                <listEntry value="30">@Strings.every_30_min</listEntry>
+                <listEntry value="60">@Strings.every_60_min</listEntry>
+            </settingConfig>
+        </setting>
+    </group>
 
 </settings>
