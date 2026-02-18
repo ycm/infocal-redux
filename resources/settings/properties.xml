@@ -3,7 +3,6 @@
     <property id="color_ui_accent_dark" type="string">660000</property>
     <property id="color_text" type="string">ffffff</property>
     <property id="color_bg" type="string">000000</property>
-
     <property id="color_aod_h" type="string">ee0000</property>
     <property id="color_aod_m" type="string">ffffff</property>
 
@@ -14,7 +13,8 @@
     <property id="comp_horizontal" type="number">9</property>
 
     <property id="time_display_layout" type="number">0</property>
-
+    <property id="draw_dial" type="boolean">true</property>
+    <property id="show_seconds" type="boolean">true</property>
     <property id="draw_hatch_lines" type="boolean">true</property>
 
     <property id="comp_12" type="number">1</property>
@@ -30,6 +30,7 @@
     <property id="use_military_time" type="boolean">true</property>
 
     <property id="use_openweathermap_api" type="boolean">true</property>
+    <property id="api_version" type="number">0</property>
     <property id="api_request_interval" type="number">60</property>
     <property id="openweathermap_api_key" type="string"></property>
     <property id="weather_units" type="number">0</property>
@@ -45,9 +46,4 @@
     <property id="status_alarms_set" type="boolean">true</property>
     <property id="status_do_not_disturb" type="boolean">false</property>
     <property id="status_api_failed" type="boolean">false</property>
-
-    <property id="draw_dial" type="boolean">true</property>
-
-    <property id="show_seconds" type="boolean">true</property>
-
 </properties>

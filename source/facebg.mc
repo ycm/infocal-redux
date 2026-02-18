@@ -15,7 +15,6 @@ class infocalReduxServiceDelegate extends Toybox.System.ServiceDelegate {
     }
 
     function onReceiveReverseGeocodeResponse(responseCode as Lang.Number, data as Dictionary or Null) as Void {
-        // System.println("reverse geocode responseCode " + responseCode);
         var name = null;
         if (responseCode == 200 && data != null)
         {
@@ -32,9 +31,52 @@ class infocalReduxServiceDelegate extends Toybox.System.ServiceDelegate {
         makeWeatherRequest();
     }
 
+    function onReceiveLegacyWeatherResponse(responseCode as Lang.Number, data as Dictionary or Null) as Void
+    {
+        var package = {
+            "name" => null,
+            "sunrise" => null,
+            "sunset" => null,
+            "sunrise_tomorrow" => null,
+            "sunset_tomorrow" => null,
+            "temp" => null,
+            "high" => null,
+            "low" => null
+        };
+
+        if (responseCode == 200 && data != null)
+        {
+            package.put("name", data.get("name") as String or Null);
+            var main = data.get("main") as Dictionary or Null;
+            if (main != null)
+            {
+                package.put("temp", main.get("temp"));
+                package.put("high", main.get("temp_max"));
+                package.put("low", main.get("temp_min"));
+            }
+            var sys = data.get("sys") as Dictionary or Null;
+            if (sys != null)
+            {
+                var sunrise = sys.get("sunrise") as String or Null;
+                var sunset = sys.get("sunset") as String or Null;
+                if (sunrise != null && sunset != null)
+                {
+                    var sunrise_unix = sunrise.toNumber();
+                    var sunset_unix = sunset.toNumber();
+
+                    package.put("sunrise", sunrise_unix);
+                    package.put("sunset", sunset_unix);
+                    package.put("sunrise_tomorrow", sunrise_unix + Time.Gregorian.SECONDS_PER_DAY);
+                    package.put("sunset_tomorrow", sunset_unix + Time.Gregorian.SECONDS_PER_DAY);
+                }
+            }
+        }
+
+        Background.exit(package);
+    }
+
     function onReceiveWeatherResponse(responseCode as Lang.Number, data as Dictionary or Null) as Void
     {
-        // System.println("weather responseCode " + responseCode);
         var sunrise = null;
         var sunset = null;
         var sunrise_tomorrow = null;
@@ -88,25 +130,14 @@ class infocalReduxServiceDelegate extends Toybox.System.ServiceDelegate {
             "high" => high,
             "low" => low
         };
-        // System.println("package:");
-        // System.println(package);
         Background.exit(package);
     }
 
     function makeWeatherRequest()
     {
-        // var currTime = System.getClockTime();
-        // var timeStr = Lang.format("[$1$:$2$:$3$]", [
-        //     currTime.hour.format("%02d"),
-        //     currTime.min.format("%02d"),
-        //     currTime.sec.format("%02d")
-        // ]);
-        // System.println(timeStr + " weather request");
-
         var coordinates = Storage.getValue("lastActivityLatLong");
         if (coordinates != null)
         {
-            // System.println(timeStr + " request lat/lon = " + coordinates[0].format("%.02f") + "," + coordinates[1].format("%.02f"));
             var url ="https://api.openweathermap.org/data/3.0/onecall";
             var params = {
                 "lat" => (coordinates as Array)[0],
@@ -121,26 +152,13 @@ class infocalReduxServiceDelegate extends Toybox.System.ServiceDelegate {
             };
             Communications.makeWebRequest(url, params, opts, method(:onReceiveWeatherResponse));
         }
-        // else
-        // {
-        //     System.println(timeStr + " last recorded lat/long is null");
-        // }
     }
 
     function makeReverseGeocodeRequest()
     {
-        // var currTime = System.getClockTime();
-        // var timeStr = Lang.format("[$1$:$2$:$3$]", [
-        //     currTime.hour.format("%02d"),
-        //     currTime.min.format("%02d"),
-        //     currTime.sec.format("%02d")
-        // ]);
-        // System.println(timeStr + " reverse geocode request");
-
         var coordinates = Storage.getValue("lastActivityLatLong");
         if (coordinates != null)
         {
-            // System.println(timeStr + " request lat/lon = " + coordinates[0].format("%.02f") + "," + coordinates[1].format("%.02f"));
             var url ="https://api.openweathermap.org/geo/1.0/reverse";
             var params = {
                 "lat" => (coordinates as Array)[0],
@@ -153,13 +171,38 @@ class infocalReduxServiceDelegate extends Toybox.System.ServiceDelegate {
             };
             Communications.makeWebRequest(url, params, opts, method(:onReceiveReverseGeocodeResponse));
         }
-        // else
-        // {
-        //     System.println(timeStr + " last recorded lat/long is null");
-        // }
     }
 
-    function onTemporalEvent() as Void {
-        makeReverseGeocodeRequest();
+    function makeLegacyWeatherRequest()
+    {
+        var coordinates = Storage.getValue("lastActivityLatLong");
+        if (coordinates != null)
+        {
+            var url ="https://api.openweathermap.org/data/2.5/weather";
+            var params = {
+                "lat" => (coordinates as Array)[0],
+                "lon" => (coordinates as Array)[1],
+                "appid" => Properties.getValue("openweathermap_api_key"),
+                "units" => Properties.getValue("weather_units") == 0 ? "imperial" : "metric"
+            };
+            var opts = {
+                :method => Communications.HTTP_REQUEST_METHOD_GET,
+                :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON
+            };
+            Communications.makeWebRequest(url, params, opts, method(:onReceiveLegacyWeatherResponse));
+        }
+    }
+
+
+    function onTemporalEvent() as Void
+    {
+        if (Properties.getValue("api_version") == 0) // 3.0
+        {
+            makeReverseGeocodeRequest();
+        }
+        else // 2.5
+        {
+            makeLegacyWeatherRequest();
+        }
     }
 }
