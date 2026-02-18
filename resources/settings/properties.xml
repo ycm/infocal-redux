@@ -4,6 +4,9 @@
     <property id="color_text" type="string">ffffff</property>
     <property id="color_bg" type="string">000000</property>
 
+    <property id="color_aod_h" type="string">ee0000</property>
+    <property id="color_aod_m" type="string">ffffff</property>
+
     <property id="use_alternate_timezone" type="boolean">true</property>
     <property id="alt_timezone_lat" type="string">40.7768882</property>
     <property id="alt_timezone_lon" type="string">-74.729600</property>
