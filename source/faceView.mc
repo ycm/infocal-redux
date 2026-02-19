@@ -1029,6 +1029,7 @@ class infocalReduxView extends WatchUi.WatchFace {
         if (needToRefreshLayout)
         {
             onLayout(dc);
+            needToRefreshLayout = false;
         }
         var lastActivityLocation = Activity.getActivityInfo().currentLocation;
         // lastActivityLocation = new Position.Location({
