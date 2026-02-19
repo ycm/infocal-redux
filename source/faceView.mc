@@ -26,6 +26,8 @@ class infocalReduxView extends WatchUi.WatchFace {
     var colorAccentDark;
     var colorText;
     var colorBackground;
+    var colorAODHour;
+    var colorAODMinute;
 
     var alternatePosition = null;
 
@@ -60,7 +62,8 @@ class infocalReduxView extends WatchUi.WatchFace {
     var SECONDS_X_FOR_INLINE_TIME;
 
 
-    function initialize() {
+    function initialize()
+    {
         WatchFace.initialize();
     }
 
@@ -172,6 +175,8 @@ class infocalReduxView extends WatchUi.WatchFace {
         colorAccentDark = parseColor("color_ui_accent_dark", Graphics.COLOR_DK_RED);
         colorText = parseColor("color_text", Graphics.COLOR_WHITE);
         colorBackground = parseColor("color_bg", Graphics.COLOR_BLACK);
+        colorAODHour = parseColor("color_aod_h", Graphics.COLOR_RED);
+        colorAODMinute = parseColor("color_aod_m", Graphics.COLOR_WHITE);
     }
 
 
@@ -221,6 +226,12 @@ class infocalReduxView extends WatchUi.WatchFace {
     {
         var battery = Math.ceil(System.getSystemStats().battery);
         return Lang.format("BTY $1$", [battery.format("%d")]);
+    }
+
+
+    function getBatteryDaysLeftText() as Lang.String
+    {
+        return System.getSystemStats().batteryInDays.format("%0.1f") + " DAYS";
     }
 
 
@@ -366,6 +377,9 @@ class infocalReduxView extends WatchUi.WatchFace {
             case 9:
                 text = getAlternateTimezoneText();
                 break;
+            case 10:
+                text = getBatteryDaysLeftText();
+                break;
             default:
                 break;
         }
@@ -406,6 +420,9 @@ class infocalReduxView extends WatchUi.WatchFace {
                 break;
             case 9:
                 text = getAlternateTimezoneText();
+                break;
+            case 10:
+                text = getBatteryDaysLeftText();
                 break;
             default:
                 break;
@@ -506,7 +523,7 @@ class infocalReduxView extends WatchUi.WatchFace {
                 if (Properties.getValue("use_openweathermap_api") && apiResponsePackage != null)
                 {
                     var name = apiResponsePackage.get("name");
-                    if (name != null)
+                    if (name != null && name != "")
                     {
                         location = name.toUpper();
                         var locationNameWidth = dc.getTextWidthInPixels(location, fontComp);
@@ -527,7 +544,7 @@ class infocalReduxView extends WatchUi.WatchFace {
                 }
                 break;
             case 2:
-                var grid = Storage.getValue("lastActivityGrid");
+                var grid = Storage.getValue("lastActivityMGRS");
                 if (grid != null)
                 {
                     location = grid;
@@ -959,9 +976,9 @@ class infocalReduxView extends WatchUi.WatchFace {
         var xoff = currentTime.min % 2 == 0 ? 2 : -2;
         var yoff = (currentTime.min / 2) % 2 == 0 ? 2 : -2;
 
-        dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(colorAODHour, Graphics.COLOR_TRANSPARENT);
         dc.drawText(X - AOD_H_M_SPACING / 2 + xoff, Y + yoff, fontBigOutline, h, Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
-        dc.setColor(colorText, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(colorAODMinute, Graphics.COLOR_TRANSPARENT);
         dc.drawText(X + AOD_H_M_SPACING / 2 + xoff, Y + yoff, fontBigOutline, m, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
     }
 

@@ -22,6 +22,10 @@ class infocalReduxApp extends Application.AppBase {
     function onStart(state as Dictionary?) as Void
     {
         apiResponsePackage = Application.Storage.getValue("apiResponsePackage");
+        Storage.setValue("lastActivityLatLong", [
+            34.153717698223126,
+            -118.69615083329013
+        ]);
         apiResponsePackage = {
             "sunrise"=>1771253900,
             "sunrise_tomorrow"=>1771340228,
@@ -50,7 +54,16 @@ class infocalReduxApp extends Application.AppBase {
     function onBackgroundData(data) {
         if (data != null && ((data as Dictionary).get("temp") != null || (data as Dictionary).get("name") != null))
         {
+            // var currTime = System.getClockTime();
+            // var timeStr = Lang.format("[$1$:$2$:$3$]", [
+            //     currTime.hour.format("%02d"),
+            //     currTime.min.format("%02d"),
+            //     currTime.sec.format("%02d")
+            // ]);
+            // System.println(timeStr + " App.onBackgroundData()");
+            // System.println(data);
             apiResponsePackage = data;
+            Storage.setValue("apiResponsePackage", data);
             lastApiRequestFailed = false;
         }
         else
@@ -64,6 +77,7 @@ class infocalReduxApp extends Application.AppBase {
         return [new infocalReduxServiceDelegate()];
     }
 }
+
 
 function getApp() as infocalReduxApp {
     return Application.getApp() as infocalReduxApp;
