@@ -543,7 +543,7 @@ class infocalReduxView extends WatchUi.WatchFace {
                 }
                 break;
             case 2:
-                var grid = Storage.getValue("lastActivityGrid");
+                var grid = Storage.getValue("lastActivityMGRS");
                 if (grid != null)
                 {
                     location = grid;

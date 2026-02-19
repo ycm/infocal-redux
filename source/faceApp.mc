@@ -22,10 +22,6 @@ class infocalReduxApp extends Application.AppBase {
     function onStart(state as Dictionary?) as Void
     {
         apiResponsePackage = Application.Storage.getValue("apiResponsePackage");
-        // Storage.setValue("lastActivityLatLong", [
-        //     34.153717698223126,
-        //     -118.69615083329013
-        // ]);
         // apiResponsePackage = {
         //     "sunrise"=>1771253900,
         //     "sunrise_tomorrow"=>1771340228,
