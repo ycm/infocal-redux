@@ -12,6 +12,7 @@ Inspired by [Infocal](https://github.com/RyanDam/Infocal). Not a fork. Please su
   <img src="https://github.com/ycm/infocal-redux/blob/1c5404546302ed772ddceb1af2a702c6f2a3c25b/screenshots/screen00.png" width="200">
   <img src="https://github.com/ycm/infocal-redux/blob/1c5404546302ed772ddceb1af2a702c6f2a3c25b/screenshots/screen01.png" width="200">
   <img src="https://github.com/ycm/infocal-redux/blob/1c5404546302ed772ddceb1af2a702c6f2a3c25b/screenshots/screen02.png" width="200">
+  <img src="https://github.com/ycm/infocal-redux/blob/5c08b6ed8e699875660a347fea164d779fa3249d/screenshots/screen03.png" width="200">
 </p>
 
 <p align="center"><b>Always-on display</b></p>
