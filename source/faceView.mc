@@ -69,11 +69,13 @@ class infocalReduxView extends WatchUi.WatchFace {
 
 
     function onLayout(dc as Dc) as Void {
-        X = dc.getWidth() / 2;
+        var width = dc.getWidth();
+        X = width / 2;
         Y = dc.getHeight() / 2;
 
         setLayout(Rez.Layouts.WatchFace(dc));
 
+        fontIcon = WatchUi.loadResource(Rez.Fonts.iconFont);
         fontBigOutline = WatchUi.loadResource(Rez.Fonts.BionicBigOutline);
         OUTER_COMPLICATION_TEXT_RADIUS_CCW = X - 5;
         OUTER_COMPLICATION_TEXT_RADIUS_CW = X - 25;
@@ -97,64 +99,63 @@ class infocalReduxView extends WatchUi.WatchFace {
         HATCH_LINE_WIDTH = 3;
         SECONDS_X_FOR_INLINE_TIME = X * 9 / 5;
 
-        switch (dc.getWidth())
+
+        if (width < 390)
         {
-            case 360: // fr265s
-                fontBig = WatchUi.loadResource(Rez.Fonts.Bionic158);
-                fontComp = Graphics.getVectorFont({:face=>"BionicBold", :size=>40}) as Graphics.VectorFont;
-                fontMedium = WatchUi.loadResource(Rez.Fonts.Bionic88);
-                OUTER_COMPLICATION_TEXT_RADIUS_CCW = X - 4;
-                INNER_COMPLICATION_TEXT_RADIUS_CCW = X - 32;
-                INNER_COMPLICATION_TEXT_RADIUS_CW = X - 52;
-                UI_LINE_WIDTH = 4;
-                MAX_LOCATION_TEXT_WIDTH = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT", fontComp);
-                MAX_LOCATION_TEXT_LENGTH = 21;
-                TEMP_GAUGE_WHITESPACE_CCW = "            ";
-                TEMP_GAUGE_WHITESPACE_CW = "          ";
-                SUN_GAUGE_WHITESPACE = "              ";
-                HATCH_LINE_WIDTH = 2;
-                HATCH_LINE_SEP = 10;
-                break;
-            case 390: // fr165, fr165m
-                fontBig = WatchUi.loadResource(Rez.Fonts.Bionic172);
-                fontComp = Graphics.getVectorFont({:face=>"BionicBold", :size=>40}) as Graphics.VectorFont;
-                fontMedium = WatchUi.loadResource(Rez.Fonts.Bionic96);
-                MAX_LOCATION_TEXT_WIDTH = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT", fontComp);
-                MAX_LOCATION_TEXT_LENGTH = 21;
-                TEMP_GAUGE_WHITESPACE_CCW = "            ";
-                TEMP_GAUGE_WHITESPACE_CW = "          ";
-                SUN_GAUGE_WHITESPACE = "              ";
-                HATCH_LINE_SEP = 12;
-                break;
-            case 416: // fr265
-                fontBig = WatchUi.loadResource(Rez.Fonts.Bionic182);
-                fontComp = Graphics.getVectorFont({:face=>"BionicBold", :size=>40}) as Graphics.VectorFont;
-                fontMedium = WatchUi.loadResource(Rez.Fonts.Bionic100);
-                MAX_LOCATION_TEXT_WIDTH = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT AMET", fontComp);
-                MAX_LOCATION_TEXT_LENGTH = 25;
-                TEMP_GAUGE_WHITESPACE_CCW = "             ";
-                TEMP_GAUGE_WHITESPACE_CW = "           ";
-                SUN_GAUGE_WHITESPACE = "                ";
-                HATCH_LINE_SEP = 12;
-                break;
-            case 454: // fr965
-                fontBig = WatchUi.loadResource(Rez.Fonts.Bionic200);
-                fontComp = Graphics.getVectorFont({:face=>"BionicBold", :size=>44}) as Graphics.VectorFont;
-                fontMedium = WatchUi.loadResource(Rez.Fonts.Bionic110);
-                MAX_LOCATION_TEXT_WIDTH = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT AMET", fontComp);
-                MAX_LOCATION_TEXT_LENGTH = "LOREM IPSUM DOLOR SIT AMET".length();
-                TEMP_GAUGE_WHITESPACE_CCW = "              ";
-                TEMP_GAUGE_WHITESPACE_CW = "            ";
-                SUN_GAUGE_WHITESPACE = "                 ";
-                INNER_COMPLICATION_TEXT_RADIUS_CCW = X - 40;
-                INNER_COMPLICATION_TEXT_RADIUS_CW = X - 60;
-                HATCH_LINE_SEP = 15;
-                break;
-            default:
-                break;
+            fontBig = WatchUi.loadResource(Rez.Fonts.Bionic158);
+            fontComp = Graphics.getVectorFont({:face=>"BionicBold", :size=>40}) as Graphics.VectorFont;
+            fontMedium = WatchUi.loadResource(Rez.Fonts.Bionic88);
+            OUTER_COMPLICATION_TEXT_RADIUS_CCW = X - 4;
+            INNER_COMPLICATION_TEXT_RADIUS_CCW = X - 32;
+            INNER_COMPLICATION_TEXT_RADIUS_CW = X - 52;
+            UI_LINE_WIDTH = 4;
+            MAX_LOCATION_TEXT_WIDTH = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT", fontComp);
+            MAX_LOCATION_TEXT_LENGTH = 21;
+            TEMP_GAUGE_WHITESPACE_CCW = "            ";
+            TEMP_GAUGE_WHITESPACE_CW = "          ";
+            SUN_GAUGE_WHITESPACE = "              ";
+            HATCH_LINE_WIDTH = 2;
+            HATCH_LINE_SEP = 10;
+        }
+        else if (width < 416)
+        {
+            fontBig = WatchUi.loadResource(Rez.Fonts.Bionic172);
+            fontComp = Graphics.getVectorFont({:face=>"BionicBold", :size=>40}) as Graphics.VectorFont or Null;
+            fontMedium = WatchUi.loadResource(Rez.Fonts.Bionic96);
+            MAX_LOCATION_TEXT_WIDTH = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT", fontComp);
+            MAX_LOCATION_TEXT_LENGTH = 21;
+            TEMP_GAUGE_WHITESPACE_CCW = "            ";
+            TEMP_GAUGE_WHITESPACE_CW = "          ";
+            SUN_GAUGE_WHITESPACE = "              ";
+            HATCH_LINE_SEP = 12;
+        }
+        else if (width < 454)
+        {
+            fontBig = WatchUi.loadResource(Rez.Fonts.Bionic182);
+            fontComp = Graphics.getVectorFont({:face=>"BionicBold", :size=>40}) as Graphics.VectorFont;
+            fontMedium = WatchUi.loadResource(Rez.Fonts.Bionic100);
+            MAX_LOCATION_TEXT_WIDTH = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT AMET", fontComp);
+            MAX_LOCATION_TEXT_LENGTH = 25;
+            TEMP_GAUGE_WHITESPACE_CCW = "             ";
+            TEMP_GAUGE_WHITESPACE_CW = "           ";
+            SUN_GAUGE_WHITESPACE = "                ";
+            HATCH_LINE_SEP = 12;
+        }
+        else
+        {
+            fontBig = WatchUi.loadResource(Rez.Fonts.Bionic200);
+            fontComp = Graphics.getVectorFont({:face=>"BionicBold", :size=>44}) as Graphics.VectorFont or Null;
+            fontMedium = WatchUi.loadResource(Rez.Fonts.Bionic110);
+            MAX_LOCATION_TEXT_WIDTH = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT AMET", fontComp);
+            MAX_LOCATION_TEXT_LENGTH = "LOREM IPSUM DOLOR SIT AMET".length();
+            TEMP_GAUGE_WHITESPACE_CCW = "              ";
+            TEMP_GAUGE_WHITESPACE_CW = "            ";
+            SUN_GAUGE_WHITESPACE = "                 ";
+            INNER_COMPLICATION_TEXT_RADIUS_CCW = X - 40;
+            INNER_COMPLICATION_TEXT_RADIUS_CW = X - 60;
+            HATCH_LINE_SEP = 15;
         }
 
-        fontIcon = WatchUi.loadResource(Rez.Fonts.iconFont);
         
 
         if (Properties.getValue("use_alternate_timezone"))
@@ -1030,6 +1031,11 @@ class infocalReduxView extends WatchUi.WatchFace {
             onLayout(dc);
         }
         var lastActivityLocation = Activity.getActivityInfo().currentLocation;
+        // lastActivityLocation = new Position.Location({
+        //     :latitude => 51.5098,
+        //     :longitude=> -0.1180,
+        //     :format => :degrees
+        // });
         if (lastActivityLocation != null)
         {
             Application.Storage.setValue("lastActivityLatLong", lastActivityLocation.toDegrees());
