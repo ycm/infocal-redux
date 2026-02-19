@@ -99,7 +99,6 @@ class infocalReduxView extends WatchUi.WatchFace {
         HATCH_LINE_WIDTH = 3;
         SECONDS_X_FOR_INLINE_TIME = X * 9 / 5;
 
-        System.println("screen width " + width);
         if (width <= 218)
         {
 
@@ -126,6 +125,8 @@ class infocalReduxView extends WatchUi.WatchFace {
             HATCH_LINE_WIDTH = 2;
             HATCH_LINE_SEP = 8;
 
+            INNER_COMPLICATION_TEXT_RADIUS_CCW = X - 25;
+            INNER_COMPLICATION_TEXT_RADIUS_CW = X - 45;
             STATUS_ICON_Y_LEVEL = X + 30;
             HORIZONTAL_COMPLICATION_Y = Y - 50;
             DATE_HOUR_LEFT_XOFF = X - 45;
@@ -133,6 +134,7 @@ class infocalReduxView extends WatchUi.WatchFace {
             HOUR_STR_Y = Y - 50;
             DATE_HOUR_SEP_Y = Y - 45;
             SECONDS_X_FOR_BIG_MINUTES = X + 60;
+            SECONDS_X_FOR_INLINE_TIME = X + 80;
         }
         else if (width <= 280)
         {
@@ -991,13 +993,13 @@ class infocalReduxView extends WatchUi.WatchFace {
         
         dc.setColor(colorText, Graphics.COLOR_TRANSPARENT);
         dc.drawText(X - mW + middle, Y, fontBig, m, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
-        if (showSeconds)
-        {
-            dc.drawText(SECONDS_X_FOR_INLINE_TIME, Y, fontComp, currentTime.sec.format("%02d"), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
-        }
         if (Properties.getValue("draw_hatch_lines"))
         {
             drawHatchLines(dc, -mW + middle - 20);
+        }
+        if (showSeconds)
+        {
+            dc.drawText(SECONDS_X_FOR_INLINE_TIME, Y, fontComp, currentTime.sec.format("%02d"), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
         }
         dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
         dc.drawText(X + hW - middle, Y, fontBig, h, Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
