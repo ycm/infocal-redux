@@ -24,7 +24,9 @@ Inspired by [Infocal](https://github.com/RyanDam/Infocal). Not a fork. Please su
 
 ## Supported devices
 
-- Made for FRx65 devices (165 through 965). Tested on ConnectIQ simulator. Tested on physical 165m. Probably works for some other devices. Submit an issue or a PR.
+`d2mach1, d2mach2, epix2, epix2pro42mm, epix2pro47mm, epix2pro51mm, fenix843mm, fenix847mm, fenix8pro47mm, fenixe, fr165, fr165m, fr265, fr265s, fr965, marq2, marq2aviator, venu441mm, venu445mm`
+
+Tested on ConnectIQ simulator. Tested on physical 165m. WIP: adding support for MIPS devices.
 
 ## FAQ
 
