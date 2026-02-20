@@ -24,9 +24,19 @@ Inspired by [Infocal](https://github.com/RyanDam/Infocal). Not a fork. Please su
 
 ## Supported devices
 
-`d2mach1, d2mach2, epix2, epix2pro42mm, epix2pro47mm, epix2pro51mm, fenix843mm, fenix847mm, fenix8pro47mm, fenixe, fr165, fr165m, fr265, fr265s, fr965, marq2, marq2aviator, venu441mm, venu445mm`
+**fully supported AMOLED devices**
 
-Tested on ConnectIQ simulator. Tested on physical 165m. WIP: adding support for MIPS devices.
+`d2mach1, d2mach2, epix2, epix2pro42mm, epix2pro47mm, epix2pro51mm, fenix843mm, fenix847mm, fenix8pro47mm, fenixe, fr165, fr165m, fr265, fr265s, fr965, marq2, marq2aviator, venu441mm, venu445mm, vivoactive6`
+
+**experimental support for the following MIP devices**
+
+`enduro3, fenix7, fenix7pro, fenix7pronowifi, fenix7s, fenix7spro, fenix7x, fenix7xpro, fenix7xpronowifi, fenix8solar47mm, fenix8solar51mm, fr955`
+
+**other supported devices, except these use a fallback font**
+
+`fr57042mm, fr57047mm, fr970`
+
+Tested on ConnectIQ simulator. Tested on physical 165m. I don't have a MIP device. Please report any issues by adding a ticket on Github.
 
 ## FAQ
 
