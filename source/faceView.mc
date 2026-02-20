@@ -112,7 +112,11 @@ class infocalReduxView extends WatchUi.WatchFace {
         }
         else if (partNumber.equals("006-B4574-00") // fr57042mm
             || partNumber.equals("006-B4570-00")   // fr57047mm
-            || partNumber.equals("006-B4565-00"))  // fr970
+            || partNumber.equals("006-B4565-00")   // fr970
+            // || partNumber.equals("006-B3907-00")   // fenix7x
+            // || partNumber.equals("006-B4376-00")   // fenix7xpro
+            // || partNumber.equals("006-B4596-00")   // fenix7xpronowifi
+        )
         {
             fontName = "RobotoCondensedBold";
             OUTER_COMPLICATION_TEXT_RADIUS_CW -= 5;
@@ -143,6 +147,12 @@ class infocalReduxView extends WatchUi.WatchFace {
             DATE_HOUR_SEP_Y = Y - 43;
             SECONDS_X_FOR_BIG_MINUTES = X + 60;
             SECONDS_X_FOR_INLINE_TIME = X + 80;
+
+            if (width <= 240) // fenix7s
+            {
+                DATE_HOUR_SEP_Y = Y - 40;
+                SECONDS_X_FOR_INLINE_TIME = X + 85;
+            }
         }
         else if (width <= 280)
         {
@@ -1019,6 +1029,7 @@ class infocalReduxView extends WatchUi.WatchFace {
         {
             drawHatchLines(dc, -mW + middle - 20);
         }
+        dc.setColor(colorText, Graphics.COLOR_TRANSPARENT);
         if (showSeconds)
         {
             dc.drawText(SECONDS_X_FOR_INLINE_TIME, Y, fontComp, currentTime.sec.format("%02d"), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
