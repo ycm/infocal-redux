@@ -25,12 +25,12 @@ class infocalReduxApp extends Application.AppBase {
         // apiResponsePackage = {
         //     "sunrise"=>1771253900,
         //     "sunrise_tomorrow"=>1771340228,
-        //     "low"=>45.66,
+        //     "low"=>40,
         //     "sunset"=>1771292980,
-        //     "high"=>50.16,
+        //     "high"=>50,
         //     "name"=>"San Francisco",
         //     "sunset_tomorrow"=>1771379396,
-        //     "temp"=>48.54
+        //     "temp"=>35
         // };
     }
 

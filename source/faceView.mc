@@ -321,6 +321,9 @@ class infocalReduxView extends WatchUi.WatchFace {
 
         if (temp != null && low != null && high != null)
         {
+            low = temp < low ? temp : low;
+            high = temp > high ? temp : high;
+
             dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
             if (high > low)
             {
@@ -351,6 +354,7 @@ class infocalReduxView extends WatchUi.WatchFace {
                     colorAccentDark,
                     false
                 );
+                dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
                 dc.drawRadialText(
                     X,
                     Y,
