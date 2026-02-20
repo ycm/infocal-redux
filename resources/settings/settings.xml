@@ -285,5 +285,12 @@
         <setting propertyKey="@Properties.debug_version" title="@Strings.debug_version_title">
             <settingConfig type="boolean"/>
         </setting>
+        <setting propertyKey="@Properties.debug_print_storage_interval" title="@Strings.debug_print_storage_interval_title">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.debug_print_storage_never</listEntry>
+                <listEntry value="1">@Strings.debug_print_storage_on_background_data</listEntry>
+                <listEntry value="2">@Strings.debug_print_storage_on_update</listEntry>
+            </settingConfig>
+        </setting>
     </group>
 </settings>

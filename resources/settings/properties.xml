@@ -48,4 +48,5 @@
     <property id="status_api_failed" type="boolean">false</property>
 
     <property id="debug_version" type="boolean">false</property>
+    <property id="debug_print_storage_interval" type="number">0</property>
 </properties>

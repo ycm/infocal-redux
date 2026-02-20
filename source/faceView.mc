@@ -1163,6 +1163,14 @@ class infocalReduxView extends WatchUi.WatchFace {
 
         drawSmallComplicationGauges(dc);
         drawStatusIcons(dc);
+
+        if (Properties.getValue("debug_print_storage_interval") == 2)
+        {
+            System.println(Time.now().value() + " onUpdate()");
+            System.println(" apiResponsePackage: " + Storage.getValue("apiResponsePackage"));
+            System.println(" lastActivityLatLong: " + Storage.getValue("lastActivityLatLong"));
+            System.println(" lastActivityMGRS: " + Storage.getValue("lastActivityMGRS"));
+        }
     }
 
 

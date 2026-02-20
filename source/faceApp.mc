@@ -67,6 +67,14 @@ class infocalReduxApp extends Application.AppBase {
             lastApiRequestFailed = true;
         }
         WatchUi.requestUpdate();
+
+        if (Properties.getValue("debug_print_storage_interval") == 1)
+        {
+            System.println(Time.now().value() + " onBackgroundData()");
+            System.println(" apiResponsePackage: " + Storage.getValue("apiResponsePackage"));
+            System.println(" lastActivityLatLong: " + Storage.getValue("lastActivityLatLong"));
+            System.println(" lastActivityMGRS: " + Storage.getValue("lastActivityMGRS"));
+        }
     }
 
     function getServiceDelegate(){
