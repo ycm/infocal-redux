@@ -40,7 +40,7 @@
     <string id="date_1">Date (weekday, day, month)</string>
     <string id="date_2">Date (weekday, month, day)</string>
     <string id="debug_group_title">Debug</string>
-    <string id="debug_version_title">Version 1.2.0-beta.3 (this doesn't do anything)</string>
+    <string id="debug_version_title">Version 1.2.0-beta.4 (this doesn't do anything)</string>
     <string id="draw_dial">Draw dial</string>
     <string id="draw_hatch_lines_title">Draw lines overlaid on time</string>
     <string id="every_15_min">Every 15 minutes</string>
