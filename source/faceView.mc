@@ -14,7 +14,7 @@ class infocalReduxView extends WatchUi.WatchFace {
     var fontComp;
     var fontMedium;
     var fontBig;
-    var fontBigOutline;
+    var fontAOD;
     var fontIcon;
 
     var currentTime;
@@ -32,6 +32,8 @@ class infocalReduxView extends WatchUi.WatchFace {
     var alternatePosition = null;
 
     var inLowPower = false;
+
+    var requiresBurnInProtection;
 
     var OUTER_COMPLICATION_TEXT_RADIUS_CCW;
     var OUTER_COMPLICATION_TEXT_RADIUS_CW;
@@ -75,8 +77,10 @@ class infocalReduxView extends WatchUi.WatchFace {
 
         setLayout(Rez.Layouts.WatchFace(dc));
 
+        requiresBurnInProtection = System.getDeviceSettings().requiresBurnInProtection;
+
         fontIcon = WatchUi.loadResource(Rez.Fonts.iconFont);
-        fontBigOutline = WatchUi.loadResource(Rez.Fonts.BionicBigOutline);
+        fontAOD = WatchUi.loadResource(Rez.Fonts.BionicBigOutline);
         OUTER_COMPLICATION_TEXT_RADIUS_CCW = X - 5;
         OUTER_COMPLICATION_TEXT_RADIUS_CW = X - 25;
         STATUS_ICON_Y_LEVEL = X * 51 / 40;
@@ -127,6 +131,7 @@ class infocalReduxView extends WatchUi.WatchFace {
             fontComp = Graphics.getVectorFont({:face=>fontName, :size=>30}) as Graphics.VectorFont;
             fontMedium = Graphics.getVectorFont({:face=>fontName, :size=>60}) as Graphics.VectorFont;
             fontBig = WatchUi.loadResource(Rez.Fonts.Bionic88);
+            fontAOD = WatchUi.loadResource(Rez.Fonts.Bionic100);
             OUTER_COMPLICATION_TEXT_RADIUS_CCW = X - 2;
             OUTER_COMPLICATION_TEXT_RADIUS_CW = X - 20;
             INNER_COMPLICATION_TEXT_RADIUS_CCW = X - 32;
@@ -159,6 +164,7 @@ class infocalReduxView extends WatchUi.WatchFace {
             fontComp = Graphics.getVectorFont({:face=>fontName, :size=>30}) as Graphics.VectorFont;
             fontMedium = Graphics.getVectorFont({:face=>fontName, :size=>60}) as Graphics.VectorFont;
             fontBig = WatchUi.loadResource(Rez.Fonts.Bionic88);
+            fontAOD = WatchUi.loadResource(Rez.Fonts.Bionic100);
             OUTER_COMPLICATION_TEXT_RADIUS_CCW = X - 2;
             OUTER_COMPLICATION_TEXT_RADIUS_CW = X - 20;
             INNER_COMPLICATION_TEXT_RADIUS_CCW = X - 32;
@@ -185,6 +191,7 @@ class infocalReduxView extends WatchUi.WatchFace {
             fontBig = WatchUi.loadResource(Rez.Fonts.Bionic158);
             fontComp = Graphics.getVectorFont({:face=>fontName, :size=>40}) as Graphics.VectorFont;
             fontMedium = WatchUi.loadResource(Rez.Fonts.Bionic88);
+            fontAOD = WatchUi.loadResource(Rez.Fonts.BionicBigOutline);
             OUTER_COMPLICATION_TEXT_RADIUS_CCW = X - 4;
             INNER_COMPLICATION_TEXT_RADIUS_CCW = X - 32;
             INNER_COMPLICATION_TEXT_RADIUS_CW = X - 52;
@@ -199,6 +206,7 @@ class infocalReduxView extends WatchUi.WatchFace {
             fontBig = WatchUi.loadResource(Rez.Fonts.Bionic172);
             fontComp = Graphics.getVectorFont({:face=>fontName, :size=>40}) as Graphics.VectorFont or Null;
             fontMedium = WatchUi.loadResource(Rez.Fonts.Bionic96);
+            fontAOD = WatchUi.loadResource(Rez.Fonts.BionicBigOutline);
             MAX_LOCATION_TEXT_WIDTH = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT", fontComp);
             MAX_LOCATION_TEXT_LENGTH = 21;
             HATCH_LINE_SEP = 12;
@@ -208,6 +216,7 @@ class infocalReduxView extends WatchUi.WatchFace {
             fontBig = WatchUi.loadResource(Rez.Fonts.Bionic182);
             fontComp = Graphics.getVectorFont({:face=>fontName, :size=>40}) as Graphics.VectorFont;
             fontMedium = WatchUi.loadResource(Rez.Fonts.Bionic100);
+            fontAOD = WatchUi.loadResource(Rez.Fonts.BionicBigOutline);
             MAX_LOCATION_TEXT_WIDTH = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT AMET", fontComp);
             MAX_LOCATION_TEXT_LENGTH = 25;
             TEMP_GAUGE_WHITESPACE_CCW = "             "; // 13
@@ -220,6 +229,7 @@ class infocalReduxView extends WatchUi.WatchFace {
             fontBig = WatchUi.loadResource(Rez.Fonts.Bionic200);
             fontComp = Graphics.getVectorFont({:face=>fontName, :size=>44}) as Graphics.VectorFont or Null;
             fontMedium = WatchUi.loadResource(Rez.Fonts.Bionic110);
+            fontAOD = WatchUi.loadResource(Rez.Fonts.BionicBigOutline);
             MAX_LOCATION_TEXT_WIDTH = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT AMET", fontComp);
             MAX_LOCATION_TEXT_LENGTH = "LOREM IPSUM DOLOR SIT AMET".length();
             TEMP_GAUGE_WHITESPACE_CCW = "              ";
@@ -1050,13 +1060,18 @@ class infocalReduxView extends WatchUi.WatchFace {
             : (((currentTime.hour + 11) % 12) + 1).format("%02d");
         var m = currentTime.min.format("%02d");
 
-        var xoff = currentTime.min % 2 == 0 ? 2 : -2;
-        var yoff = (currentTime.min / 2) % 2 == 0 ? 2 : -2;
+        var xoff = 0;
+        var yoff = 0;
+        if (requiresBurnInProtection)
+        {
+            xoff += currentTime.min % 2 == 0 ? 2 : -2;
+            yoff += (currentTime.min / 2) % 2 == 0 ? 2 : -2;
+        }
 
         dc.setColor(colorAODHour, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(X - AOD_H_M_SPACING / 2 + xoff, Y + yoff, fontBigOutline, h, Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(X - AOD_H_M_SPACING / 2 + xoff, Y + yoff, fontAOD, h, Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
         dc.setColor(colorAODMinute, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(X + AOD_H_M_SPACING / 2 + xoff, Y + yoff, fontBigOutline, m, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(X + AOD_H_M_SPACING / 2 + xoff, Y + yoff, fontAOD, m, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
 
