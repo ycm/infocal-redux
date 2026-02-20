@@ -279,4 +279,11 @@
         </setting>
     </group>
 
+    <group
+        id="debug_group"
+        title="@Strings.debug_group_title">
+        <setting propertyKey="@Properties.debug_version" title="@Strings.debug_version_title">
+            <settingConfig type="boolean"/>
+        </setting>
+    </group>
 </settings>

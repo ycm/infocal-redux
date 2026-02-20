@@ -98,12 +98,82 @@ class infocalReduxView extends WatchUi.WatchFace {
         DATE_HOUR_SEP_Y = Y * 13 / 20;
         HATCH_LINE_WIDTH = 3;
         SECONDS_X_FOR_INLINE_TIME = X * 9 / 5;
+        TEMP_GAUGE_WHITESPACE_CCW = "            ";
+        SUN_GAUGE_WHITESPACE = "              ";
+        TEMP_GAUGE_WHITESPACE_CW = "          ";
 
+        var partNumber = System.getDeviceSettings().partNumber;
+        var fontName = "BionicBold";
+        if (partNumber.equals("006-B4532-00")     // fenix8solar47mm
+            || partNumber.equals("006-B4533-00")  // fenix8solar51mm
+            || partNumber.equals("006-B4575-00"))  // enduro3
+        {
+            fontName = "BionicSemiBold";
+        }
+        else if (partNumber.equals("006-B4574-00") // fr57042mm
+            || partNumber.equals("006-B4570-00")   // fr57047mm
+            || partNumber.equals("006-B4565-00"))  // fr970
+        {
+            fontName = "RobotoCondensedBold";
+            OUTER_COMPLICATION_TEXT_RADIUS_CW -= 5;
+        }
 
-        if (width < 390)
+        if (width <= 260)
+        {
+            fontComp = Graphics.getVectorFont({:face=>fontName, :size=>30}) as Graphics.VectorFont;
+            fontMedium = Graphics.getVectorFont({:face=>fontName, :size=>60}) as Graphics.VectorFont;
+            fontBig = WatchUi.loadResource(Rez.Fonts.Bionic88);
+            OUTER_COMPLICATION_TEXT_RADIUS_CCW = X - 2;
+            OUTER_COMPLICATION_TEXT_RADIUS_CW = X - 20;
+            INNER_COMPLICATION_TEXT_RADIUS_CCW = X - 32;
+            INNER_COMPLICATION_TEXT_RADIUS_CW = X - 52;
+            UI_LINE_WIDTH = 3;
+            MAX_LOCATION_TEXT_WIDTH = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT", fontComp);
+            MAX_LOCATION_TEXT_LENGTH = 21;
+            HATCH_LINE_WIDTH = 2;
+            HATCH_LINE_SEP = 8;
+
+            INNER_COMPLICATION_TEXT_RADIUS_CCW = X - 25;
+            INNER_COMPLICATION_TEXT_RADIUS_CW = X - 45;
+            STATUS_ICON_Y_LEVEL = X + 30;
+            HORIZONTAL_COMPLICATION_Y = Y - 50;
+            DATE_HOUR_LEFT_XOFF = X - 45;
+            DATE_HOUR_RIGHT_XOFF = X + 90;
+            HOUR_STR_Y = Y - 50;
+            DATE_HOUR_SEP_Y = Y - 43;
+            SECONDS_X_FOR_BIG_MINUTES = X + 60;
+            SECONDS_X_FOR_INLINE_TIME = X + 80;
+        }
+        else if (width <= 280)
+        {
+            fontComp = Graphics.getVectorFont({:face=>fontName, :size=>30}) as Graphics.VectorFont;
+            fontMedium = Graphics.getVectorFont({:face=>fontName, :size=>60}) as Graphics.VectorFont;
+            fontBig = WatchUi.loadResource(Rez.Fonts.Bionic88);
+            OUTER_COMPLICATION_TEXT_RADIUS_CCW = X - 2;
+            OUTER_COMPLICATION_TEXT_RADIUS_CW = X - 20;
+            INNER_COMPLICATION_TEXT_RADIUS_CCW = X - 32;
+            INNER_COMPLICATION_TEXT_RADIUS_CW = X - 52;
+            UI_LINE_WIDTH = 3;
+            MAX_LOCATION_TEXT_WIDTH = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT A", fontComp);
+            MAX_LOCATION_TEXT_LENGTH = 23;
+            HATCH_LINE_WIDTH = 2;
+            HATCH_LINE_SEP = 8;
+
+            INNER_COMPLICATION_TEXT_RADIUS_CCW = X - 25;
+            INNER_COMPLICATION_TEXT_RADIUS_CW = X - 45;
+            STATUS_ICON_Y_LEVEL = X + 30;
+            HORIZONTAL_COMPLICATION_Y = Y - 50;
+            DATE_HOUR_LEFT_XOFF = X - 45;
+            DATE_HOUR_RIGHT_XOFF = X + 90;
+            HOUR_STR_Y = Y - 50;
+            DATE_HOUR_SEP_Y = Y - 46;
+            SECONDS_X_FOR_BIG_MINUTES = X + 60;
+            SECONDS_X_FOR_INLINE_TIME = X + 80;
+        }
+        else if (width <= 360)
         {
             fontBig = WatchUi.loadResource(Rez.Fonts.Bionic158);
-            fontComp = Graphics.getVectorFont({:face=>"BionicBold", :size=>40}) as Graphics.VectorFont;
+            fontComp = Graphics.getVectorFont({:face=>fontName, :size=>40}) as Graphics.VectorFont;
             fontMedium = WatchUi.loadResource(Rez.Fonts.Bionic88);
             OUTER_COMPLICATION_TEXT_RADIUS_CCW = X - 4;
             INNER_COMPLICATION_TEXT_RADIUS_CCW = X - 32;
@@ -111,32 +181,26 @@ class infocalReduxView extends WatchUi.WatchFace {
             UI_LINE_WIDTH = 4;
             MAX_LOCATION_TEXT_WIDTH = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT", fontComp);
             MAX_LOCATION_TEXT_LENGTH = 21;
-            TEMP_GAUGE_WHITESPACE_CCW = "            ";
-            TEMP_GAUGE_WHITESPACE_CW = "          ";
-            SUN_GAUGE_WHITESPACE = "              ";
             HATCH_LINE_WIDTH = 2;
             HATCH_LINE_SEP = 10;
         }
-        else if (width < 416)
+        else if (width <= 390)
         {
             fontBig = WatchUi.loadResource(Rez.Fonts.Bionic172);
-            fontComp = Graphics.getVectorFont({:face=>"BionicBold", :size=>40}) as Graphics.VectorFont or Null;
+            fontComp = Graphics.getVectorFont({:face=>fontName, :size=>40}) as Graphics.VectorFont or Null;
             fontMedium = WatchUi.loadResource(Rez.Fonts.Bionic96);
             MAX_LOCATION_TEXT_WIDTH = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT", fontComp);
             MAX_LOCATION_TEXT_LENGTH = 21;
-            TEMP_GAUGE_WHITESPACE_CCW = "            ";
-            TEMP_GAUGE_WHITESPACE_CW = "          ";
-            SUN_GAUGE_WHITESPACE = "              ";
             HATCH_LINE_SEP = 12;
         }
-        else if (width < 454)
+        else if (width <= 416)
         {
             fontBig = WatchUi.loadResource(Rez.Fonts.Bionic182);
-            fontComp = Graphics.getVectorFont({:face=>"BionicBold", :size=>40}) as Graphics.VectorFont;
+            fontComp = Graphics.getVectorFont({:face=>fontName, :size=>40}) as Graphics.VectorFont;
             fontMedium = WatchUi.loadResource(Rez.Fonts.Bionic100);
             MAX_LOCATION_TEXT_WIDTH = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT AMET", fontComp);
             MAX_LOCATION_TEXT_LENGTH = 25;
-            TEMP_GAUGE_WHITESPACE_CCW = "             ";
+            TEMP_GAUGE_WHITESPACE_CCW = "             "; // 13
             TEMP_GAUGE_WHITESPACE_CW = "           ";
             SUN_GAUGE_WHITESPACE = "                ";
             HATCH_LINE_SEP = 12;
@@ -144,7 +208,7 @@ class infocalReduxView extends WatchUi.WatchFace {
         else
         {
             fontBig = WatchUi.loadResource(Rez.Fonts.Bionic200);
-            fontComp = Graphics.getVectorFont({:face=>"BionicBold", :size=>44}) as Graphics.VectorFont or Null;
+            fontComp = Graphics.getVectorFont({:face=>fontName, :size=>44}) as Graphics.VectorFont or Null;
             fontMedium = WatchUi.loadResource(Rez.Fonts.Bionic110);
             MAX_LOCATION_TEXT_WIDTH = dc.getTextWidthInPixels("LOREM IPSUM DOLOR SIT AMET", fontComp);
             MAX_LOCATION_TEXT_LENGTH = "LOREM IPSUM DOLOR SIT AMET".length();
@@ -155,8 +219,6 @@ class infocalReduxView extends WatchUi.WatchFace {
             INNER_COMPLICATION_TEXT_RADIUS_CW = X - 60;
             HATCH_LINE_SEP = 15;
         }
-
-        
 
         if (Properties.getValue("use_alternate_timezone"))
         {
@@ -953,13 +1015,13 @@ class infocalReduxView extends WatchUi.WatchFace {
         
         dc.setColor(colorText, Graphics.COLOR_TRANSPARENT);
         dc.drawText(X - mW + middle, Y, fontBig, m, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
-        if (showSeconds)
-        {
-            dc.drawText(SECONDS_X_FOR_INLINE_TIME, Y, fontComp, currentTime.sec.format("%02d"), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
-        }
         if (Properties.getValue("draw_hatch_lines"))
         {
             drawHatchLines(dc, -mW + middle - 20);
+        }
+        if (showSeconds)
+        {
+            dc.drawText(SECONDS_X_FOR_INLINE_TIME, Y, fontComp, currentTime.sec.format("%02d"), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
         }
         dc.setColor(colorAccent, Graphics.COLOR_TRANSPARENT);
         dc.drawText(X + hW - middle, Y, fontBig, h, Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
@@ -1033,8 +1095,8 @@ class infocalReduxView extends WatchUi.WatchFace {
         }
         var lastActivityLocation = Activity.getActivityInfo().currentLocation;
         // lastActivityLocation = new Position.Location({
-        //     :latitude => 51.5098,
-        //     :longitude=> -0.1180,
+        //     :latitude => 47.608013,
+        //     :longitude=> -122.3351,
         //     :format => :degrees
         // });
         if (lastActivityLocation != null)
