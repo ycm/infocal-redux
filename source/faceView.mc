@@ -816,7 +816,10 @@ class infocalReduxView extends WatchUi.WatchFace {
         else if (arcDirection == Graphics.ARC_CLOCKWISE && phi >= psi)
         { psi_hat = phi - progress * (phi - psi); }
         else { psi_hat = phi - progress * (360 + phi - psi); }
-        dc.drawArc(x, y, radius, arcDirection, phi, psi_hat);
+        if ((phi - psi_hat).abs() >= 1)
+        {
+            dc.drawArc(x, y, radius, arcDirection, phi, psi_hat);
+        }
 
         if (rounded)
         {
@@ -1112,7 +1115,7 @@ class infocalReduxView extends WatchUi.WatchFace {
     function onUpdate(dc as Dc) as Void
     {
         currentTime = Time.Gregorian.info(Time.now(), Time.FORMAT_MEDIUM);
-        // currentTime = Time.Gregorian.info(new Time.Moment(1771360496), Time.FORMAT_MEDIUM);
+        // currentTime = Time.Gregorian.info(new Time.Moment(1771934169), Time.FORMAT_MEDIUM);
         if (inLowPower)
         {
             drawAlwaysOnTime(dc);
