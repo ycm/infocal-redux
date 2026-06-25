@@ -301,7 +301,7 @@ class infocalReduxView extends WatchUi.WatchFace {
     function getStepsText() as Lang.String
     {
         var steps = ActivityMonitor.getInfo().steps;
-        return steps == null ? "STP --" : Lang.format("STP $1$k", [(((steps / 100) * 100).toDouble() / 1000).format("%.1f")]);
+        return steps == null ? "STP --" : Lang.format("STP $1$K", [(((steps / 100) * 100).toDouble() / 1000).format("%.1f")]);
     }
 
 
@@ -325,7 +325,34 @@ class infocalReduxView extends WatchUi.WatchFace {
             return "TEMP N/A";
         }
 
-        var temp = apiResponsePackage.get("temp");
+        var currentTemp = apiResponsePackage.get("temp");
+        var currentDt   = apiResponsePackage.get("current_dt");
+        var hourlyTemp  = null;
+        var hourlyDt    = null;
+        var hourlyTemps = apiResponsePackage.get("hourly_temps");
+        if (hourlyTemps != null)
+        {
+            var now = Time.now().value();
+            for (var i = 0; i < hourlyTemps.size(); i++)
+            {
+                var entry = hourlyTemps[i];
+                if (entry[0] <= now) { hourlyDt = entry[0]; hourlyTemp = entry[1]; }
+                else { break; }
+            }
+        }
+        var temp;
+        if (hourlyTemp == null)
+        {
+            temp = currentTemp;
+        }
+        else if (currentDt == null || currentDt < hourlyDt)
+        {
+            temp = hourlyTemp;
+        }
+        else
+        {
+            temp = currentTemp;
+        }
         var low = apiResponsePackage.get("low");
         var high = apiResponsePackage.get("high");
 
