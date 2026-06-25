@@ -82,8 +82,10 @@ class infocalReduxServiceDelegate extends Toybox.System.ServiceDelegate {
         var sunrise_tomorrow = null;
         var sunset_tomorrow = null;
         var temp = null;
+        var currentDt = null;
         var high = null;
         var low = null;
+        var hourlyTemps = null;
 
         if (responseCode == 200 && data != null)
         {
@@ -93,6 +95,22 @@ class infocalReduxServiceDelegate extends Toybox.System.ServiceDelegate {
                 sunrise = current.get("sunrise");
                 sunset = current.get("sunset");
                 temp = current.get("temp");
+                currentDt = current.get("dt");
+            }
+
+            var hourly = data.get("hourly") as Array or Null;
+            if (hourly != null)
+            {
+                hourlyTemps = [];
+                var count = hourly.size() < 24 ? hourly.size() : 24;
+                for (var i = 0; i < count; i++)
+                {
+                    var entry = hourly[i] as Dictionary or Null;
+                    if (entry != null)
+                    {
+                        hourlyTemps.add([entry.get("dt"), entry.get("temp")]);
+                    }
+                }
             }
 
             var daily = data.get("daily") as Array or Null;
@@ -127,8 +145,10 @@ class infocalReduxServiceDelegate extends Toybox.System.ServiceDelegate {
             "sunrise_tomorrow" => sunrise_tomorrow,
             "sunset_tomorrow" => sunset_tomorrow,
             "temp" => temp,
+            "current_dt" => currentDt,
             "high" => high,
-            "low" => low
+            "low" => low,
+            "hourly_temps" => hourlyTemps
         };
         Background.exit(package);
     }
@@ -143,7 +163,7 @@ class infocalReduxServiceDelegate extends Toybox.System.ServiceDelegate {
                 "lat" => (coordinates as Array)[0],
                 "lon" => (coordinates as Array)[1],
                 "appid" => Properties.getValue("openweathermap_api_key"),
-                "exclude" => "minutely,hourly",
+                "exclude" => "minutely",
                 "units" => Properties.getValue("weather_units") == 0 ? "imperial" : "metric"
             };
             var opts = {
