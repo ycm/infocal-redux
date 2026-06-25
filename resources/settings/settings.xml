@@ -235,6 +235,9 @@
         <setting propertyKey="@Properties.status_api_failed" title="@Strings.status_api_failed_title">
             <settingConfig type="boolean"/>
         </setting>
+        <setting propertyKey="@Properties.status_notifications" title="@Strings.status_notifications_title">
+            <settingConfig type="boolean"/>
+        </setting>
     </group>
 
     <setting propertyKey="@Properties.use_openweathermap_api" title="@Strings.use_openweathermap_api_title">

@@ -46,6 +46,7 @@
     <property id="status_alarms_set" type="boolean">true</property>
     <property id="status_do_not_disturb" type="boolean">false</property>
     <property id="status_api_failed" type="boolean">false</property>
+    <property id="status_notifications" type="boolean">true</property>
 
     <property id="debug_version" type="boolean">false</property>
     <property id="debug_print_storage_interval" type="number">0</property>
