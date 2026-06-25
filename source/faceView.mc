@@ -745,7 +745,21 @@ class infocalReduxView extends WatchUi.WatchFace {
         var r = DIAL_INNER_RADIUS;
 
         dc.drawLine(X + r, Y, X + R, Y);
-        dc.drawLine(X - r, Y, X - R, Y);
+        var notifCount = System.getDeviceSettings().notificationCount;
+        if (Properties.getValue("status_notifications") && notifCount > 0)
+        {
+            var cr = r / 12;
+            var cx = cr + 1;
+            dc.setPenWidth(UI_LINE_WIDTH / 2);
+            dc.drawCircle(cx, Y, cr);
+            dc.setPenWidth(UI_LINE_WIDTH);
+            var numStr = notifCount > 9 ? "+" : notifCount.format("%d");
+            dc.drawText(cx + cr / 12, Y + cr / 15, fontComp, numStr, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        }
+        else
+        {
+            dc.drawLine(X - r, Y, X - R, Y);
+        }
         dc.drawLine(
             X + r * Math.cos(Math.toRadians(60)),
             Y - r * Math.sin(Math.toRadians(60)),
@@ -1012,7 +1026,6 @@ class infocalReduxView extends WatchUi.WatchFace {
         {
             statusIconStr += "F";
         }
-
         if (statusIconStr.length() > 0)
         {
             var statusIconStrSpaces = "";
